@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  font-family: "Barlow", sans-serif;
+  text-decoration: none;
+}
+
+.gray-para {
+  color: #000;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.light-para {
+  color: #777;
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+.container {
+  width: 1440px;
+  margin: auto;
+}
+
+section {
+  border-bottom: 1px solid #e1e1e1;
+}
+
+nav {
+  background-color: white;
+  padding: 15px 0;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+nav .content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav .content .logo {
+  width: 100px;
+}
+
+.content .links {
+  display: flex;
+  gap: 10px;
+  background: #f8f9fa;
+  padding: 5px;
+  border-radius: 50px;
+}
+
+.links .link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  color: #000;
+  font-weight: 600;
+  border-radius: 30px;
+  font-size: 14px;
+  text-decoration: none;
+}
+.links .link.active {
+  background-color: #4db4fa;
+  color: white;
+}
+
+.user-profile-and-logout {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #eee;
+  padding: 6px 20px;
+  border-radius: 50px;
+}
+
+.user-profile-and-logout .user {
+  line-height: 1.2;
+  margin-right: 15px;
+}
+.user .hello {
+  font-size: 12px;
+  color: #999;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.user .name {
+  color: #000;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.logout a {
+  color: red;
+}
+
+.hero-section {
+  background-color: #eef7ff;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.hero-section h1 {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.hero-section p {
+  margin-bottom: 40px;
+}
+
+.primary-btn {
+  background-color: #4db4fa;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 40px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.specialization-section {
+  padding: 80px 0;
+  background: #f4f6f9;
+}
+
+.specialization-section .header {
+  text-align: center;
+}
+
+.specialization-section .header h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.all-specilization {
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 30px;
+}
+
+.all-specilization .card {
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 20px 40px;
+  text-align: center;
+}
+
+.all-specilization .card h3 a {
+  color: #000;
+}
