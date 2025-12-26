@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    font-family: "Barlow", sans-serif;
+}
+
+.box {
+    background-color: #F0F7FF;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+}
+
+.box .left {
+    width: 45%;
+}
+
+.box .right {
+    width: 55%;
+    background-color: #fff;
+}
+
+.box .left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.box .left .content {
+    width: 400px;
+}
+
+.box .left .content p {
+    margin-top: 10px;
+}
+
+.gray-para {
+    color: #555;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.box .left .content .logo {
+    width: 140px;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    width: 450px;
+    margin: auto;
+}
+
+.light-para {
+    color: #777;
+    margin-bottom: 30px; 
+    font-size: 15px;
+}
+
+.right form .heading {
+    font-size: 28px;
+}
+
+.field {
+    margin-bottom: 20px;
+}
+
+.field label {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.field input, .field select {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #fcfcfc;
+    outline: none;
+    transition: 0.2s;
+    color: #333;
+}
+
+.field .submit-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    background-color: #4DB4FA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+form .other {
+    margin-top: 40px;
+}
+
+form .other p {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+form .other p a {
+    color: #4DB4FA;
+    font-weight: 700;
+    text-decoration: none;
+}
+.red-star {
+    font-size: 16px;
+    color: red;
+}
+
+.two-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+}
+
+.two-field .first, .two-field .second {
+    width: 100%;
+}
