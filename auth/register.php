@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="box">
         <div class="left">
@@ -61,7 +63,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <input class="submit-btn" type="submit" value="Register"">
+                    <input class="submit-btn" type="submit" value="Register">
                 </div>
                 <div class="other">
                     <p>Already have an account? <a href="">Login</a></p>
@@ -70,4 +72,5 @@
         </div>
     </div>
 </body>
+
 </html>
