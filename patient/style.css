@@ -592,9 +592,9 @@ td.actions a.delete {
 .field label {
   display: block;
   font-weight: 600;
-  font-size: 13px;
   color: #333;
   margin-bottom: 8px;
+  font-size: 16px;
 }
 
 .field input,
@@ -604,11 +604,11 @@ td.actions a.delete {
   padding: 12px 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  font-size: 14px;
   background-color: #fcfcfc;
   outline: none;
   transition: 0.2s;
   color: #333;
+  font-size: 16px;
 }
 
 .field .submit-btn {

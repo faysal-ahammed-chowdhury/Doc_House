@@ -51,7 +51,7 @@
                     <form action="">
                         <div class="field two-field">
                             <div class="first">
-                                <label for="name">Name:</label>
+                                <label for="name">Name <span class="red-star">*</span></label>
                                 <input type="text" id="name" name="name" value="Faysal Chowdhury">
                             </div>
                             <div class="second">
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label for="gender">Gender <span class="red-star">*</span></label>
+                            <label for="gender">Gender:</label>
                             <select name="gender" id="gender">
                                 <option value="null">Select Gender</option>
                                 <option value="male">Male</option>
@@ -80,11 +80,11 @@
 
                         <div class="field two-field">
                             <div class="first">
-                                <label for="password">Password <span class="red-star">*</span></label>
+                                <label for="password">Password:</label>
                                 <input type="password" id="password" name="password">
                             </div>
                             <div class="second">
-                                <label for="cpassword">Confirm Password <span class="red-star">*</span></label>
+                                <label for="cpassword">Confirm Password:</label>
                                 <input type="password" id="cpassword" name="cpassword">
                             </div>
                         </div>
