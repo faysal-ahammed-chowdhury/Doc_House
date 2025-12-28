@@ -51,7 +51,7 @@
                     <form action="">
                         <div class="field two-field">
                             <div class="first">
-                                <label for="name">Name <span class="red-star">*</span></label>
+                                <label for="name">Name:</label>
                                 <input type="text" id="name" name="name" value="Faysal Chowdhury">
                             </div>
                             <div class="second">
