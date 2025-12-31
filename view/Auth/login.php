@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="right">
-            <form action="/Doc_House/controller/Auth/loginController.php" method="POST">
+            <form novalidate onsubmit="return handleLogin(this)" action="/Doc_House/controller/Auth/loginController.php" method="POST">
                 <h2 class="heading">Welcome Back</h2>
                 <p class="light-para">
                     Please enter your details to sign in.
@@ -40,10 +40,12 @@
                                 echo (isset($_SESSION['old_email']) && !empty($_SESSION['old_email'])) ? $_SESSION['old_email'] : "";
                                 unset($_SESSION['old_email']);
                                 ?>">
+                    <p class="error hidden" id="emailErrBox">Emial is required</p>
                 </div>
                 <div class="field">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password">
+                    <p class="error hidden" id="passErrBox">Password is required</p>
                 </div>
                 <div class="field">
                     <input class="submit-btn" type="submit" value="Login"">
@@ -55,6 +57,8 @@
             </form>
         </div>
     </div>
+
+    <script src="js/script.js"></script>
 </body>
 
 </html>

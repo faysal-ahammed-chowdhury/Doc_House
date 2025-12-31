@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="right">
-            <form action="../../controller//Auth/registerController.php" method="POST">
+            <form novalidate onsubmit="return handleRegister(this)" action="../../controller/Auth/registerController.php" method="POST">
                 <h2 class="heading">Create Account</h2>
                 <p class="light-para">
                     Enter your details to register as a new patient.
@@ -39,6 +39,7 @@
                                 echo (isset($_SESSION['regData']['name']) && !empty($_SESSION['regData']['name'])) ? $_SESSION['regData']['name'] : "";
                                 unset($_SESSION['regData']['name']);
                                 ?>">
+                    <p class="error hidden" id="nameErrBox">Name is required</p>
                 </div>
                 <div class="field two-field">
                     <div class="first">
@@ -48,6 +49,7 @@
                                     echo (isset($_SESSION['regData']['email']) && !empty($_SESSION['regData']['email'])) ? $_SESSION['regData']['email'] : "";
                                     unset($_SESSION['regData']['email']);
                                     ?>">
+                        <p class="error hidden" id="emailErrBox">Email is required</p>
                     </div>
                     <div class="second">
                         <label for="phone">Phone <span class="red-star">*</span></label>
@@ -56,6 +58,7 @@
                                     echo (isset($_SESSION['regData']['phone']) && !empty($_SESSION['regData']['phone'])) ? $_SESSION['regData']['phone'] : "";
                                     unset($_SESSION['regData']['phone']);
                                     ?>">
+                        <p class="error hidden" id="phoneErrBox">Phone is required</p>
                     </div>
                 </div>
                 <div class="field two-field">
@@ -66,6 +69,7 @@
                                     echo (isset($_SESSION['regData']['password']) && !empty($_SESSION['regData']['password'])) ? $_SESSION['regData']['password'] : "";
                                     unset($_SESSION['regData']['password']);
                                     ?>">
+                        <p class="error hidden" id="passErrBox">Password is required</p>
                     </div>
                     <div class="second">
                         <label for="cpassword">Confirm Password <span class="red-star">*</span></label>
@@ -74,6 +78,7 @@
                                     echo (isset($_SESSION['regData']['cpassword']) && !empty($_SESSION['regData']['cpassword'])) ? $_SESSION['regData']['cpassword'] : "";
                                     unset($_SESSION['regData']['cpassword']);
                                     ?>">
+                        <p class="error hidden" id="cpassErrBox">Confrim Password is required</p>
                     </div>
                 </div>
                 <div class="field two-field">
@@ -84,17 +89,19 @@
                                     echo (isset($_SESSION['regData']['dob']) && !empty($_SESSION['regData']['dob'])) ? $_SESSION['regData']['dob'] : "";
                                     unset($_SESSION['regData']['dob']);
                                     ?>">
+                        <p class="error hidden" id="dobErrBox">Date of Birth is required</p>
                     </div>
                     <div class="second">
                         <label for="gender">Gender <span class="red-star">*</span></label>
                         <select name="gender" id="gender">
-                            <option value="null"
-                                <?php echo (isset($_SESSION['regData']['gender']) && ($_SESSION['regData']['gender']) == "null") ? "selected" : ""; ?>>Select Gender</option>
+                            <option value=""
+                                <?php echo (isset($_SESSION['regData']['gender']) && ($_SESSION['regData']['gender']) == "") ? "selected" : ""; ?>>Select Gender</option>
                             <option value="male"
                                 <?php echo (isset($_SESSION['regData']['gender']) && ($_SESSION['regData']['gender']) == "male") ? "selected" : ""; ?>>Male</option>
                             <option value="female"
                                 <?php echo (isset($_SESSION['regData']['gender']) && ($_SESSION['regData']['gender']) == "female") ? "selected" : ""; ?>>Female</option>
                         </select>
+                        <p class="error hidden" id="genderErrBox">Please select a gender</p>
                     </div>
                 </div>
                 <div class="field">
@@ -106,6 +113,8 @@
             </form>
         </div>
     </div>
+
+    <script src="js/script.js"></script>
 </body>
 
 </html>

@@ -133,7 +133,7 @@ form .other p a {
 
 .two-field {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 20px;
 }
@@ -169,4 +169,15 @@ form .other p a {
 
 .success-text {
   font-weight: 500;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.hidden {
+  display: none;
 }
