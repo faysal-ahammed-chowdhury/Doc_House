@@ -1,28 +1,4 @@
-<?php
-session_start();
-
-const ADMIN = 'admin';
-const PATIENT = 'patient';
-const DOCTOR = 'doctor';
-
-if (isset($_SESSION['user'])) {
-    $user = $_SESSION['user'];
-    if ($user['role'] == ADMIN) {
-        header("Location: ../Admin/Dashboard.php");
-        exit();
-    } else if ($user['role'] == PATIENT) {
-        header("Location: ../Patient/home.php");
-        exit();
-    } else if ($user['role'] == DOCTOR) {
-        header("Location: ../Patient/home.php"); // will fix later
-        exit();
-    } else {
-        $_SESSION['loginErr'] = "Something is wrong! Try again.";
-        header("Location: login.php");
-        exit();
-    }
-}
-?>
+<?php require_once "../../controller/Helper/Auth/authChecker.php" ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -73,8 +49,8 @@ if (isset($_SESSION['user'])) {
                     <input class="submit-btn" type="submit" value="Login"">
                 </div>
                 <div class=" other">
-                    <p><a href="">Forgot Password?</a></p>
-                    <p>Don't have an account? <a href="">Create account</a></p>
+                    <p><a href="forgot_password.php">Forgot Password?</a></p>
+                    <p>Don't have an account? <a href="register.php">Create account</a></p>
                 </div>
             </form>
         </div>

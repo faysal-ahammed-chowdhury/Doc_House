@@ -69,7 +69,7 @@
                             <div class="avatar">
                                 <img src="../images/dummy_doctor.png" alt="Doctor">
                             </div>
-                            <h3>Faysal Chowdhury</h3>
+                            <h3>Forman Ahammed Chowdhury</h3>
                             <p>Dentist</p>
                         </div>
                         <div>
@@ -78,12 +78,14 @@
                     </div>
                     <div class="doc-card">
                         <div class="info">
-                            <div class="avatar">FC</div>
-                            <h3>Faysal Chowdhury</h3>
-                            <p>Dentist</p>
+                            <div class="avatar">
+                                <img src="../images/dummy_doctor_2.png" alt="Doctor">
+                            </div>
+                            <h3>Farzana Akter</h3>
+                            <p>Neurologist</p>
                         </div>
                         <div>
-                            <a class="view-profile-btn" href="">View Profile / Book Appointment</a>
+                            <a href="doctor_profile.php" class="view-profile-btn" href="">View Profile / Book Appointment</a>
                         </div>
                     </div>
                     <div class="doc-card">

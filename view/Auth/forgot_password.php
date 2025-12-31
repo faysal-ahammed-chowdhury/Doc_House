@@ -1,11 +1,16 @@
+<?php require_once "../../controller/Helper/Auth/authChecker.php" ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Recovery</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="box">
         <div class="left">
@@ -40,15 +45,16 @@
                         <input type="password" id="cnew_password" name="cnew_password">
                     </div>
                 </div>
-                
+
                 <div class="field">
                     <input class="submit-btn" type="submit" value="Submit"">
                 </div>
-                <div class="other">
-                    <p><a href="">Back to Login</a></p>
+                <div class=" other">
+                    <p><a href="login.php">Back to Login</a></p>
                 </div>
             </form>
         </div>
     </div>
 </body>
+
 </html>

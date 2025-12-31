@@ -237,7 +237,7 @@ nav .content .logo {
 }
 
 .doctor-and-filter .filter {
-  width: 320px;
+  width: 400px;
   height: 330px;
   background: white;
   padding: 25px;
@@ -711,4 +711,9 @@ input[readonly] {
   border: none;
   font-size: 16px;
   cursor: pointer !important;
+}
+
+button,
+input[type="submit"] {
+  font-size: 16px;
 }
