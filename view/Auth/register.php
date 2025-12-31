@@ -81,8 +81,8 @@
                         <label for="dob">Date of Birth <span class="red-star">*</span></label>
                         <input type="date" id="dob" name="dob"
                             value="<?php
-                                    echo (isset($_SESSION['regData']['cpassword']) && !empty($_SESSION['regData']['cpassword'])) ? $_SESSION['regData']['cpassword'] : "";
-                                    unset($_SESSION['regData']['cpassword']);
+                                    echo (isset($_SESSION['regData']['dob']) && !empty($_SESSION['regData']['dob'])) ? $_SESSION['regData']['dob'] : "";
+                                    unset($_SESSION['regData']['dob']);
                                     ?>">
                     </div>
                     <div class="second">
