@@ -79,7 +79,7 @@ form {
   font-weight: 600;
   color: #333;
   margin-bottom: 8px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .field input,
@@ -141,4 +141,18 @@ form .other p a {
 .two-field .first,
 .two-field .second {
   width: 100%;
+}
+
+.error-box {
+  background-color: #fde8e8;
+  border: 1px solid #f8b4b4;
+  color: #9b1c1c;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.error-text {
+  font-weight: 500;
 }
