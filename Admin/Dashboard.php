@@ -25,9 +25,9 @@
                 <ul>
                     <li id="menu_item_button"><a href="Dashboard.php"><i class="ri-home-3-line"></i>Dashboard</a></li>
                     <li><a href="./pages/Doctor.php"><i class="ri-stethoscope-fill"></i>Doctor</a></li>
-                    <li><a href=""><i class="ri-team-line"></i>Patients</a></li>
-                    <li><a href=""><i class="ri-calendar-event-line"></i>Appointments</a></li>
-                    <li><a href=""><i class="ri-brain-2-line"></i>Specializations</a></li>
+                    <li><a href="./pages/Patients.php"><i class="ri-team-line"></i>Patients</a></li>
+                    <li><a href="./pages/Appointments.php"><i class="ri-calendar-event-line"></i>Appointments</a></li>
+                    <li><a href="./pages/Specializations.php"><i class="ri-brain-2-line"></i>Specializations</a></li>
                 </ul>
             </div>
             <div id="profile">
