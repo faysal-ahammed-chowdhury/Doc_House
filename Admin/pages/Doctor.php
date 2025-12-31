@@ -26,10 +26,10 @@
             <div id="menu">
                 <ul>
                     <li><a href="../Dashboard.php"><i class="ri-home-3-line"></i>Dashboard</a></li>
-                    <li id="menu_item_button"><a href=""><i class="ri-stethoscope-fill"></i>Doctor</a></li>
-                    <li><a href=""><i class="ri-team-line"></i>Patients</a></li>
-                    <li><a href=""><i class="ri-calendar-event-line"></i>Appointments</a></li>
-                    <li><a href=""><i class="ri-brain-2-line"></i>Specializations</a></li>
+                    <li id="menu_item_button"><a href="../pages/Doctor.php"><i class="ri-stethoscope-fill"></i>Doctor</a></li>
+                    <li><a href="../pages/Patients.php"><i class="ri-team-line"></i>Patients</a></li>
+                    <li><a href="../pages/Appointments.php"><i class="ri-calendar-event-line"></i>Appointments</a></li>
+                    <li><a href="../pages/Specializations.php"><i class="ri-brain-2-line"></i>Specializations</a></li>
                 </ul>
             </div>
             <div id="profile">
@@ -58,13 +58,11 @@
 
                         <div class="modal" id="modal">
                             <div class="modal-box">
-                                <div class="form-container">
-
+                                <div class="form-container">                                   
                                     <!-- Section 1 -->
                                     <div class="form-section">
                                         <h3><i class="ri-lock-fill"></i> 1. Account Credentials</h3>
                                         <hr>
-
                                         <div class="doctor_input">
                                         <div class="field">
                                             <label>Email Address (Login ID)</label>
