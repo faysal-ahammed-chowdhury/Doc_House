@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Profile</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
@@ -49,52 +49,58 @@
     <section class="profile-section">
         <div class="container">
             <div class="profile-card-and-info">
-                <div class="profile-card">
+                <form class="profile-card">
                     <div class="avatar">
                         <img src="../images/dummy_patient.png" alt="Patient">
                     </div>
                     <div class="name">Faysal Chowdhury</div>
                     <p>Patient ID: #PAT-1024</p>
-                </div>
+                </form>
                 <div class="info">
-                    <form action="">
+                    <form onsubmit="return handleUpdateProfile(this)" action="" method="POST" novalidate>
                         <div class="field two-field">
                             <div class="first">
-                                <label for="name">Name:</label>
-                                <input type="text" id="name" name="name" value="Faysal Chowdhury">
+                                <label for="fullname">Name</label>
+                                <input type="text" id="fullname" name="fullname" value="Faysal Chowdhury">
+                                <p class="error hidden" id="nameErrBox">Name is required</p>
                             </div>
                             <div class="second">
-                                <label for="email">Email:</label>
+                                <label for="email">Email</label>
                                 <input type="text" id="email" name="name" value="faysal@gmail.com" readonly>
                             </div>
                         </div>
                         <div class="field two-field">
                             <div class="first">
-                                <label for="phone">Phone:</label>
+                                <label for="phone">Phone</label>
                                 <input type="text" id="phone" name="phone" value="01610137675">
+                                <p class="error hidden" id="phoneErrBox">Name is required</p>
                             </div>
                             <div class="second">
-                                <label for="dob">Date of Birth:</label>
+                                <label for="dob">Date of Birth</label>
                                 <input type="date" id="dob" name="dob" value="2002-29-11">
+                                <p class="error hidden" id="dobErrBox">DOB is required</p>
                             </div>
                         </div>
                         <div class="field">
-                            <label for="gender">Gender:</label>
+                            <label for="gender">Gender</label>
                             <select name="gender" id="gender">
-                                <option value="null">Select Gender</option>
+                                <option value="">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
+                            <p class="error hidden" id="genderErrBox">Gender is required</p>
                         </div>
 
                         <div class="field two-field">
                             <div class="first">
-                                <label for="password">Password:</label>
+                                <label for="password">New Password <span class="highlight">(Leave blank to keep current password)</span></label>
                                 <input type="password" id="password" name="password">
+                                <p class="error hidden" id="passErrBox">Password is required</p>
                             </div>
                             <div class="second">
-                                <label for="cpassword">Confirm Password:</label>
+                                <label for="cpassword">Confirm Password</label>
                                 <input type="password" id="cpassword" name="cpassword">
+                                <p class="error hidden" id="cpassErrBox">Confirm password is required</p>
                             </div>
                         </div>
 
@@ -107,6 +113,8 @@
         </div>
     </section>
     <?php include_once "../shared/footer.php" ?>
+
+    <script src="js/script.js"></script>
 </body>
 
 </html>
