@@ -56,13 +56,24 @@ nav .content .logo {
 .links .link {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   padding: 10px 20px;
   color: #000;
   font-weight: 600;
   border-radius: 30px;
   text-decoration: none;
+  transition: 0.2s;
+  transition: 0.2s ease-in-out;
 }
+
+.links .link:hover {
+  background-color: #fff;
+}
+
+.links .link i {
+  font-size: 16px;
+}
+
 .links .link.active {
   background-color: #4db4fa;
   color: white;
@@ -80,7 +91,10 @@ nav .content .logo {
 .user-profile-and-logout .user {
   line-height: 1.2;
   margin-right: 15px;
+  padding-right: 15px;
+  border-right: 1px solid #ddd;
 }
+
 .user .hello {
   font-size: 12px;
   color: #999;
@@ -94,7 +108,16 @@ nav .content .logo {
 }
 
 .logout a {
-  color: red;
+  color: #e74c3c;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.logout a:hover {
+  color: #c0392b;
 }
 
 .hero-section {
@@ -535,7 +558,7 @@ td.actions a.delete {
   border-radius: 6px;
   font-weight: 700;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 16px;
   margin-top: 25px;
 }
 
@@ -619,7 +642,7 @@ td.actions a.delete {
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -643,4 +666,10 @@ td.actions a.delete {
 
 input[readonly] {
   cursor: not-allowed;
+}
+
+.btn-reset {
+  background-color: #fff;
+  border: none;
+  font-size: 16px;
 }
