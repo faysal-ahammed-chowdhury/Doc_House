@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="../Admin/assets/css/dashboard.css">
+    <link rel="stylesheet" href="./assets/css/header.css">
 
 
     <link
@@ -22,8 +23,8 @@
             </div>
             <div id="menu">
                 <ul>
-                    <li id="dashbord_button"><a href="Dashboard.php"><i class="ri-home-3-line"></i>Dashboard</a></li>
-                    <li><a href=""><i class="ri-stethoscope-fill"></i>Doctor</a></li>
+                    <li id="menu_item_button"><a href="Dashboard.php"><i class="ri-home-3-line"></i>Dashboard</a></li>
+                    <li><a href="./pages/Doctor.php"><i class="ri-stethoscope-fill"></i>Doctor</a></li>
                     <li><a href=""><i class="ri-team-line"></i>Patients</a></li>
                     <li><a href=""><i class="ri-calendar-event-line"></i>Appointments</a></li>
                     <li><a href=""><i class="ri-brain-2-line"></i>Specializations</a></li>
