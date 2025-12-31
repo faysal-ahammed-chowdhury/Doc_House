@@ -5,7 +5,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Profile - Dr. Mehedi</title>
-	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
@@ -49,7 +49,9 @@
 		<div class="container">
 			<div class="doctor-info-and-book-appointment">
 				<div class="doctor-info">
-					<div class="avatar">MH</div>
+					<div class="avatar">
+						<img src="../images/dummy_doctor.png" alt="Doctor">
+					</div>
 					<div class="content">
 						<h2 class="name">Dr. Mehedi Hasan</h2>
 						<p class="specialization">Dentist</p>

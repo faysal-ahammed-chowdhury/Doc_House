@@ -1,28 +1,4 @@
-<?php
-session_start();
-
-const ADMIN = 'admin';
-const PATIENT = 'patient';
-const DOCTOR = 'doctor';
-
-if (isset($_SESSION['user'])) {
-    $user = $_SESSION['user'];
-    if ($user['role'] == ADMIN) {
-        header("Location: ../Admin/Dashboard.php");
-        exit();
-    } else if ($user['role'] == PATIENT) {
-        header("Location: ../patient/home.php");
-        exit();
-    } else if ($user['role'] == DOCTOR) {
-        header("Location: ../patient/home.php"); // will fix later
-        exit();
-    } else {
-        $_SESSION['loginErr'] = "Something is wrong! Try again.";
-        header("Location: login.php");
-        exit();
-    }
-}
-?>
+<?php require_once "../../controller/Helper/Auth/authChecker.php" ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +7,7 @@ if (isset($_SESSION['user'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -45,7 +21,7 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
         <div class="right">
-            <form action="handle_login.php" method="POST">
+            <form novalidate onsubmit="return handleLogin(this)" action="/Doc_House/controller/Auth/loginController.php" method="POST">
                 <h2 class="heading">Welcome Back</h2>
                 <p class="light-para">
                     Please enter your details to sign in.
@@ -64,21 +40,25 @@ if (isset($_SESSION['user'])) {
                                 echo (isset($_SESSION['old_email']) && !empty($_SESSION['old_email'])) ? $_SESSION['old_email'] : "";
                                 unset($_SESSION['old_email']);
                                 ?>">
+                    <p class="error hidden" id="emailErrBox">Emial is required</p>
                 </div>
                 <div class="field">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password">
+                    <p class="error hidden" id="passErrBox">Password is required</p>
                 </div>
                 <div class="field">
                     <input class="submit-btn" type="submit" value="Login"">
                 </div>
                 <div class=" other">
-                    <p><a href="">Forgot Password?</a></p>
-                    <p>Don't have an account? <a href="">Create account</a></p>
+                    <p><a href="forgot_password.php">Forgot Password?</a></p>
+                    <p>Don't have an account? <a href="register.php">Create account</a></p>
                 </div>
             </form>
         </div>
     </div>
+
+    <script src="js/script.js"></script>
 </body>
 
 </html>
