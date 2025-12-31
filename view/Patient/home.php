@@ -41,7 +41,7 @@
     <section class="hero-section">
         <h1>Your Health Is Our Top Priority</h1>
         <p class="gray-para">Book appointments with top specialists.</p>
-        <a href="doctors.php" class="primary-btn">Find a Doctor</a>
+        <a href="doctors.php" class="primary-btn"><i class="fa-solid fa-user-doctor"></i><span style="margin-left: 10px;">Find a Doctor</span></a>
     </section>
 
     <section class="specialization-section">
@@ -51,43 +51,48 @@
                 <p class="gray-para">Select a category to view available doctors.</p>
             </div>
 
-            <div class="all-specilization">
-                <div class="card">
-                    <h3><a href="">Dentist</a></h3>
-                </div>
-                <div class="card">
-                    <h3><a href="">Dentist</a></h3>
-                </div>
-                <div class="card">
-                    <h3><a href="">Dentist</a></h3>
-                </div>
-                <div class="card">
-                    <h3><a href="">Dentist</a></h3>
-                </div>
-                <div class="card">
-                    <h3><a href="">Dentist</a></h3>
-                </div>
-                <div class="card">
-                    <h3><a href="">Dentist</a></h3>
-                </div>
-                <div class="card">
-                    <h3><a href="">Dentist</a></h3>
-                </div>
-                <div class="card">
-                    <h3><a href="">Dentist</a></h3>
-                </div>
-                <div class="card">
-                    <h3><a href="">Dentist</a></h3>
-                </div>
-                <div class="card">
-                    <h3><a href="">Dentist</a></h3>
-                </div>
-                <div class="card">
-                    <h3><a href="">Dentist</a></h3>
-                </div>
-                <div class="card">
-                    <h3><a href="">Dentist</a></h3>
-                </div>
+            <div class="all-specialization">
+
+                <a href="doctors.html?category=cardiologist" class="specialty-card">
+                    <div class="icon-box"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <h3>Cardiologist</h3>
+                </a>
+
+                <a href="doctors.html?category=dentist" class="specialty-card">
+                    <div class="icon-box"><i class="fa-solid fa-tooth"></i></div>
+                    <h3>Dentist</h3>
+                </a>
+
+                <a href="doctors.html?category=neurologist" class="specialty-card">
+                    <div class="icon-box"><i class="fa-solid fa-brain"></i></div>
+                    <h3>Neurologist</h3>
+                </a>
+
+                <a href="doctors.html?category=orthopedic" class="specialty-card">
+                    <div class="icon-box"><i class="fa-solid fa-bone"></i></div>
+                    <h3>Orthopedic</h3>
+                </a>
+
+                <a href="doctors.html?category=general" class="specialty-card">
+                    <div class="icon-box"><i class="fa-solid fa-user-doctor"></i></div>
+                    <h3>General Physician</h3>
+                </a>
+
+                <a href="doctors.html?category=dermatologist" class="specialty-card">
+                    <div class="icon-box"><i class="fa-solid fa-hand-dots"></i></div>
+                    <h3>Dermatologist</h3>
+                </a>
+
+                <a href="doctors.html?category=pediatrician" class="specialty-card">
+                    <div class="icon-box"><i class="fa-solid fa-baby"></i></div>
+                    <h3>Pediatrician</h3>
+                </a>
+
+                <a href="doctors.html?category=eye" class="specialty-card">
+                    <div class="icon-box"><i class="fa-solid fa-eye"></i></div>
+                    <h3>Eye Care</h3>
+                </a>
+
             </div>
         </div>
     </section>

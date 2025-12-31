@@ -50,7 +50,9 @@
         <div class="container">
             <div class="profile-card-and-info">
                 <div class="profile-card">
-                    <div class="avatar">FC</div>
+                    <div class="avatar">
+                        <img src="../images/dummy_patient.png" alt="Patient">
+                    </div>
                     <div class="name">Faysal Chowdhury</div>
                     <p>Patient ID: #PAT-1024</p>
                 </div>

@@ -66,7 +66,9 @@
                 <div class="doctors">
                     <div class="doc-card">
                         <div class="info">
-                            <div class="avatar">FC</div>
+                            <div class="avatar">
+                                <img src="../images/dummy_doctor.png" alt="Doctor">
+                            </div>
                             <h3>Faysal Chowdhury</h3>
                             <p>Dentist</p>
                         </div>

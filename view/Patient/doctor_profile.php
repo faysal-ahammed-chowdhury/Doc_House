@@ -49,7 +49,9 @@
 		<div class="container">
 			<div class="doctor-info-and-book-appointment">
 				<div class="doctor-info">
-					<div class="avatar">MH</div>
+					<div class="avatar">
+						<img src="../images/dummy_doctor.png" alt="Doctor">
+					</div>
 					<div class="content">
 						<h2 class="name">Dr. Mehedi Hasan</h2>
 						<p class="specialization">Dentist</p>

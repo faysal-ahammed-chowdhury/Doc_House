@@ -11,10 +11,10 @@ if (isset($_SESSION['user'])) {
         header("Location: ../Admin/Dashboard.php");
         exit();
     } else if ($user['role'] == PATIENT) {
-        header("Location: ../patient/home.php");
+        header("Location: ../Patient/home.php");
         exit();
     } else if ($user['role'] == DOCTOR) {
-        header("Location: ../patient/home.php"); // will fix later
+        header("Location: ../Patient/home.php"); // will fix later
         exit();
     } else {
         $_SESSION['loginErr'] = "Something is wrong! Try again.";
@@ -45,7 +45,7 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
         <div class="right">
-            <form action="handle_login.php" method="POST">
+            <form action="/Doc_House/controller/Auth/loginController.php" method="POST">
                 <h2 class="heading">Welcome Back</h2>
                 <p class="light-para">
                     Please enter your details to sign in.

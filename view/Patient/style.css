@@ -160,23 +160,55 @@ nav .content .logo {
   margin-bottom: 10px;
 }
 
-.all-specilization {
+.all-specialization {
   margin-top: 60px;
   display: grid;
-  grid-template-columns: auto auto auto;
-  gap: 30px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
-.all-specilization .card {
-  background-color: white;
-  border: 1px solid #e1e1e1;
-  border-radius: 8px;
-  padding: 20px 40px;
+.specialty-card {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 30px;
   text-align: center;
+  transition: 0.2s;
+  cursor: pointer;
+  display: block;
 }
 
-.all-specilization .card h3 a {
-  color: #000;
+.specialty-card h3 {
+  font-size: 16px;
+  color: #333;
+}
+
+.specialty-card .icon-box {
+  width: 60px;
+  height: 60px;
+  background-color: #f8f9fa;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+  font-size: 24px;
+  color: #4db4fa;
+  transition: 0.2s;
+  overflow: hidden !important;
+}
+
+.specialty-card .icon-box i {
+  overflow: hidden !important;
+}
+
+.specialty-card:hover {
+  border-color: #4db4fa;
+}
+
+.specialty-card:hover .specialty-card .icon-box:hover {
+  color: #f8f9fa;
+  background-color: #4db4fa;
 }
 
 .page-header {
@@ -288,6 +320,12 @@ nav .content .logo {
   font-size: 24px;
   font-weight: 700;
   border: 4px solid #eee;
+  overflow: hidden;
+}
+
+.avatar img {
+  overflow: hidden;
+  object-fit: cover;
 }
 
 .doc-card .info {
@@ -672,4 +710,5 @@ input[readonly] {
   background-color: #fff;
   border: none;
   font-size: 16px;
+  cursor: pointer !important;
 }
