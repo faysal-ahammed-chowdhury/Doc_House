@@ -77,7 +77,7 @@
                             </div>
                             <div class="second">
                                 <label for="dob">Date of Birth</label>
-                                <input type="date" id="dob" name="dob" value="2002-29-11">
+                                <input type="date" id="dob" name="dob" value="2002-11-29">
                                 <p class="error hidden" id="dobErrBox">DOB is required</p>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                             <label for="gender">Gender</label>
                             <select name="gender" id="gender">
                                 <option value="">Select Gender</option>
-                                <option value="male">Male</option>
+                                <option value="male" selected>Male</option>
                                 <option value="female">Female</option>
                             </select>
                             <p class="error hidden" id="genderErrBox">Gender is required</p>
