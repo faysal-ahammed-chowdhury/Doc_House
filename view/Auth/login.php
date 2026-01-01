@@ -48,7 +48,7 @@
                     <p class="error hidden" id="passErrBox">Password is required</p>
                 </div>
                 <div class="field">
-                    <input class="submit-btn" type="submit" value="Login"">
+                    <input class="submit-btn" type="submit" value="Login">
                 </div>
                 <div class=" other">
                     <p><a href="forgot_password.php">Forgot Password?</a></p>
