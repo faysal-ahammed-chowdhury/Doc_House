@@ -1,4 +1,4 @@
-<?php require_once "../../middleware/authMiddleware.php";
+<?php require_once "../../middleware/guestMiddleware.php";
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $_SESSION['regErr'] = "Something is wrong! Try again.";

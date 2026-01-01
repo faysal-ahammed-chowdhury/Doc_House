@@ -10,33 +10,10 @@
 </head>
 
 <body>
-    <nav>
-        <div class="container">
-            <div class="content">
-                <a href="home.php"><img class="logo" src="../images/logo.png" alt="logo" /></a>
-                <div class="links">
-                    <a href="home.php" class="link">
-                        <i class="fa-solid fa-house"></i> Home
-                    </a>
-                    <a href="doctors.php" class="link">
-                        <i class="fa-solid fa-user-doctor"></i> Find a Doctor
-                    </a>
-                    <a href="appointments.php" class="link">
-                        <i class="fa-solid fa-calendar-check"></i> My Appointments
-                    </a>
-                </div>
-                <div class="user-profile-and-logout">
-                    <div class="user">
-                        <p class="hello">Hello</p>
-                        <p class="name"><a href="profile.php">Faysal Chowdhury</a></p>
-                    </div>
-                    <div class="logout">
-                        <a href="" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php
+    $cur_page = "";
+    include_once "header.php";
+    ?>
 
     <section class="page-header">
         <div class="container">
@@ -77,7 +54,7 @@
                             </div>
                             <div class="second">
                                 <label for="dob">Date of Birth</label>
-                                <input type="date" id="dob" name="dob" value="2002-29-11">
+                                <input type="date" id="dob" name="dob" value="2002-11-29">
                                 <p class="error hidden" id="dobErrBox">DOB is required</p>
                             </div>
                         </div>
@@ -85,7 +62,7 @@
                             <label for="gender">Gender</label>
                             <select name="gender" id="gender">
                                 <option value="">Select Gender</option>
-                                <option value="male">Male</option>
+                                <option value="male" selected>Male</option>
                                 <option value="female">Female</option>
                             </select>
                             <p class="error hidden" id="genderErrBox">Gender is required</p>

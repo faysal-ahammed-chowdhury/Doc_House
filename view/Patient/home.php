@@ -1,3 +1,8 @@
+<?php
+// require_once "../../middleware/authMiddleware.php";
+// require_once "../../middleware/patientMiddleware.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,33 +15,10 @@
 </head>
 
 <body>
-    <nav>
-        <div class="container">
-            <div class="content">
-                <a href="home.php"><img class="logo" src="../images/logo.png" alt="logo" /></a>
-                <div class="links">
-                    <a href="home.php" class="link active">
-                        <i class="fa-solid fa-house"></i> Home
-                    </a>
-                    <a href="doctors.php" class="link">
-                        <i class="fa-solid fa-user-doctor"></i> Find a Doctor
-                    </a>
-                    <a href="appointments.php" class="link">
-                        <i class="fa-solid fa-calendar-check"></i> My Appointments
-                    </a>
-                </div>
-                <div class="user-profile-and-logout">
-                    <div class="user">
-                        <p class="hello">Hello</p>
-                        <p class="name"><a href="profile.php">Faysal Chowdhury</a></p>
-                    </div>
-                    <div class="logout">
-                        <a href="" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php
+    $cur_page = "home";
+    include_once "header.php";
+    ?>
 
     <section class="hero-section">
         <h1>Your Health Is Our Top Priority</h1>
