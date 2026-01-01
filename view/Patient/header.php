@@ -19,7 +19,7 @@
                     <p class="name"><a href="profile.php">Faysal Chowdhury</a></p>
                 </div>
                 <div class="logout">
-                    <a href="" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+                    <a href="../../controller/Auth/logoutController.php" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
                 </div>
             </div>
         </div>
