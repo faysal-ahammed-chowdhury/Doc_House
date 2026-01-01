@@ -1,5 +1,4 @@
-<?php
-require_once "../Helper/Auth/authChecker.php";
+<?php require_once "../../middleware/authMiddleware.php";
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $_SESSION['regErr'] = "Something is wrong! Try again.";
