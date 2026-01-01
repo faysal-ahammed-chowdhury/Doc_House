@@ -63,6 +63,10 @@ hr{
 }
 
 
+#doctorForm{
+  min-width: 1000px;
+}
+
 .modal-box {
   background: white;
   padding: 24px;
@@ -195,6 +199,14 @@ textarea {
     cursor: pointer;
     font-weight: 600;
 }
+
+.error-message {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 3px;
+  display: block;
+}
+
 
 #modal_btn_container{
     display: flex;

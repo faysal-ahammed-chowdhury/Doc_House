@@ -57,91 +57,93 @@
                         <button class="btn" id="openModal"><i class="ri-add-large-fill"></i> Add New Doctor</button>
 
                         <div class="modal" id="modal">
-                            <div class="modal-box">
-                                <div class="form-container">                                   
-                                    <!-- Section 1 -->
-                                    <div class="form-section">
-                                        <h3><i class="ri-lock-fill"></i> 1. Account Credentials</h3>
-                                        <hr>
-                                        <div class="doctor_input">
-                                        <div class="field">
-                                            <label>Email Address (Login ID)</label>
-                                            <div class="input-wrapper">
-                                            <i class="ri-mail-line"></i>
-                                            <input type="text" placeholder="doctor@example.com">
+                            <form id="doctorForm" action="" method="POST">
+                                <div class="modal-box">
+                                    <div class="form-container">
+                                        <!-- Section 1 -->
+                                        <div class="form-section">
+                                            <h3><i class="ri-lock-fill"></i> 1. Account Credentials</h3>
+                                            <hr>
+                                            <div class="doctor_input">
+                                                <div class="field">
+                                                    <label for="doc_email">Email Address (Login ID)</label>
+                                                    <div class="input-wrapper">
+                                                        <i class="ri-mail-line"></i>
+                                                        <input id="doc_email" name="doc_email" type="email" placeholder="doctor@example.com">
+                                                    </div>
+                                                </div>
+
+                                                <div class="field">
+                                                    <label for="doc_pass">Temporary Password</label>
+                                                    <div class="input-wrapper">
+                                                        <i class="ri-key-line"></i>
+                                                        <input id="doc_pass" name="doc_pass" type="password" placeholder="Create a strong password">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="field">
-                                            <label>Temporary Password</label>
-                                            <div class="input-wrapper">
-                                            <i class="ri-key-line"></i>
-                                            <input type="text" placeholder="Create a strong password">
+                                        <!-- Section 2 -->
+                                        <div class="form-section">
+                                            <h3><i class="ri-profile-line"></i> 2. Professional Identity</h3>
+                                            <hr>
+
+                                            <div class="doctor_input">
+                                                <div class="field">
+                                                    <label for="doc_name">Full Name</label>
+                                                    <div class="input-wrapper">
+                                                        <i class="ri-user-line"></i>
+                                                        <input id="doc_name" name="doc_name" type="text" placeholder="e.g. Dr. Sarah Jenkins">
+                                                    </div>
+                                                </div>
+
+                                                <div class="field">
+                                                    <label for="doc_specialization">Specialization</label>
+                                                    <div class="input-wrapper">
+                                                        <i class="ri-stethoscope-line"></i>
+                                                        <select id="doc_specialization" name="doc_specialization" >
+                                                            <option value="">Select specialization</option>
+                                                            <option value="Neurologist">Neurologist</option>
+                                                            <option value="Cardiologist">Cardiologist</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="field">
+                                                    <label for="doc_fee">Consultation Fee ($)</label>
+                                                    <div class="input-wrapper">
+                                                        <i class="ri-money-dollar-circle-line"></i>
+                                                        <input id="doc_fee" name="doc_fee" type="number" placeholder="e.g. 150">
+                                                    </div>
+                                                </div>
+
+                                                <div class="field">
+                                                    <label for="doc_phone">Phone Number</label>
+                                                    <div class="input-wrapper">
+                                                        <i class="ri-phone-line"></i>
+                                                        <input id="doc_phone" name="doc_phone" type="tel" placeholder="+1234 567 890">
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+
+                                            <div class="field full-width">
+                                                <label for="doc_bio">Doctor Biography</label>
+                                                <textarea id="doc_bio" name="doc_bio" placeholder="Enter professional background, experience, and education details..."></textarea>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <!-- Section 2 -->
-                                    <div class="form-section">
-                                        <h3><i class="ri-profile-line"></i> 2. Professional Identity</h3>
-                                        <hr>
+                                    <hr>
 
-                                        <div class="doctor_input">
-                                        <div class="field">
-                                            <label>Full Name</label>
-                                            <div class="input-wrapper">
-                                            <i class="ri-user-line"></i>
-                                            <input type="text" placeholder="e.g. Dr. Sarah Jenkins">
-                                            </div>
+                                    <div id="modal_btn_container">
+                                        <div class="modal-action">
+                                            <button type="button" class="close-btn"><i class="ri-close-large-line"></i> Close</button>
                                         </div>
-
-                                        <div class="field">
-                                            <label>Specialization</label>
-                                            <div class="input-wrapper">
-                                            <i class="ri-stethoscope-line"></i>
-                                            <select>
-                                                <option>Neurologist</option>
-                                                <option>Cardiologist</option>
-                                            </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="field">
-                                            <label>Consultation Fee ($)</label>
-                                            <div class="input-wrapper">
-                                            <i class="ri-money-dollar-circle-line"></i>
-                                            <input type="text" placeholder="e.g. 150">
-                                            </div>
-                                        </div>
-
-                                        <div class="field">
-                                            <label>Phone Number</label>
-                                            <div class="input-wrapper">
-                                            <i class="ri-phone-line"></i>
-                                            <input type="text" placeholder="+1234 567 890">
-                                            </div>
-                                        </div>
-                                        </div>
-
-                                        <div class="field full-width">
-                                        <label>Doctor Biography</label>
-                                        <textarea placeholder="Enter professional background, experience, and education details..."></textarea>
-                                        </div>
+                                        <button type="submit" class="reg_button"><i class="ri-user-add-fill"></i> Register Doctor</button>
                                     </div>
-
                                 </div>
+                            </form>
 
-                                <hr>
-
-                                <div id="modal_btn_container">
-                                    <div class="modal-action">
-                                        <button class="close-btn"><i class="ri-close-large-line"></i> Close</button>
-                                    </div>
-                                    <button class="reg_button"><i class="ri-user-add-fill"></i> Register Doctor</button>
-                                </div>
-                                
-                            </div>
                         </div>
                     </div>
                     <div>
