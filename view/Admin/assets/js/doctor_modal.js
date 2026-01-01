@@ -65,7 +65,6 @@ form.addEventListener("submit", (e) => {
         showError(email, `Enter Your Email Address`);
         valid = false;
         return;
-
     }
     else {
         clearError(email);

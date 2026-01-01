@@ -57,7 +57,7 @@
                         <button class="btn" id="openModal"><i class="ri-add-large-fill"></i> Add New Doctor</button>
 
                         <div class="modal" id="modal">
-                            <form id="doctorForm" action="" method="POST">
+                            <form id="doctorForm" action="../../../controller/Admin/Doctor.php" method="POST">
                                 <div class="modal-box">
                                     <div class="form-container">
                                         <!-- Section 1 -->
