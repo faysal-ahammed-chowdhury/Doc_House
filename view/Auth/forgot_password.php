@@ -1,4 +1,4 @@
-<?php require_once "../../middleware/authMiddleware.php" ?>
+<?php require_once "../../middleware/guestMiddleware.php" ?>
 
 
 <!DOCTYPE html>
