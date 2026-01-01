@@ -1,4 +1,4 @@
-<?php require_once "../../controller/Helper/Auth/authChecker.php" ?>
+<?php require_once "../../middleware/authMiddleware.php" ?>
 
 <!DOCTYPE html>
 <html lang="en">
