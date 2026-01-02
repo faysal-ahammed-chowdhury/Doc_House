@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 if ($_SESSION['user']['role'] !== 'patient') {
     http_response_code(403);
 ?>

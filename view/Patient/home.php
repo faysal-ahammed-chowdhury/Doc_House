@@ -1,6 +1,8 @@
 <?php
-// require_once "../../middleware/authMiddleware.php";
-// require_once "../../middleware/patientMiddleware.php";
+session_start();
+// $_SESSION['user'] = [
+//     'role' => 'patient',
+// ];
 ?>
 
 <!DOCTYPE html>
