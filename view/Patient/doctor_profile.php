@@ -1,3 +1,6 @@
+<?php session_start() ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,26 +49,39 @@
 				</div>
 				<div class="book-appointment">
 					<h3>Book an Appointment</h3>
-					<form action="">
-						<div class="field">
-							<label for="session">Select Available Session </label><select name="session" id="session">
-								<option value="sess-1">10AM-12AM, 31 Dec, 2025</option>
-								<option value="sess-1">10AM-12AM, 31 Dec, 2025</option>
-								<option value="sess-1">10AM-12AM, 31 Dec, 2025</option>
-								<option value="sess-1">10AM-12AM, 31 Dec, 2025</option>
-							</select>
-						</div>
-						<div class="field">
-							<label for="slot">Select available Slot </label><select name="slot" id="slot">
-								<option value="10:00AM">10:00AM, 31 Dec, 2025</option>
-								<option value="10:30AM">10:30AM-12AM, 31 Dec, 2025</option>
-							</select>
-						</div>
-						<input
-							class="primary-btn submit-btn"
-							type="button"
-							value="Next" />
-					</form>
+					<?php
+					if ($isLoggedIn) {
+					?>
+						<form action="">
+							<div class="field">
+								<label for="session">Select Available Session </label><select name="session" id="session">
+									<option value="">Select a Session</option>
+									<option value="sess-1">10AM-12AM, 31 Dec, 2025</option>
+									<option value="sess-1">10AM-12AM, 31 Dec, 2025</option>
+									<option value="sess-1">10AM-12AM, 31 Dec, 2025</option>
+									<option value="sess-1">10AM-12AM, 31 Dec, 2025</option>
+								</select>
+							</div>
+							<div class="field">
+								<label for="slot">Select available Slot </label><select name="slot" id="slot">
+									<option value="">Select a Slot</option>
+									<option value="10:00AM">10:00AM, 31 Dec, 2025</option>
+									<option value="10:00AM">10:00AM, 31 Dec, 2025</option>
+									<option value="10:00AM">10:00AM, 31 Dec, 2025</option>
+								</select>
+							</div>
+							<input
+								class="primary-btn submit-btn"
+								type="button"
+								value="Next" />
+						</form>
+					<?php
+					} else {
+					?>
+						<a class="login-for-appointment" href="../Auth/login.php">Login to Book Appointment</a>
+					<?php
+					}
+					?>
 				</div>
 			</div>
 		</div>
