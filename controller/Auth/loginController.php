@@ -25,6 +25,13 @@ if (empty(trim($email)) || empty(trim($password))) {
 }
 
 // work with model here
-echo "All Done";
+// patient dummy login approval
+$_SESSION['user'] = [
+    'role' => 'patient',
+    'name' => "Faysal Ahammed",
+    'email' => $email,
+    'pid' => '101',
+];
 unset($_SESSION['old_email']);
 unset($_SESSION['loginErr']);
+header("Location: ../../view/Auth/login.php");

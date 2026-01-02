@@ -1,5 +1,6 @@
 <?php
 $isLoggedIn = isset($_SESSION['user']) && isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'patient';
+$userName = $isLoggedIn ? $_SESSION['user']['name'] : '';
 ?>
 
 <nav>
@@ -30,7 +31,7 @@ $isLoggedIn = isset($_SESSION['user']) && isset($_SESSION['user']['role']) && $_
                         <?php
                         if ($isLoggedIn) {
                         ?>
-                            <a href="profile.php">Faysal Chowdhury</a>
+                            <a href="profile.php"><?php echo $userName ?></a>
                         <?php
                         } else {
                         ?>
