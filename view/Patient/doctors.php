@@ -1,4 +1,7 @@
-<?php session_start() ?>
+<?php
+session_start();
+require_once "../../controller/Patient/doctorController.php";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,115 +34,51 @@
                     <h3>Filter</h3>
                     <div class="field">
                         <label for="doc_name">Name</label>
-                        <input type="text" id="doc_name" name="doc_name" />
+                        <input type="text" id="doc_name" name="doc_name" value="<?php echo $docName; ?>" />
                     </div>
                     <div class="field">
                         <label for="doc_specialization">Specialization</label>
                         <select id="doc_specialization" name="doc_specialization">
+                            <option value="">All</option>
                             <option value="1">Dentist</option>
                             <option value="2">Neurologist</option>
                         </select>
                     </div>
                     <input type="submit" value="Apply" class="filter-btn" />
                 </form>
-                <div class="doctors">
-                    <div class="doc-card">
-                        <div class="info">
-                            <div class="avatar">
-                                <img src="../images/dummy_doctor.png" alt="Doctor">
+                <?php
+                if (count($doctorList) == 0) {
+                ?>
+                    <h2 class="no-data">No Doctor Found</h2>
+                <?php
+                } else {
+                ?>
+                    <div class="doctors">
+                        <?php
+                        foreach ($doctorList as $singleDoc) {
+                        ?>
+                            <div class="doc-card">
+                                <div class="info">
+                                    <div class="avatar">
+                                        <?php echo !empty($singleDoc['img']) ?
+                                            '<img src="../images/dummy_doctor.png" alt="Doctor">'
+                                            : $singleDoc['name'][0] ?>
+                                    </div>
+                                    <h3><?php echo $singleDoc['name'] ?></h3>
+                                    <p><?php echo $singleDoc['specialization'] ?></p>
+                                </div>
+                                <div>
+                                    <a href="doctor_profile.php?DID=<?php echo $singleDoc['DID'] ?>" class="view-profile-btn" href="">View Profile / Book Appointment</a>
+                                </div>
                             </div>
-                            <h3>Forman Ahammed Chowdhury</h3>
-                            <p>Dentist</p>
-                        </div>
-                        <div>
-                            <a href="doctor_profile.php" class="view-profile-btn" href="">View Profile / Book Appointment</a>
-                        </div>
+                        <?php
+                        }
+                        ?>
                     </div>
-                    <div class="doc-card">
-                        <div class="info">
-                            <div class="avatar">
-                                <img src="../images/dummy_doctor_2.png" alt="Doctor">
-                            </div>
-                            <h3>Farzana Akter</h3>
-                            <p>Neurologist</p>
-                        </div>
-                        <div>
-                            <a href="doctor_profile.php" class="view-profile-btn" href="">View Profile / Book Appointment</a>
-                        </div>
-                    </div>
-                    <div class="doc-card">
-                        <div class="info">
-                            <div class="avatar">FC</div>
-                            <h3>Faysal Chowdhury</h3>
-                            <p>Dentist</p>
-                        </div>
-                        <div>
-                            <a class="view-profile-btn" href="">View Profile / Book Appointment</a>
-                        </div>
-                    </div>
-                    <div class="doc-card">
-                        <div class="info">
-                            <div class="avatar">FC</div>
-                            <h3>Faysal Chowdhury</h3>
-                            <p>Dentist</p>
-                        </div>
-                        <div>
-                            <a class="view-profile-btn" href="">View Profile / Book Appointment</a>
-                        </div>
-                    </div>
-                    <div class="doc-card">
-                        <div class="info">
-                            <div class="avatar">FC</div>
-                            <h3>Faysal Chowdhury</h3>
-                            <p>Dentist</p>
-                        </div>
-                        <div>
-                            <a class="view-profile-btn" href="">View Profile / Book Appointment</a>
-                        </div>
-                    </div>
-                    <div class="doc-card">
-                        <div class="info">
-                            <div class="avatar">FC</div>
-                            <h3>Faysal Chowdhury</h3>
-                            <p>Dentist</p>
-                        </div>
-                        <div>
-                            <a class="view-profile-btn" href="">View Profile / Book Appointment</a>
-                        </div>
-                    </div>
-                    <div class="doc-card">
-                        <div class="info">
-                            <div class="avatar">FC</div>
-                            <h3>Faysal Chowdhury</h3>
-                            <p>Dentist</p>
-                        </div>
-                        <div>
-                            <a class="view-profile-btn" href="">View Profile / Book Appointment</a>
-                        </div>
-                    </div>
-                    <div class="doc-card">
-                        <div class="info">
-                            <div class="avatar">FC</div>
-                            <h3>Faysal Chowdhury</h3>
-                            <p>Dentist</p>
-                        </div>
-                        <div>
-                            <a class="view-profile-btn" href="">View Profile / Book Appointment</a>
-                        </div>
-                    </div>
-                    <div class="doc-card">
-                        <div class="info">
-                            <div class="avatar">FC</div>
-                            <h3>Faysal Chowdhury</h3>
-                            <p>Dentist</p>
-                        </div>
-                        <div>
-                            <a class="view-profile-btn" href="">View Profile / Book Appointment</a>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                }
+                ?>
             </div>
-        </div>
     </section>
     <?php include_once "../shared/footer.php" ?>
 </body>
