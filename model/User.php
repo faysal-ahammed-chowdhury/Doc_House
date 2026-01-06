@@ -49,3 +49,25 @@ function matchPassword($email, $password)
 //     }
 //     return $name;
 // }
+
+
+function updateUserByUid($uid, $name, $phone, $password = null)
+{
+    $conn = initDB();
+
+    if ($password !== null && strlen($password) > 0) {
+        $sqlUser = "
+            UPDATE user 
+            SET name='$name', phone='$phone', password='$password' 
+            WHERE uid='$uid'
+        ";
+    } else {
+        $sqlUser = "
+            UPDATE user 
+            SET name='$name', phone='$phone' 
+            WHERE uid='$uid'
+        ";
+    }
+
+    return mysqli_query($conn, $sqlUser);
+}
