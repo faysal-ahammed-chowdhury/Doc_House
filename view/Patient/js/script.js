@@ -19,6 +19,9 @@ function handleUpdateProfile(pForm) {
   const gender = pForm.gender.value.trim();
   const genderErrorBox = document.getElementById("genderErrBox");
 
+  const weight = pForm.weight.value.trim();
+  const weightErrorBox = document.getElementById("weightErrBox");
+
   let ok = true;
   // name
   if (name === "") {
@@ -80,6 +83,15 @@ function handleUpdateProfile(pForm) {
     genderErrorBox.classList.remove("hidden");
   } else {
     genderErrorBox.classList.add("hidden");
+  }
+
+  // weight
+  if (weight === "") {
+    ok = false;
+    weightErrorBox.innerText = "Weight is required";
+    weightErrorBox.classList.remove("hidden");
+  } else {
+    weightErrorBox.classList.add("hidden");
   }
 
   return ok;

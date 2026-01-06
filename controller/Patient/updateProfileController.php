@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 if (
     !isset($_POST['fullname']) || !isset($_POST['email']) || !isset($_POST['phone'])
     || !isset($_POST['password']) || !isset($_POST['cpassword'])
-    || !isset($_POST['dob']) || !isset($_POST['gender'])
+    || !isset($_POST['dob']) || !isset($_POST['gender']) || !isset($_POST['weight'])
 ) {
     $_SESSION['updateProfileErr'] = "Something is wrong! Try again.";
     header("Location: /Doc_House/view/Patient/profile.php");
@@ -29,10 +29,11 @@ $password = trim($_POST['password']);
 $cpassword = trim($_POST['cpassword']);
 $dob = trim($_POST['dob']);
 $gender = trim($_POST['gender']);
+$weight = trim($_POST['weight']);
 
 
 if (
-    empty($name) || empty($phone) || empty($dob) || empty($gender)
+    empty($name) || empty($phone) || empty($dob) || empty($gender) || empty($weight)
 ) {
     $_SESSION['updateProfileErr'] = "Can't be empty!";
     header("Location: /Doc_House/view/Patient/profile.php");
@@ -64,7 +65,7 @@ if (strlen($password) == 0) {
 }
 
 // work with model here
-if (updateUserByUid($_SESSION['user']['uid'], $name, $phone, $dob, $password) && updatePatientByPid($_SESSION['user']['pid'], 70, $gender)) {
+if (updateUserByUid($_SESSION['user']['uid'], $name, $phone, $dob, $password) && updatePatientByPid($_SESSION['user']['pid'], $weight, $gender)) {
     unset($_SESSION['updateProfileErr']);
     $_SESSION['updateProfileSuccess'] = "Profile Updated";
     $_SESSION['user']['name'] = $name;

@@ -82,14 +82,21 @@ require_once "../../controller/Patient/profileController.php";
                                 <p class="error hidden" id="dobErrBox">DOB is required</p>
                             </div>
                         </div>
-                        <div class="field">
-                            <label for="gender">Gender</label>
-                            <select name="gender" id="gender">
-                                <option value="">Select Gender</option>
-                                <option value="male" <?php echo ($curUser['gender'] == "male") ? "selected" : ''; ?>>Male</option>
-                                <option value="female" <?php echo ($curUser['gender'] == "female") ? "selected" : ''; ?>>Female</option>
-                            </select>
-                            <p class="error hidden" id="genderErrBox">Gender is required</p>
+                        <div class="field two-field">
+                            <div class="first">
+                                <label for="gender">Gender</label>
+                                <select name="gender" id="gender">
+                                    <option value="">Select Gender</option>
+                                    <option value="male" <?php echo ($curUser['gender'] == "male") ? "selected" : ''; ?>>Male</option>
+                                    <option value="female" <?php echo ($curUser['gender'] == "female") ? "selected" : ''; ?>>Female</option>
+                                </select>
+                                <p class="error hidden" id="genderErrBox">Gender is required</p>
+                            </div>
+                            <div class="second">
+                                <label for="weight">Weight (KG)</label>
+                                <input type="number" id="weight" name="weight" value="<?php echo $curUser['weight'] ?>">
+                                <p class="error hidden" id="weightErrBox">Weight is required</p>
+                            </div>
                         </div>
 
                         <div class="field two-field">
