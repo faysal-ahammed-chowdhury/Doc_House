@@ -122,7 +122,7 @@ function getDoctorsByNameAndSpId($name, $spid)
 function getDoctorsByDId($did)
 {
     $conn = initDB();
-    $sql = "SELECT d.did, d.uid, d.spid, u.name AS doctor_name, u.email, u.phone, s.name AS specialization_name
+    $sql = "SELECT d.did, d.uid, d.spid, d.fee, d.bio, u.name AS doctor_name, u.email, u.phone, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
             INNER JOIN specialization s ON d.spid = s.spid
@@ -135,8 +135,12 @@ function getDoctorsByDId($did)
         while ($row = mysqli_fetch_assoc($result)) {
             $doctor["DID"] = $row["did"];
             $doctor["name"] = $row["doctor_name"];
+            $doctor["email"] = $row["email"];
+            $doctor["phone"] = $row["phone"];
+            $doctor["fee"] = $row["fee"];
             $doctor["specializationID"] = $row["spid"];
             $doctor["specialization"] = $row["specialization_name"];
+            $doctor["bio"] = $row["bio"];
             $doctor["img"] = "";
         }
     }

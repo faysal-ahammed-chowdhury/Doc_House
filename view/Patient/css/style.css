@@ -817,3 +817,28 @@ input[type="submit"] {
   cursor: pointer;
   font-size: 16px;
 }
+
+.doctor-info .contact-info {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.doctor-info .contact-info p {
+  font-size: 15px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.doctor-info .contact-info i {
+  color: #4db4fa;
+  width: 16px;
+  font-size: 14px;
+}
+
+.doctor-info .fee {
+  margin-top: 10px;
+}

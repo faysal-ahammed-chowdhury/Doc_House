@@ -1,4 +1,7 @@
-<?php session_start() ?>
+<?php
+session_start();
+require_once "../../controller/Patient/doctorProfileController.php";
+?>
 
 
 <!DOCTYPE html>
@@ -30,20 +33,20 @@
 			<div class="doctor-info-and-book-appointment">
 				<div class="doctor-info">
 					<div class="avatar">
-						<img src="../images/dummy_doctor.png" alt="Doctor">
+						<?php echo !empty($doctor['img']) ?
+							'<img src="../images/dummy_doctor.png" alt="Doctor">'
+							: $doctor['name'][0] ?>
 					</div>
 					<div class="content">
-						<h2 class="name">Dr. Mehedi Hasan</h2>
-						<p class="specialization">Dentist</p>
-						<p class="fee">Fee: <span class="tk">1500 Taka</span></p>
+						<h2 class="name"><?php echo $doctor['name'] ?></h2>
+						<p class="specialization"><?php echo $doctor['specialization'] ?></p>
+						<div class="contact-info">
+							<p><i class="fas fa-phone"></i> <?php echo $doctor['phone'] ?></p>
+							<p><i class="fas fa-envelope"></i> <?php echo $doctor['email'] ?></p>
+						</div>
+						<p class="fee">Fee: <span class="tk"><?php echo $doctor['fee'] ?> Taka</span></p>
 						<p class="bio">
-							Dr. Sarah Jenkins is a board-certified Cardiologist dedicated to
-							providing comprehensive heart care. With a focus on preventive
-							cardiology, she helps patients manage risk factors such as
-							hypertension and high cholesterol. She completed her residency
-							at Mayo Clinic and has been practicing for over a decade. Her
-							patient-centric approach ensures that every individual receives
-							a personalized treatment plan.
+							<?php echo $doctor['bio'] ?>
 						</p>
 					</div>
 				</div>
