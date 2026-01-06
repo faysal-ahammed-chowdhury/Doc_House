@@ -64,7 +64,7 @@ if (strlen($password) == 0) {
 }
 
 // work with model here
-if (updateUserByUid($_SESSION['user']['uid'], $name, $phone, $password) && updatePatientByPid($_SESSION['user']['pid'], $dob, $gender)) {
+if (updateUserByUid($_SESSION['user']['uid'], $name, $phone, $dob, $password) && updatePatientByPid($_SESSION['user']['pid'], 70, $gender)) {
     unset($_SESSION['updateProfileErr']);
     $_SESSION['updateProfileSuccess'] = "Profile Updated";
     $_SESSION['user']['name'] = $name;

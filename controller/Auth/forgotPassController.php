@@ -1,4 +1,6 @@
 <?php require_once "../../middleware/guestMiddleware.php";
+require_once "../../model/User.php";
+
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $_SESSION['forgotPassErr'] = "Something is wrong! Try again.";
@@ -34,6 +36,9 @@ if (empty($email) || empty($password) || empty($cpassword) ||  empty($dob)) {
 }
 
 // check email and dob valid or not through model
+$curUser = getUserByEmail($email);
+
+
 
 if (strlen($password) < 8) {
     $_SESSION['forgotPassErr'] = "Password must be at least 8 characters";

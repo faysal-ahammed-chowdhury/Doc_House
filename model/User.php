@@ -5,7 +5,7 @@ require_once "Patient.php";
 function getUserByEmail($email)
 {
     $conn = initDB();
-    $sql = "SELECT uid, name, role FROM user WHERE email='$email'";
+    $sql = "SELECT uid, name, dob, role FROM user WHERE email='$email'";
     $result = mysqli_query($conn, $sql);
 
     $foundUser = [];
@@ -14,6 +14,7 @@ function getUserByEmail($email)
             $foundUser["uid"] = $row["uid"];
             $foundUser["name"] = $row["name"];
             $foundUser["email"] = $email;
+            $foundUser["dob"] = $row["dob"];
             $foundUser["role"] = $row["role"];
         }
 
@@ -51,20 +52,20 @@ function matchPassword($email, $password)
 // }
 
 
-function updateUserByUid($uid, $name, $phone, $password = null)
+function updateUserByUid($uid, $name, $phone, $dob, $password = null)
 {
     $conn = initDB();
 
     if ($password !== null && strlen($password) > 0) {
         $sqlUser = "
             UPDATE user 
-            SET name='$name', phone='$phone', password='$password' 
+            SET name='$name', phone='$phone', dob='$dob', password='$password' 
             WHERE uid='$uid'
         ";
     } else {
         $sqlUser = "
             UPDATE user 
-            SET name='$name', phone='$phone' 
+            SET name='$name', phone='$phone', dob='$dob'
             WHERE uid='$uid'
         ";
     }

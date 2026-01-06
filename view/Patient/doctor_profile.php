@@ -77,15 +77,12 @@ require_once "../../controller/Patient/doctorProfileController.php";
 								<label for="slot">Select available Slot </label>
 								<select name="slot" id="slot">
 									<option value="">Select a Slot</option>
-									<option value="10:00AM">10:00AM, 31 Dec, 2025</option>
-									<option value="10:00AM">10:00AM, 31 Dec, 2025</option>
-									<option value="10:00AM">10:00AM, 31 Dec, 2025</option>
 								</select>
 							</div>
 							<input
 								class="primary-btn submit-btn"
-								type="button"
-								value="Next" />
+								type="submit"
+								value="Book an Appointment" />
 						</form>
 					<?php
 					} else {
