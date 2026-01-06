@@ -72,3 +72,14 @@ function updateUserByUid($uid, $name, $phone, $dob, $password = null)
 
     return mysqli_query($conn, $sqlUser);
 }
+
+
+function updatePasswordByUid($uid, $password)
+{
+    $conn = initDB();
+    $sqlUser = "UPDATE user 
+                SET password='$password' 
+                WHERE uid='$uid'";
+
+    return mysqli_query($conn, $sqlUser);
+}

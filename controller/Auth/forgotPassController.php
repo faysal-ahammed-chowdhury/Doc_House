@@ -35,9 +35,12 @@ if (empty($email) || empty($password) || empty($cpassword) ||  empty($dob)) {
     exit();
 }
 
-// check email and dob valid or not through model
 $curUser = getUserByEmail($email);
-
+if (!isset($curUser['email'])) {
+    $_SESSION['forgotPassErr'] = "User Not Found";
+    header("Location: /Doc_House/view/Auth/forgot_password.php");
+    exit();
+}
 
 
 if (strlen($password) < 8) {
@@ -52,9 +55,20 @@ if ($password !== $cpassword) {
     exit();
 }
 
-// update new password through model
+if ($curUser['dob'] != $dob) {
+    $_SESSION['forgotPassErr'] = "Wrong Date of Birth";
+    header("Location: /Doc_House/view/Auth/forgot_password.php");
+    exit();
+}
 
-unset($_SESSION['forgotPassErr']);
-unset($_SESSION['forgotPassData']);
-$_SESSION['forgotPassSuccess'] = "Password Updated! Please Login";
-header("Location: /Doc_House/view/Auth/forgot_password.php");
+
+if (updatePasswordByUid($curUser['uid'], $password)) {
+    unset($_SESSION['forgotPassErr']);
+    unset($_SESSION['forgotPassData']);
+    $_SESSION['forgotPassSuccess'] = "Password Updated! Please Login";
+    header("Location: /Doc_House/view/Auth/forgot_password.php");
+} else {
+    $_SESSION['forgotPassErr'] = "Something went wrong";
+    header("Location: /Doc_House/view/Auth/forgot_password.php");
+    exit();
+}
