@@ -64,7 +64,7 @@
         </seection>
 
         <section id="search_doctor" class="section">
-            <div class="filter-bar" id="doctorFilterBar">
+            <form class="filter-bar" id="doctorFilterBar">
                 <!-- Search Doctor -->
                 <div class="filter-group">
                     <label for="searchDoctor">Search Patient</label>
@@ -72,6 +72,7 @@
                     type="text"
                     id="searchDoctor"
                     class="filter-input"
+                    name="email"
                     placeholder="Search by name or email"
                     />
                 </div>
@@ -80,14 +81,15 @@
                 <div class="filter-group">
                     <label for="doctorSpecialization">Registration Date</label>
                     <div class="input-wrapper">
-                        <input type="date">
+                        <input type="date" name="regDate" id="regDate">
                     </div>
                 </div>
 
                 <!-- Action Buttons -->
                 <div class="filter-actions">
-                    <button                  
-                    class="btn btn-filter"
+                    <button        
+                    type="submit"          
+                    class=" btn-filter"
                     id="applyDoctorFilter"
                     >
                     <i class="ri-search-line"></i>
@@ -95,7 +97,7 @@
                     </button>
                 </div>
 
-            </div>
+            </form>
         </section>
 
         <section id="table_section" class="section">
@@ -130,5 +132,7 @@
         </section>
 
     </main>
+
+    <script src="../assets/js/patients.js"></script>
 </body>
 </html>
