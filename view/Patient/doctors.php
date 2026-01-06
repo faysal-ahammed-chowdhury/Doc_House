@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "../../controller/Patient/doctorController.php";
+include_once "../../controller/Patient/specializationController.php";
 ?>
 
 <!DOCTYPE html>
@@ -38,10 +39,18 @@ require_once "../../controller/Patient/doctorController.php";
                     </div>
                     <div class="field">
                         <label for="doc_specialization">Specialization</label>
-                        <select id="doc_specialization" name="doc_specialization">
+                        <select id="doc_specialization" name="specialization">
                             <option value="">All</option>
-                            <option value="1">Dentist</option>
-                            <option value="2">Neurologist</option>
+                            <?php
+                            foreach ($allSpecializations as $signgleSpecialization) {
+                            ?>
+                                <option value="<?php echo $signgleSpecialization["spid"] ?>"
+                                    <?php echo ($docSpecialityID == $signgleSpecialization["spid"]) ? 'selected' : ''; ?>>
+                                    <?php echo $signgleSpecialization["name"] ?>
+                                </option>
+                            <?php
+                            }
+                            ?>
                         </select>
                     </div>
                     <input type="submit" value="Apply" class="filter-btn" />

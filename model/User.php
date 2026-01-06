@@ -34,3 +34,18 @@ function matchPassword($email, $password)
     $result = mysqli_query($conn, $sql);
     return mysqli_num_rows($result) == 1;
 }
+
+// function getNameByUId($uid)
+// {
+//     $conn = initDB();
+//     $sql = "SELECT name FROM user WHERE uid='$uid'";
+//     $result = mysqli_query($conn, $sql);
+
+//     $name = "NULL";
+//     if (mysqli_num_rows($result) == 1) {
+//         while ($row = mysqli_fetch_assoc($result)) {
+//             $name = $row["name"];
+//         }
+//     }
+//     return $name;
+// }
