@@ -19,7 +19,7 @@ function getPIdByUId($uid)
 function getPatientByPId($pid)
 {
     $conn = initDB();
-    $sql = "SELECT p.pid, p.uid, p.gender, p.dob, p.bloodGroup, 
+    $sql = "SELECT p.pid, p.uid, p.gender, p.dob, 
                    u.name, u.email, u.phone
             FROM patient p
             INNER JOIN user u ON p.uid = u.uid
@@ -37,7 +37,6 @@ function getPatientByPId($pid)
             $patient["phone"] = $row["phone"];
             $patient["gender"] = $row["gender"];
             $patient["dob"] = $row["dob"];
-            $patient["bloodGroup"] = $row["bloodGroup"];
         }
     }
 

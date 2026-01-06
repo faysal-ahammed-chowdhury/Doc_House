@@ -46,7 +46,7 @@ require_once "../../controller/Patient/doctorProfileController.php";
 							<p><i class="fas fa-phone"></i> <?php echo $doctor['phone'] ?></p>
 							<p><i class="fas fa-envelope"></i> <?php echo $doctor['email'] ?></p>
 						</div>
-						<p class="fee">Fee: <span class="tk"><?php echo $doctor['fee'] ?> Taka</span></p>
+						<p class="fee">Consultant Fee: <span class="tk"><?php echo $doctor['fee'] ?> Taka</span></p>
 						<p class="bio">
 							<?php echo $doctor['bio'] ?>
 						</p>
@@ -59,16 +59,23 @@ require_once "../../controller/Patient/doctorProfileController.php";
 					?>
 						<form action="">
 							<div class="field">
-								<label for="session">Select Available Session </label><select name="session" id="session">
+								<label for="session">Select Available Session </label>
+								<select onchange="loadAvailableSlots(this)" name="session" id="session">
 									<option value="">Select a Session</option>
-									<option value="sess-1">10AM-12AM, 31 Dec, 2025</option>
-									<option value="sess-1">10AM-12AM, 31 Dec, 2025</option>
-									<option value="sess-1">10AM-12AM, 31 Dec, 2025</option>
-									<option value="sess-1">10AM-12AM, 31 Dec, 2025</option>
+									<?php
+									foreach ($allSessions as $singleSessions) {
+									?>
+										<option value="<?php echo $singleSessions["sid"] ?>">
+											<?php echo sessionTime($singleSessions) ?>
+										</option>
+									<?php
+									}
+									?>
 								</select>
 							</div>
 							<div class="field">
-								<label for="slot">Select available Slot </label><select name="slot" id="slot">
+								<label for="slot">Select available Slot </label>
+								<select name="slot" id="slot">
 									<option value="">Select a Slot</option>
 									<option value="10:00AM">10:00AM, 31 Dec, 2025</option>
 									<option value="10:00AM">10:00AM, 31 Dec, 2025</option>
@@ -92,6 +99,8 @@ require_once "../../controller/Patient/doctorProfileController.php";
 		</div>
 	</section>
 	<?php include_once "../shared/footer.php" ?>
+
+	<script src="js/script.js"></script>
 </body>
 
 </html>
