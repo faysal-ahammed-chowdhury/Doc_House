@@ -1,8 +1,6 @@
 <?php
 session_start();
-// $_SESSION['user'] = [
-//     'role' => 'patient',
-// ];
+include_once "../../controller/Patient/specializationController.php";
 ?>
 
 <!DOCTYPE html>
@@ -35,49 +33,31 @@ session_start();
                 <p class="gray-para">Select a category to view available doctors.</p>
             </div>
 
-            <div class="all-specialization">
 
-                <a href="doctors.php?category=cardiologist" class="specialty-card">
-                    <div class="icon-box"><i class="fa-solid fa-heart-pulse"></i></div>
-                    <h3>Cardiologist</h3>
-                </a>
+            <?php
+            if (count($allSpecializations) > 0) {
+            ?>
+                <div class="all-specialization">
+                    <?php
+                    foreach ($allSpecializations as $signgleSpecialization) {
+                    ?>
+                        <a href="doctors.php?specialization=<?php echo $signgleSpecialization['spid'] ?>" class="specialty-card">
+                            <div class="icon-box"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <h3><?php echo $signgleSpecialization["name"] ?></h3>
+                        </a>
+                    <?php
+                    }
+                    ?>
+                </div>
+            <?php
+            } else {
+            ?>
+                <h2 style="margin-top: 20px;" class="no-data">Not Avaialable</h2>
+            <?php
+            }
+            ?>
 
-                <a href="doctors.php?category=dentist" class="specialty-card">
-                    <div class="icon-box"><i class="fa-solid fa-tooth"></i></div>
-                    <h3>Dentist</h3>
-                </a>
 
-                <a href="doctors.php?category=neurologist" class="specialty-card">
-                    <div class="icon-box"><i class="fa-solid fa-brain"></i></div>
-                    <h3>Neurologist</h3>
-                </a>
-
-                <a href="doctors.php?category=orthopedic" class="specialty-card">
-                    <div class="icon-box"><i class="fa-solid fa-bone"></i></div>
-                    <h3>Orthopedic</h3>
-                </a>
-
-                <a href="doctors.php?category=general" class="specialty-card">
-                    <div class="icon-box"><i class="fa-solid fa-user-doctor"></i></div>
-                    <h3>General Physician</h3>
-                </a>
-
-                <a href="doctors.php?category=dermatologist" class="specialty-card">
-                    <div class="icon-box"><i class="fa-solid fa-hand-dots"></i></div>
-                    <h3>Dermatologist</h3>
-                </a>
-
-                <a href="doctors.php?category=pediatrician" class="specialty-card">
-                    <div class="icon-box"><i class="fa-solid fa-baby"></i></div>
-                    <h3>Pediatrician</h3>
-                </a>
-
-                <a href="doctors.php?category=eye" class="specialty-card">
-                    <div class="icon-box"><i class="fa-solid fa-eye"></i></div>
-                    <h3>Eye Care</h3>
-                </a>
-
-            </div>
         </div>
     </section>
 
