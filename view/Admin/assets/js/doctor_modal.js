@@ -24,6 +24,16 @@ modal.addEventListener("click", (e) => {
     }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("modal");
+    const shouldOpen = document.body.dataset.openModal === "true";
+
+    if (shouldOpen && modal) {
+        modal.classList.add("active");
+    }
+});
+
+
 
 
 
@@ -61,8 +71,16 @@ form.addEventListener("submit", (e) => {
     const phone = document.getElementById('doc_phone');
     const bio = document.getElementById('doc_bio');
 
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+    const numberRegex = /^[1-9]\d*$/;
+
     if (!email.value.trim()) {
         showError(email, `Enter Your Email Address`);
+        valid = false;
+        return;
+    } else if (!emailRegex.test(email.value.trim())) {
+        showError(email, "Enter A Valid Email Address");
         valid = false;
         return;
     }
@@ -74,6 +92,10 @@ form.addEventListener("submit", (e) => {
 
     if (!pass.value.trim()) {
         showError(pass, `Ente Your Password`);
+        valid = false;
+        return;
+    } else if (pass.value.trim().length < 6) {
+        showError(pass, "Password must be at least 6 characters");
         valid = false;
         return;
     } else {
@@ -103,7 +125,12 @@ form.addEventListener("submit", (e) => {
         showError(fee, `Ente Your Fee`);
         valid = false;
         return;
-    } else {
+    } else if (!numberRegex.test(fee.value.trim())) {
+        showError(fee, `Fees Must Be a Number`);
+        valid = false;
+        return;
+    }
+    else {
         clearError(fee);
         valid = true;
     }
@@ -113,7 +140,12 @@ form.addEventListener("submit", (e) => {
         showError(phone, `Ente Your Phone Number`);
         valid = false;
         return;
-    } else {
+    } else if (!phoneRegex.test(phone.value.trim()) && phone.value.trim().length < 11) {
+        showError(phone, `Ente A Valid Phone Number`);
+        valid = false;
+        return;
+    }
+    else {
         clearError(phone);
         valid = true;
     }
@@ -130,6 +162,6 @@ form.addEventListener("submit", (e) => {
 
 
     if (valid) {
-        form.submit();
+        // form.submit();
     }
 });
