@@ -1,3 +1,7 @@
+<?php
+    session_start();    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +20,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body>
+<body data-open-modal="<?php echo isset($_SESSION['openModal']) ? 'true' : 'false'; ?>">
+    <?php unset($_SESSION['openModal']); ?>
         <header>
             <nav>
                 <div id="logo">
@@ -58,19 +63,30 @@
                             <button class="btn" id="openModal"><i class="ri-add-large-fill"></i> Create Appointment</button>
 
                             <div class="modal" id="modal">
-                                <form id="appointmentForm" action="">
+                                <form id="appointmentForm" action="../../../controller/Admin/AppointmentController.php" method="POST">
                                     <div class="modal-box">
                                         <div class="form-container">                                   
                                             <!-- Section 1 -->
                                             <div class="form-section">
-                                                <h3><i class="ri-lock-fill"></i> 1. Select Patient (PID)</h3>
+                                                <h3><i class="ri-lock-fill"></i> 1. Select Patient</h3>
                                                 <hr>
                                                 <div class="appointment_input">
                                                     <div class="field">
-                                                        <label>Patient ID (PID)</label>
+                                                        <label>Patient Name</label>
                                                         <div class="input-wrapper">
                                                             <i class="ri-fingerprint-2-fill"></i>
-                                                            <input id="patient_ID" name="patient_ID" type="text" placeholder="doctor@example.com">
+                                                            <input id="patient_name" name="patient_name" type="text" value="<?php
+                                                            echo (isset($_SESSION['patientNameApp']) && !empty($_SESSION['patientNameApp'])) ? $_SESSION['patientNameApp'] : "";
+                                                            unset($_SESSION['patientNameApp']);
+                                                        ?>" placeholder="Search By Patient Name..">
+                                                        <span class="error-message">
+                                                            <?php
+                                                            if (isset($_SESSION['patientNameErrorApp'])) {
+                                                                echo $_SESSION['patientNameErrorApp'];
+                                                                unset($_SESSION['patientNameErrorApp']); // clear after showing
+                                                            }
+                                                            ?>
+                                                        </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -88,9 +104,24 @@
                                                             <i class="ri-user-line"></i>
                                                             <select id="doc_name" name="doc_name">
                                                                 <option value="" disable>Select by Doctor Name</option>
-                                                                <option value="Dr. Sarah Jenkins">Dr. Sarah Jenkins</option>
-                                                                <option value="Dr. Sarah Jenkins">Dr. Sarah Jenkins</option>
+                                                                <option value="Dr. Sarah Jenkins" 
+                                                                    <?php echo (isset($_SESSION['docNameApp']) && $_SESSION['docNameApp'] == 'Dr. Sarah Jenkins') ? 'selected' : '';                                                               
+                                                                    ?>
+                                                                >Dr. Sarah Jenkins</option>
+                                                                <option value="Dr. Sarah Khan"
+                                                                <?php echo (isset($_SESSION['docNameApp']) && $_SESSION['docNameApp'] == 'Dr. Sarah Khan') ? 'selected' : '';                                                                
+                                                                ?>
+                                                                >Dr. Sarah Khan</option>
                                                             </select>
+                                                            <?php unset($_SESSION['docNameApp']);?>
+                                                            <span class="error-message">
+                                                                <?php
+                                                                if (isset($_SESSION['docNameErrorApp'])) {
+                                                                    echo $_SESSION['docNameErrorApp'];
+                                                                    unset($_SESSION['docNameErrorApp']); // clear after showing
+                                                                }
+                                                                ?>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                     <div class="field">
@@ -98,9 +129,22 @@
                                                         <div class="input-wrapper">
                                                             <i class="ri-calendar-todo-line"></i>
                                                             <select id="doc_total_time" name="doc_total_time">
-                                                                <option value="" disable>Select Available Session</option>
-                                                                <option>Jan 02(10.30AM-02.00PM)</option>
+                                                                <option value="" >Select Available Session</option>
+                                                                <option value="Jan" 
+                                                                    <?php echo (isset($_SESSION['docTotalTimeApp']) && $_SESSION['docTotalTimeApp'] == 'Jan') ? 'selected' : '';                                                                
+                                                                ?>
+                                                                >Jan</option>
                                                             </select>
+                                                            <?php unset($_SESSION['docTotalTimeApp']);?>
+                                                            <span class="error-message">
+                                                                <?php
+                                                                    if (isset($_SESSION['docTotalTimeErrorApp'])) {
+                                                                        echo $_SESSION['docTotalTimeErrorApp'];
+                                                                        unset($_SESSION['docTotalTimeErrorApp']); // clear after showing
+                                                                    }
+                                                                ?>
+                                                            </span>
+
                                                         </div>
                                                     </div>
 
@@ -110,8 +154,20 @@
                                                             <i class="ri-time-line"></i>
                                                             <select id="doc_available_slot" name="doc_available_slot">
                                                                 <option value="" disable>Select Your Slot</option>
-                                                                <option>10.30AM-11.00AM</option>
+                                                                <option value="10.30AM-11.00AM"
+                                                                    <?php echo (isset($_SESSION['docAvailableSlotApp']) && $_SESSION['docAvailableSlotApp'] == 'Jan 02(10.30AM-02.00PM)') ? 'selected' : '';                                                               
+                                                                    ?>
+                                                                >10.30AM-11.00AM</option>
                                                             </select>
+                                                            <?php unset($_SESSION['docAvailableSlotApp']);?>
+                                                            <span class="error-message">
+                                                                <?php
+                                                                if (isset($_SESSION['docAvailableSlotErrorApp'])) {
+                                                                    echo $_SESSION['docAvailableSlotErrorApp'];
+                                                                    unset($_SESSION['docAvailableSlotErrorApp']); // clear after showing
+                                                                }
+                                                                ?>
+                                                            </span>
                                                         </div>
                                                     </div>
 
@@ -120,10 +176,28 @@
                                                         <div class="input-wrapper">
                                                             <i class="ri-information-2-fill"></i>
                                                             <select id="status" name="status">
-                                                                <option>Accepted</option>
-                                                                <option>Panding</option>
-                                                                <option>Rejected</option>
+                                                                <option value="Accepted"
+                                                                    <?php echo (isset($_SESSION['statusApp']) && $_SESSION['statusApp'] == 'Accepted') ? 'selected' : '';                                                               
+                                                                    ?>
+                                                                >Accepted</option>
+                                                                <option value="Panding"
+                                                                    <?php echo (isset($_SESSION['statusApp']) && $_SESSION['statusApp'] == 'Panding') ? 'selected' : '';                                                               
+                                                                    ?>
+                                                                >Panding</option>
+                                                                <option value="Rejected"
+                                                                    <?php echo (isset($_SESSION['statusApp']) && $_SESSION['statusApp'] == 'Rejected') ? 'selected' : '';                                                               
+                                                                    ?>
+                                                                >Rejected</option>
                                                             </select>
+                                                            <?php unset($_SESSION['statusApp']);?>
+                                                            <span class="error-message">
+                                                                <?php
+                                                                    if (isset($_SESSION['statusErrorApp'])) {
+                                                                        echo $_SESSION['statusErrorApp'];
+                                                                        unset($_SESSION['statusErrorApp']); // clear after showing
+                                                                    }
+                                                                ?>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -154,15 +228,16 @@
 
 
             <section id="search_appointment" class="section">
-                <div class="filter-bar" id="doctorFilterBar">
+                <form class="filter-bar" id="doctorFilterBar">
 
                     <!-- Search Doctor -->
                     <div class="filter-group">
                         <label for="searchDoctor">Patient Search</label>
                         <input
                         type="text"
-                        id="searchDoctor"
+                        id="pName"
                         class="filter-input"
+                        name="pName"
                         placeholder="Patient name"
                         />
                     </div>
@@ -170,8 +245,9 @@
                         <label for="searchDoctor">Doctor Search</label>
                         <input
                         type="text"
-                        id="searchDoctor"
+                        id="dName"
                         class="filter-input"
+                        name="dName"
                         placeholder="Doctor name"
                         />
                     </div>
@@ -182,13 +258,14 @@
                         <div class="input-wrapper">
                         <i class="ri-stethoscope-line"></i>
                         <select
-                            id="doctorSpecialization"
+                            id="appointmentStatus"
                             class="filter-select"
+                            name="appointmentStatus"
                         >
                             <option value="">All Status</option>
-                            <option value="neurologist">Accept</option>
-                            <option value="cardiologist">Panding</option>
-                            <option value="cardiologist">Rejected</option>
+                            <option value="Accept">Accept</option>
+                            <option value="Panding">Panding</option>
+                            <option value="Rejected">Rejected</option>
                         </select>
                         </div>
                     </div>
@@ -197,8 +274,9 @@
                         <label for="searchDoctor">Date</label>
                         <input
                         type="date"
-                        id="searchDoctor"
+                        id="date"
                         class="filter-input"
+                        name="date"
                         placeholder="Search by name or email"
                         />
                     </div>
@@ -206,7 +284,7 @@
                     <!-- Action Buttons -->
                     <div class="filter-actions">
                         <button
-                        type="button"
+                        type="submit"
                         class="btn btn-filter"
                         id="applyDoctorFilter"
                         >
@@ -223,7 +301,7 @@
                         </button>
                     </div>
 
-                </div>
+                </form>
             </section>
 
 

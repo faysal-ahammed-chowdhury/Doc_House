@@ -162,6 +162,6 @@ form.addEventListener("submit", (e) => {
 
 
     if (valid) {
-        form.submit();
+        // form.submit();
     }
 });
