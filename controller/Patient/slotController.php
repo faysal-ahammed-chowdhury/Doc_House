@@ -24,6 +24,12 @@ if (!isset($singleSession['sid'])) {
     exit();
 }
 
+if (isOldSession($_GET['sid'])) {
+    http_response_code(400);
+    echo json_encode([]);
+    exit();
+}
+
 $allAppointmentsOfThisSession = getBookedAppointmentsBySId($_GET['sid']);
 $bookedTimes = [];
 

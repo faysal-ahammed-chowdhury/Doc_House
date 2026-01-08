@@ -18,7 +18,7 @@ if (!isset($doctor['DID'])) {
     exit;
 }
 
-$allSessions = getAllSessionByDId($_GET['DID']);
+$allSessions = getAllUpcomingSessionByDId($_GET['DID']);
 
 function sessionTime($session)
 {
