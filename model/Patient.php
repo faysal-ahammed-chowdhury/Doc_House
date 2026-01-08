@@ -56,3 +56,14 @@ function updatePatientByPid($pid, $weight, $gender)
 
     return mysqli_query($conn, $sqlPatient);
 }
+
+
+function addPatient($uid, $gender, $weight)
+{
+    $conn = initDB();
+    $sql = "INSERT INTO patient (uid, gender, weight)
+            VALUES ('$uid', '$gender', '$weight')";
+
+    if (mysqli_query($conn, $sql)) return true;
+    else return false;
+}
