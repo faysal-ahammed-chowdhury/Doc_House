@@ -1,6 +1,7 @@
 <?php
 require_once "../../middleware/authMiddleware.php";
 require_once "../../middleware/patientMiddleware.php";
+require_once "../../controller/Patient/appointmentController.php";
 ?>
 
 <!DOCTYPE html>
@@ -33,21 +34,21 @@ require_once "../../middleware/patientMiddleware.php";
                 <form action="" method="GET" class="filter-form">
                     <div class="field">
                         <label>Date</label>
-                        <input type="date" name="filter_date" />
+                        <input type="date" name="filter_date" <?php echo !empty($filterDate) ? "value=\"$filterDate\"" : ''; ?> />
                     </div>
                     <div class="field">
                         <label>Status</label>
                         <select name="status">
-                            <option value="all">All</option>
-                            <option value="pending">Pending</option>
-                            <option value="accepted">Accepted</option>
-                            <option value="rejected">Rejected</option>
+                            <option value="" <?php echo empty($filterStatus) ? "selected" : ''; ?>>All</option>
+                            <option value="pending" <?php echo ($filterStatus == "pending") ? "selected" : ''; ?>>Pending</option>
+                            <option value="accepted" <?php echo ($filterStatus == "accepted") ? "selected" : ''; ?>>Accepted</option>
+                            <option value="cancelled" <?php echo ($filterStatus == "cancelled") ? "selected" : ''; ?>>Cancelled</option>
                         </select>
                     </div>
                     <button type="submit" class="btn-filter">
                         <i class="fa-solid fa-filter"></i> Filter
                     </button>
-                    <button type="submit" class="btn-reset">Reset</button>
+                    <a href="/Doc_House/view/Patient/appointments.php" type="submit" class="btn-reset">Reset</a>
                 </form>
             </div>
             <div class="list appointment-list">
@@ -55,42 +56,43 @@ require_once "../../middleware/patientMiddleware.php";
                     <thead>
                         <tr>
                             <th>Doctor Name</th>
-                            <th>Specialization</th>
-                            <th>Date & Time</th>
+                            <th>Date</th>
+                            <th>Time</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="name">Siyam Talukder</td>
-                            <td>Dentist</td>
-                            <td class="date">10 AM, Dec 30, 2025</td>
-                            <td>
-                                <span class="status accepted">Accepted</span>
-                            </td>
-                            <td class="actions"></td>
-                        </tr>
-                        <tr>
-                            <td class="name">Mehedi Hasan</td>
-                            <td>Dentist</td>
-                            <td class="date">12 AM, Dec 25, 2023</td>
-                            <td>
-                                <span class="status rejected">Rejected</span>
-                            </td>
-                            <td class="actions"></td>
-                        </tr>
-                        <tr>
-                            <td class="name">Arafat Abdullah</td>
-                            <td>Dentist</td>
-                            <td class="date">11 AM, Dec 31, 2024</td>
-                            <td>
-                                <span class="status pending">Pending</span>
-                            </td>
-                            <td class="actions">
-                                <a class="cancel" href="">Cancel</a>
-                            </td>
-                        </tr>
+                        <?php
+                        if (count($appointmentList) == 0) {
+                        ?>
+                            <tr>
+                                <td colspan="100%" style="text-align:center;">
+                                    <p style="display: flex; justify-content: center; margin-top: 20px;">No Data Found</p>
+                                </td>
+                            </tr>
+
+                            <?php
+                        } else {
+                            foreach ($appointmentList as $singleAppointment) {
+                            ?>
+                                <tr>
+                                    <td class="name"><?php echo $singleAppointment['doctor_name'] ?></td>
+                                    <td class="date"><?php echo date("d-m-Y", strtotime($singleAppointment["date"])) ?></td>
+                                    <td class="date"><?php echo date("h:i A", strtotime($singleAppointment["time"])); ?></td>
+                                    <td>
+                                        <span class="status <?php echo $singleAppointment['status'] ?>"><?php echo $singleAppointment['status'] ?></span>
+                                    </td>
+                                    <td class="actions">
+                                        <?php echo $singleAppointment['status'] == 'pending' ?
+                                            '<a class="cancel" href="">Cancel</a>' : '';
+                                        ?>
+                                    </td>
+                                </tr>
+                        <?php
+                            }
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
