@@ -24,12 +24,13 @@ function getBookedAppointmentsBySId($sid)
 function getAllAppointment()
 {
     $conn = initDB();
-    $sql = "SELECT a.aptid, a.sid, a.pid, a.time, a.date, a.status, 
+    $sql = "SELECT a.aptid, a.sid, a.pid, a.time, s.date, a.status, 
                    d.did, u.uid AS doctor_uid, u.name AS doctor_name
             FROM appointment a
             JOIN session s ON a.sid = s.sid
             JOIN doctor d ON s.did = d.did
-            JOIN user u ON d.uid = u.uid";
+            JOIN user u ON d.uid = u.uid
+            ORDER BY s.date DESC, a.time ASC";
 
     $result = mysqli_query($conn, $sql);
 
@@ -56,13 +57,14 @@ function getAllAppointment()
 function getAllAppointmentByPId($pid)
 {
     $conn = initDB();
-    $sql = "SELECT a.aptid, a.sid, a.pid, a.time, a.date, a.status, 
+    $sql = "SELECT a.aptid, a.sid, a.pid, a.time, s.date, a.status, 
                    d.did, u.uid AS doctor_uid, u.name AS doctor_name
             FROM appointment a
             JOIN session s ON a.sid = s.sid
             JOIN doctor d ON s.did = d.did
             JOIN user u ON d.uid = u.uid
-            WHERE a.pid = '$pid'";
+            WHERE a.pid = '$pid'
+            ORDER BY s.date DESC, a.time ASC";
 
     $result = mysqli_query($conn, $sql);
 
@@ -89,13 +91,14 @@ function getAllAppointmentByPId($pid)
 function getAppointmentsByDateAndStatusAndPId($date, $status, $pid)
 {
     $conn = initDB();
-    $sql = "SELECT a.aptid, a.sid, a.pid, a.time, a.date, a.status, 
+    $sql = "SELECT a.aptid, a.sid, a.pid, a.time, s.date, a.status, 
                    d.did, u.uid AS doctor_uid, u.name AS doctor_name
             FROM appointment a
             JOIN session s ON a.sid = s.sid
             JOIN doctor d ON s.did = d.did
             JOIN user u ON d.uid = u.uid
-            WHERE a.date = '$date' AND a.status = '$status' AND a.pid = '$pid'";
+            WHERE s.date = '$date' AND a.status = '$status' AND a.pid = '$pid'
+            ORDER BY s.date DESC, a.time ASC";
 
     $result = mysqli_query($conn, $sql);
 
@@ -122,13 +125,14 @@ function getAppointmentsByDateAndStatusAndPId($date, $status, $pid)
 function getAppointmentsByDateAndPId($date, $pid)
 {
     $conn = initDB();
-    $sql = "SELECT a.aptid, a.sid, a.pid, a.time, a.date, a.status, 
+    $sql = "SELECT a.aptid, a.sid, a.pid, a.time, s.date, a.status, 
                    d.did, u.uid AS doctor_uid, u.name AS doctor_name
             FROM appointment a
             JOIN session s ON a.sid = s.sid
             JOIN doctor d ON s.did = d.did
             JOIN user u ON d.uid = u.uid
-            WHERE a.date = '$date' AND a.pid = '$pid'";
+            WHERE s.date = '$date' AND a.pid = '$pid'
+            ORDER BY s.date DESC, a.time ASC";
 
     $result = mysqli_query($conn, $sql);
 
@@ -155,13 +159,14 @@ function getAppointmentsByDateAndPId($date, $pid)
 function getAppointmentsByStatusAndPId($status, $pid)
 {
     $conn = initDB();
-    $sql = "SELECT a.aptid, a.sid, a.pid, a.time, a.date, a.status, 
+    $sql = "SELECT a.aptid, a.sid, a.pid, a.time, s.date, a.status, 
                    d.did, u.uid AS doctor_uid, u.name AS doctor_name
             FROM appointment a
             JOIN session s ON a.sid = s.sid
             JOIN doctor d ON s.did = d.did
             JOIN user u ON d.uid = u.uid
-            WHERE a.status = '$status' AND a.pid = '$pid'";
+            WHERE a.status = '$status' AND a.pid = '$pid'
+            ORDER BY s.date DESC, a.time ASC";
 
     $result = mysqli_query($conn, $sql);
 

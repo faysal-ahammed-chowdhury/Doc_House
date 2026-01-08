@@ -4,7 +4,9 @@ require_once "db.php";
 function getAllSessionByDId($did)
 {
     $conn = initDB();
-    $sql = "SELECT sid, did, date, start_time, end_time, slot_duration FROM session WHERE did='$did'";
+    $sql = "SELECT sid, did, date, start_time, end_time, slot_duration FROM session 
+            WHERE did='$did'
+            ORDER BY date, start_time";
     $result = mysqli_query($conn, $sql);
 
     $sessions = [];
