@@ -3,6 +3,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+require_once "../../middleware/authMiddleware.php";
+require_once "../../middleware/patientMiddleware.php";
 include_once "../../model/User.php";
 include_once "../../model/Patient.php";
 

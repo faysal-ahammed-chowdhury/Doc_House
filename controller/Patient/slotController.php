@@ -1,4 +1,6 @@
 <?php
+require_once "../../middleware/authMiddleware.php";
+require_once "../../middleware/patientMiddleware.php";
 include_once "../../model/Session.php";
 include_once "../../model/Appointment.php";
 
