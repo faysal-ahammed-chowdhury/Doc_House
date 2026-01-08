@@ -1,4 +1,5 @@
 <?php require_once "../../middleware/guestMiddleware.php";
+require_once "../../model/User.php";
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $_SESSION['loginErr'] = "Something is wrong! Try again.";
@@ -25,13 +26,24 @@ if (empty(trim($email)) || empty(trim($password))) {
 }
 
 // work with model here
-// patient dummy login approval
-$_SESSION['user'] = [
-    'role' => 'patient',
-    'name' => "Faysal Ahammed",
-    'email' => $email,
-    'pid' => '101',
-];
+$curUser = getUserByEmail($email);
+
+if (!isset($curUser['uid'])) {
+    $_SESSION['loginErr'] = "User not found";
+    header("Location: /Doc_House/view/Auth/login.php");
+    exit();
+}
+
+$valid = matchPassword($email, $password);
+
+if (!$valid) {
+    $_SESSION['loginErr'] = "Invalid Credentials";
+    header("Location: /Doc_House/view/Auth/login.php");
+    exit();
+}
+
+$_SESSION['user'] = $curUser;
+
 unset($_SESSION['old_email']);
 unset($_SESSION['loginErr']);
 header("Location: ../../view/Auth/login.php");

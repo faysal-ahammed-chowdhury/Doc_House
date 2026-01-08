@@ -1,6 +1,11 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once "../../middleware/authMiddleware.php";
 require_once "../../middleware/patientMiddleware.php";
+require_once "../../controller/Patient/profileController.php";
 ?>
 
 <!DOCTYPE html>
@@ -33,44 +38,65 @@ require_once "../../middleware/patientMiddleware.php";
             <div class="profile-card-and-info">
                 <form class="profile-card">
                     <div class="avatar">
-                        <img src="../images/dummy_patient.png" alt="Patient">
+                        <?php echo !empty($curUser['img']) ?
+                            '<img src="../images/dummy_patient.png" alt="Doctor">'
+                            : $curUser['name'][0] ?>
                     </div>
-                    <div class="name">Faysal Chowdhury</div>
-                    <p>Patient ID: #PAT-1024</p>
+                    <div class="name"><?php echo $curUser['name'] ?></div>
+                    <p style="margin-top: 7px;">Patient ID: #PAT-<?php echo $curUser['pid'] ?></p>
                 </form>
                 <div class="info">
-                    <form onsubmit="return handleUpdateProfile(this)" action="" method="POST" novalidate>
+                    <div
+                        <?php echo (isset($_SESSION['updateProfileErr']) && !empty($_SESSION['updateProfileErr'])) ? 'style="display: block;"' : 'style="display: none;"'; ?>
+                        class="error-box">
+                        <span class="error-text"><?php echo $_SESSION['updateProfileErr'] ?></span>
+                        <?php unset($_SESSION['updateProfileErr']); ?>
+                    </div>
+                    <div
+                        <?php echo (isset($_SESSION['updateProfileSuccess']) && !empty($_SESSION['updateProfileSuccess'])) ? 'style="display: block;"' : 'style="display: none;"'; ?>
+                        class="success-box">
+                        <span class="success-text"><?php echo $_SESSION['updateProfileSuccess'] ?></span>
+                        <?php unset($_SESSION['updateProfileSuccess']); ?>
+                    </div>
+                    <form onsubmit="return handleUpdateProfile(this)" action="../../controller/Patient/updateProfileController.php" method="POST" novalidate>
                         <div class="field two-field">
                             <div class="first">
                                 <label for="fullname">Name</label>
-                                <input type="text" id="fullname" name="fullname" value="Faysal Chowdhury">
+                                <input type="text" id="fullname" name="fullname" value="<?php echo $curUser['name'] ?>">
                                 <p class="error hidden" id="nameErrBox">Name is required</p>
                             </div>
                             <div class="second">
                                 <label for="email">Email</label>
-                                <input type="text" id="email" name="name" value="faysal@gmail.com" readonly>
+                                <input type="text" id="email" name="email" value="<?php echo $curUser['email'] ?>" readonly>
                             </div>
                         </div>
                         <div class="field two-field">
                             <div class="first">
                                 <label for="phone">Phone</label>
-                                <input type="text" id="phone" name="phone" value="01610137675">
+                                <input type="text" id="phone" name="phone" value="<?php echo $curUser['phone'] ?>">
                                 <p class="error hidden" id="phoneErrBox">Name is required</p>
                             </div>
                             <div class="second">
                                 <label for="dob">Date of Birth</label>
-                                <input type="date" id="dob" name="dob" value="2002-11-29">
+                                <input type="date" id="dob" name="dob" value="<?php echo $curUser['dob'] ?>">
                                 <p class="error hidden" id="dobErrBox">DOB is required</p>
                             </div>
                         </div>
-                        <div class="field">
-                            <label for="gender">Gender</label>
-                            <select name="gender" id="gender">
-                                <option value="">Select Gender</option>
-                                <option value="male" selected>Male</option>
-                                <option value="female">Female</option>
-                            </select>
-                            <p class="error hidden" id="genderErrBox">Gender is required</p>
+                        <div class="field two-field">
+                            <div class="first">
+                                <label for="gender">Gender</label>
+                                <select name="gender" id="gender">
+                                    <option value="">Select Gender</option>
+                                    <option value="male" <?php echo ($curUser['gender'] == "male") ? "selected" : ''; ?>>Male</option>
+                                    <option value="female" <?php echo ($curUser['gender'] == "female") ? "selected" : ''; ?>>Female</option>
+                                </select>
+                                <p class="error hidden" id="genderErrBox">Gender is required</p>
+                            </div>
+                            <div class="second">
+                                <label for="weight">Weight (KG)</label>
+                                <input type="number" id="weight" name="weight" value="<?php echo $curUser['weight'] ?>">
+                                <p class="error hidden" id="weightErrBox">Weight is required</p>
+                            </div>
                         </div>
 
                         <div class="field two-field">
