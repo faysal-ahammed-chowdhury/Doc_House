@@ -152,3 +152,19 @@ function loadAvailableSlots(selectBox) {
     );
   }
 }
+
+// profile edit and display
+const editBtn = document.getElementById("editProfileBtn");
+const cancelBtn = document.getElementById("cancelEditBtn");
+const displayMode = document.getElementById("displayMode");
+const editMode = document.getElementById("editMode");
+
+editBtn.addEventListener("click", () => {
+  displayMode.classList.add("hidden");
+  editMode.classList.remove("hidden");
+});
+
+cancelBtn.addEventListener("click", () => {
+  editMode.classList.add("hidden");
+  displayMode.classList.remove("hidden");
+});

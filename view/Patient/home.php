@@ -31,7 +31,7 @@ include_once "../../controller/Patient/specializationController.php";
     <section class="specialization-section">
         <div class="container">
             <div class="header">
-                <h2>Browse by Specialization</h2>
+                <h2>Specializations</h2>
                 <p class="gray-para">Select a category to view available doctors.</p>
             </div>
 
