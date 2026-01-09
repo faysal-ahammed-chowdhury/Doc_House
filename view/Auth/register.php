@@ -88,7 +88,7 @@
                             value="<?php
                                     echo (isset($_SESSION['regData']['dob']) && !empty($_SESSION['regData']['dob'])) ? $_SESSION['regData']['dob'] : "";
                                     unset($_SESSION['regData']['dob']);
-                                    ?>">
+                                    ?>" max="<?php echo date('Y-m-d'); ?>">
                         <p class="error hidden" id="dobErrBox">Date of Birth is required</p>
                     </div>
                     <div class="second">
@@ -103,6 +103,15 @@
                         </select>
                         <p class="error hidden" id="genderErrBox">Please select a gender</p>
                     </div>
+                </div>
+                <div class="field">
+                    <label for="weight">Weight <span class="red-star">*</span></label>
+                    <input type="number" id="weight" name="weight"
+                        value="<?php
+                                echo (isset($_SESSION['regData']['weight']) && !empty($_SESSION['regData']['weight'])) ? $_SESSION['regData']['weight'] : "";
+                                unset($_SESSION['regData']['weight']);
+                                ?>">
+                    <p class="error hidden" id="weightErrBox">Weight is required</p>
                 </div>
                 <div class="field">
                     <input class="submit-btn" type="submit" value="Register">

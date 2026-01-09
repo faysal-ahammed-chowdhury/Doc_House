@@ -79,7 +79,7 @@ include_once "../../controller/Patient/specializationController.php";
                                     <p><?php echo $singleDoc['specialization'] ?></p>
                                 </div>
                                 <div>
-                                    <a href="doctor_profile.php?DID=<?php echo $singleDoc['DID'] ?>" class="view-profile-btn" href="">View Profile / Book Appointment</a>
+                                    <a href="doctor_profile.php?DID=<?php echo $singleDoc['DID'] ?>" class="view-profile-btn" href="">View Profile</a>
                                 </div>
                             </div>
                         <?php

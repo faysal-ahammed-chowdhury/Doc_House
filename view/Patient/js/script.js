@@ -97,24 +97,6 @@ function handleUpdateProfile(pForm) {
   return ok;
 }
 
-function getData(url, callback) {
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", url);
-  xhr.send();
-
-  xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
-      callback(null, JSON.parse(xhr.response));
-    } else {
-      callback(new Error("Request failed with status " + xhr.status));
-    }
-  };
-
-  xhr.onerror = function () {
-    callback(new Error("Network error"));
-  };
-}
-
 function to12Hour(time24) {
   const [hourStr, minute, second] = time24.split(":");
   let hour = parseInt(hourStr);
@@ -123,6 +105,7 @@ function to12Hour(time24) {
   return hour + ":" + minute + " " + ampm;
 }
 
+// load slots for selected session
 function loadAvailableSlots(selectBox) {
   const slotBox = document.getElementById("slot");
   while (slotBox.children.length > 1) {
@@ -133,22 +116,147 @@ function loadAvailableSlots(selectBox) {
     const sesId = parseInt(selectBox.value.trim());
     // console.log("../../../controller/Patient/slotController.php?sid=" + sesId);
 
-    getData(
-      "/Doc_House/controller/Patient/slotController.php?sid=" + sesId,
-      function (err, data) {
-        if (err) {
-          alert(err);
-          console.error(err);
-          return;
-        }
-        for (let i = 0; i < data.length; i++) {
-          // console.log("here", data[i]);
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+      const data = JSON.parse(xhttp.response);
+      if (xhttp.status >= 200 && xhttp.status < 300) {
+        for (let i = 0; i < data.times.length; i++) {
+          // console.log("here", data.times[i]);
           const el = document.createElement("option");
-          el.value = data[i];
-          el.innerText = to12Hour(data[i]);
+          el.value = data.times[i];
+          el.innerText = to12Hour(data.times[i]);
           slotBox.appendChild(el);
         }
+      } else {
+        alert(data.message);
       }
+    };
+
+    xhttp.open(
+      "GET",
+      "/Doc_House/controller/Patient/slotController.php?sid=" + sesId
     );
+    xhttp.send();
   }
+}
+
+// profile edit and display
+function showDisplayMode() {
+  const displayMode = document.getElementById("displayMode");
+  const editMode = document.getElementById("editMode");
+  editMode.classList.add("hidden");
+  displayMode.classList.remove("hidden");
+}
+function showEditMode() {
+  const displayMode = document.getElementById("displayMode");
+  const editMode = document.getElementById("editMode");
+  displayMode.classList.add("hidden");
+  editMode.classList.remove("hidden");
+}
+
+// display toast message
+function showToast(message, type, duration = 3000) {
+  const toast = document.querySelector(".toast-box");
+  const msg = document.getElementById("toast-msg");
+
+  msg.innerText = message;
+  toast.classList.add("show");
+  toast.classList.add("toast-" + type);
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    toast.classList.remove("toast-" + type);
+  }, duration);
+}
+
+// cancel appointment
+function cancelAppointment(aptid) {
+  // console.log(aptid);
+  if (!isNaN(parseInt(aptid))) {
+    console.log(aptid);
+    aptid = parseInt(aptid);
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+      data = JSON.parse(xhttp.response);
+      console.log(data);
+
+      showToast(data.message, data.status, 5000);
+
+      if (data.status == "success") {
+        const el = document.getElementById("apt-" + aptid);
+        el.getElementsByClassName("status")[0].innerHTML = "CANCELLED";
+        el.getElementsByClassName("status")[0].classList.add("cancelled");
+        el.getElementsByClassName("status")[0].classList.remove("pending");
+        el.getElementsByClassName("actions")[0].innerHTML = "";
+      }
+    };
+
+    xhttp.open(
+      "POST",
+      "/Doc_House/controller/Patient/cancelAppointmentController.php"
+    );
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("aptid=" + aptid);
+  } else {
+    showAppointmentToast("Invalid Appointment ID", "warning", 5000);
+  }
+}
+
+// check valid time like 14:45:00
+function isValidTime(time) {
+  let arr = time.split(":");
+  if (arr.length != 3) return false;
+  let hour = arr[0];
+  let min = arr[1];
+  let sec = arr[2];
+
+  if (isNaN(parseInt(hour)) || isNaN(parseInt(min)) || isNaN(parseInt(sec)))
+    return false;
+
+  if (parseInt(hour) >= 24 || parseInt(min) >= 60 || parseInt(sec) >= 60)
+    return false;
+
+  if (parseInt(hour) < 0 || parseInt(min) < 0 || parseInt(sec) < 0)
+    return false;
+
+  return true;
+}
+
+// book appointment
+function bookAppointment(pForm) {
+  const sessionId = pForm.session.value.trim();
+  const timeSlot = pForm.slot.value.trim();
+  console.log(sessionId);
+  console.log(timeSlot);
+
+  if (sessionId == "" || timeSlot == "") {
+    showToast("Select a session and time slot", "warning", 5000);
+    return false;
+  }
+
+  if (isNaN(parseInt(sessionId))) {
+    showToast("Invalid Session", "error", 5000);
+    return false;
+  }
+
+  if (!isValidTime(timeSlot)) {
+    showToast("Invalid Time Slot", "error", 5000);
+    return false;
+  }
+
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    data = JSON.parse(xhttp.response);
+    console.log(data);
+    showToast(data.message, data.status, 5000);
+  };
+
+  xhttp.open(
+    "POST",
+    "/Doc_House/controller/Patient/bookAppointmentController.php"
+  );
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("sid=" + sessionId + "&timeSlot=" + timeSlot);
+
+  return false;
 }

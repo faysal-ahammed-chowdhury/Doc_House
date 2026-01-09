@@ -60,6 +60,10 @@ function handleRegister(pForm) {
   const gender = pForm.gender.value.trim();
   const genderErrorBox = document.getElementById("genderErrBox");
 
+  const weight = pForm.weight.value.trim();
+  const weightErrorBox = document.getElementById("weightErrBox");
+  console.log(weightErrorBox);
+
   let ok = true;
   // name
   if (name === "") {
@@ -139,6 +143,23 @@ function handleRegister(pForm) {
   } else {
     genderErrorBox.classList.add("hidden");
   }
+
+  // weight
+  // if (weight === "") {
+  //   ok = false;
+  //   weightErrorBox.innerText = "Weight is required";
+  //   weightErrorBox.classList.remove("hidden");
+  // } else if (isNaN(parseInt(weight))) {
+  //   ok = false;
+  //   weightErrorBox.innerText = "Weight can not be text";
+  //   weightErrorBox.classList.remove("hidden");
+  // } else if (parseInt(weight) < 0) {
+  //   ok = false;
+  //   weightErrorBox.innerText = "Weight can not be negative";
+  //   weightErrorBox.classList.remove("hidden");
+  // } else {
+  //   weightErrorBox.classList.add("hidden");
+  // }
 
   return ok;
 }

@@ -1,5 +1,5 @@
 <?php require_once "../../middleware/guestMiddleware.php";
-require_once "../../model/User.php";
+require_once "../../model/Patient/User.php";
 
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

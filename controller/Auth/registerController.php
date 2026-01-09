@@ -1,4 +1,9 @@
 <?php require_once "../../middleware/guestMiddleware.php";
+require_once "../../model/Patient/User.php";
+require_once "../../model/Patient/Patient.php";
+
+$emailRegex = '/^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$/';
+$phoneRegex = '/^[0-9]{11}$/';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $_SESSION['regErr'] = "Something is wrong! Try again.";
@@ -24,6 +29,7 @@ $password = trim($_POST['password']);
 $cpassword = trim($_POST['cpassword']);
 $dob = trim($_POST['dob']);
 $gender = trim($_POST['gender']);
+$weight = trim($_POST['weight']);
 
 $_SESSION['regData'] = [
     'name' => $name,
@@ -33,13 +39,26 @@ $_SESSION['regData'] = [
     'cpassword' => $cpassword,
     'dob' => $dob,
     'gender' => $gender,
+    'weight' => $weight,
 ];
 
 if (
     empty($name) || empty($email) || empty($phone) || empty($password) || empty($cpassword)
-    || empty($dob) || empty($gender)
+    || empty($dob) || empty($gender) || empty($weight)
 ) {
     $_SESSION['regErr'] = "Please fillup all the fields";
+    header("Location: /Doc_House/view/Auth/register.php");
+    exit();
+}
+
+if (!preg_match($emailRegex, $email)) {
+    $_SESSION['regErr'] = "Enter a valid Email";
+    header("Location: /Doc_House/view/Auth/register.php");
+    exit();
+}
+
+if (!preg_match($phoneRegex, $phone)) {
+    $_SESSION['regErr'] = "Enter a valid Phone Number";
     header("Location: /Doc_House/view/Auth/register.php");
     exit();
 }
@@ -62,9 +81,43 @@ if (!($gender == "male" || $gender == "female")) {
     exit();
 }
 
-// work with dob here
+if ($dob > date('Y-m-d')) {
+    $_SESSION['regErr'] = "Please select a valid Birth Date";
+    header("Location: /Doc_House/view/Auth/register.php");
+    exit();
+}
+
+if (!is_numeric($weight)) {
+    $_SESSION['regErr'] = "Please enter a valid Weight";
+    header("Location: /Doc_House/view/Auth/register.php");
+    exit();
+}
+
+$weight = (int)$weight;
+if ($weight < 0) {
+    $_SESSION['regErr'] = "Please enter a valid Weight";
+    header("Location: /Doc_House/view/Auth/register.php");
+    exit();
+}
 
 // work with model here
-echo "All Done";
+echo $email;
+$tmpUId = getUIdByEmail($email);
+if (isset($tmpUId)) {
+    $_SESSION['regErr'] = "Email is already registered";
+    header("Location: /Doc_House/view/Auth/register.php");
+    exit();
+}
+
+if (!addUser($name, $email, $password, $phone, 'patient', $dob)) {
+    $_SESSION['regErr'] = "Something went wrong try again";
+    header("Location: /Doc_House/view/Auth/register.php");
+    exit();
+}
+$tmpUId = getUIdByEmail($email);
+addPatient($tmpUId, $gender, $weight);
+
+$_SESSION['user'] = getUserByEmail($email);
 unset($_SESSION['regErr']);
 unset($_SESSION['regData']);
+header("Location: /Doc_House/view/Auth/register.php");
