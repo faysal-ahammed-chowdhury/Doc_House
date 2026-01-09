@@ -97,24 +97,6 @@ function handleUpdateProfile(pForm) {
   return ok;
 }
 
-function getData(url, callback) {
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", url);
-  xhr.send();
-
-  xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
-      callback(null, JSON.parse(xhr.response));
-    } else {
-      callback(new Error("Request failed with status " + xhr.status));
-    }
-  };
-
-  xhr.onerror = function () {
-    callback(new Error("Network error"));
-  };
-}
-
 function to12Hour(time24) {
   const [hourStr, minute, second] = time24.split(":");
   let hour = parseInt(hourStr);
@@ -133,38 +115,87 @@ function loadAvailableSlots(selectBox) {
     const sesId = parseInt(selectBox.value.trim());
     // console.log("../../../controller/Patient/slotController.php?sid=" + sesId);
 
-    getData(
-      "/Doc_House/controller/Patient/slotController.php?sid=" + sesId,
-      function (err, data) {
-        if (err) {
-          alert(err);
-          console.error(err);
-          return;
-        }
-        for (let i = 0; i < data.length; i++) {
-          // console.log("here", data[i]);
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+      const data = JSON.parse(xhttp.response);
+      if (xhttp.status >= 200 && xhttp.status < 300) {
+        for (let i = 0; i < data.times.length; i++) {
+          // console.log("here", data.times[i]);
           const el = document.createElement("option");
-          el.value = data[i];
-          el.innerText = to12Hour(data[i]);
+          el.value = data.times[i];
+          el.innerText = to12Hour(data.times[i]);
           slotBox.appendChild(el);
         }
+      } else {
+        alert(data.message);
       }
+    };
+
+    xhttp.open(
+      "GET",
+      "/Doc_House/controller/Patient/slotController.php?sid=" + sesId
     );
+    xhttp.send();
   }
 }
 
 // profile edit and display
-const editBtn = document.getElementById("editProfileBtn");
-const cancelBtn = document.getElementById("cancelEditBtn");
-const displayMode = document.getElementById("displayMode");
-const editMode = document.getElementById("editMode");
-
-editBtn.addEventListener("click", () => {
-  displayMode.classList.add("hidden");
-  editMode.classList.remove("hidden");
-});
-
-cancelBtn.addEventListener("click", () => {
+function showDisplayMode() {
+  const displayMode = document.getElementById("displayMode");
+  const editMode = document.getElementById("editMode");
   editMode.classList.add("hidden");
   displayMode.classList.remove("hidden");
-});
+}
+function showEditMode() {
+  const displayMode = document.getElementById("displayMode");
+  const editMode = document.getElementById("editMode");
+  displayMode.classList.add("hidden");
+  editMode.classList.remove("hidden");
+}
+
+function showAppointmentToast(message, type, duration = 3000) {
+  const toast = document.querySelector(".appointment-msg-box");
+  const msg = document.getElementById("appointment-msg");
+
+  msg.innerText = message;
+  toast.classList.add("show");
+  toast.classList.add("toast-" + type);
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    toast.classList.remove("toast-" + type);
+  }, duration);
+}
+
+// cancel appointment
+function cancelAppointment(aptid) {
+  // console.log(aptid);
+  if (!isNaN(parseInt(aptid))) {
+    console.log(aptid);
+    aptid = parseInt(aptid);
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+      data = JSON.parse(xhttp.response);
+      console.log(data);
+
+      showAppointmentToast(data.message, data.status, 5000);
+
+      if (data.status == "success") {
+        const el = document.getElementById(aptid);
+        el.getElementsByClassName("status")[0].innerHTML = "CANCELLED";
+        el.getElementsByClassName("status")[0].classList.add("cancelled");
+        el.getElementsByClassName("status")[0].classList.remove("pending");
+        el.getElementsByClassName("actions")[0].innerHTML = "";
+      }
+    };
+
+    xhttp.open(
+      "POST",
+      "/Doc_House/controller/Patient/cancelAppointmentController.php"
+    );
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("aptid=" + aptid);
+  } else {
+    showAppointmentToast("Invalid Appointment ID", "warning", 5000);
+  }
+}

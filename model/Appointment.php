@@ -1,6 +1,28 @@
 <?php
 require_once "db.php";
 
+function getAppointmentByAptId($aptid)
+{
+    $conn = initDB();
+    $sql = "SELECT aptid, sid, pid, time, status FROM appointment 
+            WHERE aptid='$aptid'";
+
+    $result = mysqli_query($conn, $sql);
+
+    $singleAppointment = [];
+    if (mysqli_num_rows($result) == 1) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $singleAppointment["aptid"] = $row["aptid"];
+            $singleAppointment["sid"] = $row["sid"];
+            $singleAppointment["pid"] = $row["pid"];
+            $singleAppointment["time"] = $row["time"];
+            $singleAppointment["status"] = $row["status"];
+        }
+    }
+
+    return $singleAppointment;
+}
+
 function getBookedAppointmentsBySId($sid)
 {
     $conn = initDB();
@@ -188,4 +210,34 @@ function getAppointmentsByStatusAndPId($status, $pid)
     }
 
     return $allAppointment;
+}
+
+function getPIdbyAptId($aptid)
+{
+    $conn = initDB();
+    $sql = "SELECT pid FROM appointment
+            WHERE aptid = '$aptid'";
+
+    $result = mysqli_query($conn, $sql);
+
+    $pid = "";
+    if (mysqli_num_rows($result) == 1) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $pid = $row["pid"];
+        }
+    }
+
+    return $pid;
+}
+
+function updateAppointmentStatus($aptid, $status)
+{
+    $conn = initDB();
+    $sql = "UPDATE appointment SET status='$status' WHERE aptid='$aptid'";
+
+    if ($conn->query($sql) === TRUE) {
+        return true;
+    } else {
+        return false;
+    }
 }

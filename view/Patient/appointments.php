@@ -76,16 +76,16 @@ require_once "../../controller/Patient/appointmentController.php";
                         } else {
                             foreach ($appointmentList as $singleAppointment) {
                             ?>
-                                <tr>
+                                <tr id="<?php echo $singleAppointment['aptid'] ?>">
                                     <td class="name"><?php echo $singleAppointment['doctor_name'] ?></td>
                                     <td class="date"><?php echo date("d-m-Y", strtotime($singleAppointment["date"])) ?></td>
                                     <td class="date"><?php echo date("h:i A", strtotime($singleAppointment["time"])); ?></td>
-                                    <td>
-                                        <span class="status <?php echo $singleAppointment['status'] ?>"><?php echo $singleAppointment['status'] ?></span>
+                                    <td class="status-td">
+                                        <span class="status <?php echo $singleAppointment['status'] ?>"><?php echo strtoupper($singleAppointment['status']) ?></span>
                                     </td>
                                     <td class="actions">
                                         <?php echo $singleAppointment['status'] == 'pending' ?
-                                            '<a class="cancel" href="">Cancel</a>' : '';
+                                            "<button onclick=\"cancelAppointment($singleAppointment[aptid])\" class=\"cancel\">Cancel</button>" : '';
                                         ?>
                                     </td>
                                 </tr>
@@ -96,9 +96,14 @@ require_once "../../controller/Patient/appointmentController.php";
                     </tbody>
                 </table>
             </div>
+            <div class="appointment-msg-box">
+                <p id="appointment-msg"></p>
+            </div>
         </div>
     </section>
     <?php include_once "../shared/footer.php" ?>
+
+    <script src="js/script.js"></script>
 </body>
 
 </html>

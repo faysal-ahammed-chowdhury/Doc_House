@@ -12,7 +12,7 @@ require_once "../../controller/Patient/doctorProfileController.php";
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Profile - Dr. Mehedi</title>
+	<title>Profile - <?php echo $doctor['name'] ?></title>
 	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -26,7 +26,7 @@ require_once "../../controller/Patient/doctorProfileController.php";
 	<section class="page-header">
 		<div class="container">
 			<h2>Doctor Profile</h2>
-			<p>Dr. Mehedi Hasan</p>
+			<p><?php echo $doctor['name'] ?></p>
 		</div>
 	</section>
 
