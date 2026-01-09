@@ -76,7 +76,7 @@ require_once "../../controller/Patient/appointmentController.php";
                         } else {
                             foreach ($appointmentList as $singleAppointment) {
                             ?>
-                                <tr id="<?php echo $singleAppointment['aptid'] ?>">
+                                <tr id="apt-<?php echo $singleAppointment['aptid'] ?>">
                                     <td class="name"><?php echo $singleAppointment['doctor_name'] ?></td>
                                     <td class="date"><?php echo date("d-m-Y", strtotime($singleAppointment["date"])) ?></td>
                                     <td class="date"><?php echo date("h:i A", strtotime($singleAppointment["time"])); ?></td>
@@ -96,9 +96,7 @@ require_once "../../controller/Patient/appointmentController.php";
                     </tbody>
                 </table>
             </div>
-            <div class="appointment-msg-box">
-                <p id="appointment-msg"></p>
-            </div>
+            <?php include_once "toast.php"; ?>
         </div>
     </section>
     <?php include_once "../shared/footer.php" ?>

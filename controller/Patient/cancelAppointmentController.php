@@ -33,10 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     exit();
 }
 
-
 if (!isset($_POST['aptid'])) {
     http_response_code(400);
-    echo json_encode([]);
+    echo json_encode([
+        "status" => "error",
+        "message" => "Provide an Appointment ID"
+    ]);
     exit();
 }
 

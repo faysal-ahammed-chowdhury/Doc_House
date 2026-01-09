@@ -33,16 +33,6 @@ if (!isset($_GET['sid'])) {
     exit();
 }
 
-$sessionExist = isSessionExistAndActive($_GET['sid']);
-if (!$sessionExist) {
-    http_response_code(400);
-    echo json_encode([
-        "status" => "error",
-        "message" => "Invalid Session Choosed"
-    ]);
-    exit();
-}
-
 $singleSession = getSessionBySId($_GET['sid']);
 if (!isset($singleSession['sid'])) {
     http_response_code(400);
@@ -53,11 +43,21 @@ if (!isset($singleSession['sid'])) {
     exit();
 }
 
+$sessionExist = isSessionExistAndActive($_GET['sid']);
+if (!$sessionExist) {
+    http_response_code(400);
+    echo json_encode([
+        "status" => "error",
+        "message" => "Session is not Open"
+    ]);
+    exit();
+}
+
 if (isOldSession($_GET['sid'])) {
     http_response_code(400);
     echo json_encode([
         "status" => "error",
-        "message" => "Invalid Session Choosed"
+        "message" => "Session Expired"
     ]);
     exit();
 }

@@ -1045,7 +1045,7 @@ td.actions a.delete:hover {
   color: #4db4fa !important;
 }
 
-.appointment-msg-box {
+.toast-box {
   position: fixed;
   top: 30px;
   right: 30px;
@@ -1068,7 +1068,7 @@ td.actions a.delete:hover {
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.appointment-msg-box.show {
+.toast-box.show {
   opacity: 1;
   visibility: visible;
   transform: translateX(0);
@@ -1086,11 +1086,11 @@ td.actions a.delete:hover {
   background-color: #ff9800;
 }
 
-.appointment-msg-box:hover {
+.toast-box:hover {
   filter: brightness(1.05);
 }
 
-#appointment-msg {
+#toast-msg {
   margin: 0;
   line-height: 1.5;
 }

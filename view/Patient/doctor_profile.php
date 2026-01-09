@@ -57,7 +57,7 @@ require_once "../../controller/Patient/doctorProfileController.php";
 					<?php
 					if ($isLoggedIn) {
 					?>
-						<form action="">
+						<form onsubmit="return bookAppointment(this)" action="" method="POST">
 							<div class="field">
 								<label for="session">Select Available Session </label>
 								<select onchange="loadAvailableSlots(this)" name="session" id="session">
@@ -96,6 +96,7 @@ require_once "../../controller/Patient/doctorProfileController.php";
 		</div>
 	</section>
 	<?php include_once "../shared/footer.php" ?>
+	<?php include_once "toast.php" ?>
 
 	<script src="js/script.js"></script>
 </body>

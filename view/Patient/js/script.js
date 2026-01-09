@@ -105,6 +105,7 @@ function to12Hour(time24) {
   return hour + ":" + minute + " " + ampm;
 }
 
+// load slots for selected session
 function loadAvailableSlots(selectBox) {
   const slotBox = document.getElementById("slot");
   while (slotBox.children.length > 1) {
@@ -153,9 +154,10 @@ function showEditMode() {
   editMode.classList.remove("hidden");
 }
 
-function showAppointmentToast(message, type, duration = 3000) {
-  const toast = document.querySelector(".appointment-msg-box");
-  const msg = document.getElementById("appointment-msg");
+// display toast message
+function showToast(message, type, duration = 3000) {
+  const toast = document.querySelector(".toast-box");
+  const msg = document.getElementById("toast-msg");
 
   msg.innerText = message;
   toast.classList.add("show");
@@ -178,10 +180,10 @@ function cancelAppointment(aptid) {
       data = JSON.parse(xhttp.response);
       console.log(data);
 
-      showAppointmentToast(data.message, data.status, 5000);
+      showToast(data.message, data.status, 5000);
 
       if (data.status == "success") {
-        const el = document.getElementById(aptid);
+        const el = document.getElementById("apt-" + aptid);
         el.getElementsByClassName("status")[0].innerHTML = "CANCELLED";
         el.getElementsByClassName("status")[0].classList.add("cancelled");
         el.getElementsByClassName("status")[0].classList.remove("pending");
@@ -198,4 +200,63 @@ function cancelAppointment(aptid) {
   } else {
     showAppointmentToast("Invalid Appointment ID", "warning", 5000);
   }
+}
+
+// check valid time like 14:45:00
+function isValidTime(time) {
+  let arr = time.split(":");
+  if (arr.length != 3) return false;
+  let hour = arr[0];
+  let min = arr[1];
+  let sec = arr[2];
+
+  if (isNaN(parseInt(hour)) || isNaN(parseInt(min)) || isNaN(parseInt(sec)))
+    return false;
+
+  if (parseInt(hour) >= 24 || parseInt(min) >= 60 || parseInt(sec) >= 60)
+    return false;
+
+  if (parseInt(hour) < 0 || parseInt(min) < 0 || parseInt(sec) < 0)
+    return false;
+
+  return true;
+}
+
+// book appointment
+function bookAppointment(pForm) {
+  const sessionId = pForm.session.value.trim();
+  const timeSlot = pForm.slot.value.trim();
+  console.log(sessionId);
+  console.log(timeSlot);
+
+  if (sessionId == "" || timeSlot == "") {
+    showToast("Select a session and time slot", "warning", 5000);
+    return false;
+  }
+
+  if (isNaN(parseInt(sessionId))) {
+    showToast("Invalid Session", "error", 5000);
+    return false;
+  }
+
+  if (!isValidTime(timeSlot)) {
+    showToast("Invalid Time Slot", "error", 5000);
+    return false;
+  }
+
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    data = JSON.parse(xhttp.response);
+    console.log(data);
+    showToast(data.message, data.status, 5000);
+  };
+
+  xhttp.open(
+    "POST",
+    "/Doc_House/controller/Patient/bookAppointmentController.php"
+  );
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("sid=" + sessionId + "&timeSlot=" + timeSlot);
+
+  return false;
 }
