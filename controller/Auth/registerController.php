@@ -1,6 +1,6 @@
 <?php require_once "../../middleware/guestMiddleware.php";
-require_once "../../model/User.php";
-require_once "../../model/Patient.php";
+require_once "../../model/Patient/User.php";
+require_once "../../model/Patient/Patient.php";
 
 $emailRegex = '/^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$/';
 $phoneRegex = '/^[0-9]{11}$/';

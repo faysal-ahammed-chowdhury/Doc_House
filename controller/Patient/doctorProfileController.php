@@ -1,8 +1,8 @@
 <?php
 // require_once "../../middleware/authMiddleware.php";
 // require_once "../../middleware/patientMiddleware.php";
-require_once "../../model/Doctor.php";
-require_once "../../model/Session.php";
+require_once "../../model/Patient/Doctor.php";
+require_once "../../model/Patient/Session.php";
 
 if ($_SERVER['REQUEST_METHOD'] != 'GET') {
     echo "Something went wrong";

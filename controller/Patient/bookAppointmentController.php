@@ -3,8 +3,8 @@ header('Content-Type: application/json');
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-require_once "../../model/Appointment.php";
-require_once "../../model/Session.php";
+require_once "../../model/Patient/Appointment.php";
+require_once "../../model/Patient/Session.php";
 
 
 if (!isset($_SESSION['user'])) {

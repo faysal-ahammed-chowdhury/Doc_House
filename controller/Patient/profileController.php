@@ -1,7 +1,7 @@
 <?php
 require_once "../../middleware/authMiddleware.php";
 require_once "../../middleware/patientMiddleware.php";
-include_once "../../model/Patient.php";
+include_once "../../model/Patient/Patient.php";
 
 $curUser = getPatientByPId($_SESSION['user']['pid']);
 

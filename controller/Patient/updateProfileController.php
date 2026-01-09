@@ -5,8 +5,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 require_once "../../middleware/authMiddleware.php";
 require_once "../../middleware/patientMiddleware.php";
-include_once "../../model/User.php";
-include_once "../../model/Patient.php";
+include_once "../../model/Patient/User.php";
+include_once "../../model/Patient/Patient.php";
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $_SESSION['updateProfileErr'] = "Something is wrong! Try again.";
