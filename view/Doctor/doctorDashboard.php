@@ -11,8 +11,8 @@
 <body>
 
     <?php 
-        $page = 'dashboard'; // This sets the active button
-        include 'header.php'; // This loads the menu
+        $page = 'dashboard'; 
+        include 'header.php'; 
     ?>
 
     <section class="page-header">
