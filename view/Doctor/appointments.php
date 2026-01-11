@@ -70,9 +70,6 @@
                                 <div class="time-text">09:00 AM</div>
                             </td>
                             <td><span class="status accepted">Accepted</span></td>
-                            <td class="actions">
-                                <a href="#" class="view"><i class="fa-solid fa-eye"></i></a>
-                            </td>
                         </tr>
 
                         <tr>
@@ -87,9 +84,6 @@
                                 <div class="time-text">02:00 PM</div>
                             </td>
                             <td><span class="status rejected">Rejected</span></td>
-                            <td class="actions">
-                                <a href="#" class="view"><i class="fa-solid fa-eye"></i></a>
-                            </td>
                         </tr>
 
                         <tr>
@@ -105,7 +99,6 @@
                             </td>
                             <td><span class="status pending">PENDING</span></td>
                             <td class="actions">
-                                <a href="#" class="view"><i class="fa-solid fa-eye"></i></a>
                                 <a href="#" class="accept"><i class="fa-solid fa-check"></i></a>
                                 <a href="#" class="cancel"><i class="fa-solid fa-xmark"></i></a>
                             </td>
