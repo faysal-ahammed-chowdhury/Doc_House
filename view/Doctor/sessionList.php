@@ -94,9 +94,6 @@
                                 <div class="p-name">Michael Ross</div>
                             </td>
                             <td><span class="status accepted">Accepted</span></td>
-                            <td class="actions">
-                                <a href="#" class="view"><i class="fa-solid fa-eye"></i></a>
-                            </td>
                         </tr>
 
                         <tr>
@@ -107,7 +104,6 @@
                             </td>
                             <td><span class="status pending">PENDING</span></td>
                             <td class="actions">
-                                <a href="#" class="view"><i class="fa-solid fa-eye"></i></a>
                                 <a href="#" class="accept"><i class="fa-solid fa-check"></i></a>
                                 <a href="#" class="cancel"><i class="fa-solid fa-xmark"></i></a>
                             </td>
