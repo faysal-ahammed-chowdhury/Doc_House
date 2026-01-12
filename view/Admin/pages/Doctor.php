@@ -1,9 +1,5 @@
 <?php
-    // session_start();    
-
-    // require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\ShowDoctorController.php";
     require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\SpecializationController.php";
-    require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\UserController.php";
     require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\DoctorController.php";
     
 ?>
@@ -152,22 +148,13 @@
                                                             $dataSpec = allSpecialization();
                                                         ?>
                                                         <i class="ri-stethoscope-line"></i>
-                                                        <!-- <select id="doc_specialization" name="doc_specialization" >
                                                             
-                                                            <option value="">Select specialization</option>
-                                                            <option value="Neurologist" 
-                                                                <?php echo (isset($_SESSION['specialization']) && $_SESSION['specialization'] == 'Neurologist') ? 'selected' : ''; 
-                                                                
-                                                                ?>
-                                                            >Neurologist</option>
-                                                            <option value="Cardiologist"
-                                                                <?php echo (isset($_SESSION['specialization']) && $_SESSION['specialization'] == 'Cardiologist') ? 'selected' : ''; 
-                                                                
-                                                                ?>
-                                                            >Cardiologist</option>
-                                                          
-                                                        </select> -->
-
+                                                            <?php echo (isset($_SESSION['specialization']) && $_SESSION['specialization'] == 'Neurologist') ? 'selected' : ''; 
+                                                            
+                                                            ?>
+                                                            <?php echo (isset($_SESSION['specialization']) && $_SESSION['specialization'] == 'Cardiologist') ? 'selected' : ''; 
+                                                            
+                                                            ?>
 
                                                         <select id="doc_specialization" name="doc_specialization">
                                                             <option value="">Select specialization</option>
