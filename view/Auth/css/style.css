@@ -181,3 +181,22 @@ form .other p a {
 .hidden {
   display: none;
 }
+
+.field input:focus,
+.field select:focus {
+  border-color: #4db4fa;
+  background-color: #fff;
+}
+
+.field .submit-btn:hover {
+  background-color: #35a0eb;
+}
+
+form .other p a:hover {
+  text-decoration: underline;
+  color: #35a0eb;
+}
+
+.box .left .content .logo:hover {
+  opacity: 0.8;
+}

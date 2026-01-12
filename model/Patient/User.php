@@ -27,6 +27,21 @@ function getUserByEmail($email)
     return $foundUser;
 }
 
+function getUIdByEmail($email)
+{
+    $conn = initDB();
+    $sql = "SELECT uid, name, dob, role FROM user WHERE email='$email'";
+    $result = mysqli_query($conn, $sql);
+
+    $uid = null;
+    if (mysqli_num_rows($result) == 1) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $uid = $row["uid"];
+        }
+    }
+    return $uid;
+}
+
 
 function matchPassword($email, $password)
 {
@@ -82,4 +97,13 @@ function updatePasswordByUid($uid, $password)
                 WHERE uid='$uid'";
 
     return mysqli_query($conn, $sqlUser);
+}
+
+function addUser($name, $email, $password, $phone, $role, $dob)
+{
+    $conn = initDB();
+    $sql = "INSERT INTO user (name, email, password, phone, role, dob)
+            VALUES ('$name', '$email', '$password', '$phone', '$role', '$dob')";
+
+    return mysqli_query($conn, $sql);
 }

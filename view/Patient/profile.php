@@ -58,7 +58,24 @@ require_once "../../controller/Patient/profileController.php";
                         <span class="success-text"><?php echo $_SESSION['updateProfileSuccess'] ?></span>
                         <?php unset($_SESSION['updateProfileSuccess']); ?>
                     </div>
-                    <form onsubmit="return handleUpdateProfile(this)" action="../../controller/Patient/updateProfileController.php" method="POST" novalidate>
+
+                    <div id="displayMode">
+                        <div class="field two-field">
+                            <div class="first"><strong>Name:</strong> <?php echo $curUser['name'] ?></div>
+                            <div class="second"><strong>Email:</strong> <?php echo $curUser['email'] ?></div>
+                        </div>
+                        <div class="field two-field">
+                            <div class="first"><strong>Phone:</strong> <?php echo $curUser['phone'] ?></div>
+                            <div class="second"><strong>Date of Birth:</strong> <?php echo $curUser['dob'] ?></div>
+                        </div>
+                        <div class="field two-field">
+                            <div class="first"><strong>Gender:</strong> <?php echo ucfirst($curUser['gender']) ?></div>
+                            <div class="second"><strong>Weight:</strong> <?php echo $curUser['weight'] ?> KG</div>
+                        </div>
+                        <button onclick="showEditMode()" class="submit-btn" id="editProfileBtn" type="button">Edit Profile</button>
+                    </div>
+
+                    <form id="editMode" class="hidden" onsubmit="return handleUpdateProfile(this)" action="../../controller/Patient/updateProfileController.php" method="POST" novalidate>
                         <div class="field two-field">
                             <div class="first">
                                 <label for="fullname">Name</label>
@@ -114,6 +131,7 @@ require_once "../../controller/Patient/profileController.php";
 
                         <div class="field">
                             <input class="submit-btn" type="submit" value="Update Profile">
+                            <button onclick="showDisplayMode()" type=" button" class="btn-reset" id="cancelEditBtn">Cancel</button>
                         </div>
                     </form>
                 </div>
