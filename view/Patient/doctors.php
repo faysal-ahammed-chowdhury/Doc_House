@@ -34,9 +34,18 @@ include_once "../../controller/Patient/specializationController.php";
         <div class="container">
             <div class="filter-bar">
                 <form action="" class="filter-form">
-                    <div class="field">
-                        <label for="doc_name">Doctor's Name:</label>
+                    <!-- <div class="field">
+                        <label for="doc_name">Doctor's Name</label>
                         <input type="text" id="doc_name" name="doc_name" value="<?php echo $docName; ?>" />
+                    </div> -->
+                    <div class="field">
+                        <label for="doc_name">Doctor's Name</label>
+                        <input list="doc_names" id="doc_name" name="doc_name" value="<?php echo $docName; ?>" />
+                        <datalist id="doc_names">
+                            <?php foreach ($allDoctorList as $singleDoc) { ?>
+                                <option value="<?php echo $singleDoc['name'] ?>" />
+                            <?php } ?>
+                        </datalist>
                     </div>
                     <div class="field">
                         <label for="doc_specialization">Specialization</label>

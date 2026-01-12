@@ -5,7 +5,7 @@ require_once "Patient.php";
 function getUserByEmail($email)
 {
     $conn = initDB();
-    $sql = "SELECT uid, name, dob, role FROM user WHERE email='$email'";
+    $sql = "SELECT uid, name, dob, role, img FROM user WHERE email='$email'";
     $result = mysqli_query($conn, $sql);
 
     $foundUser = [];
@@ -16,6 +16,7 @@ function getUserByEmail($email)
             $foundUser["email"] = $email;
             $foundUser["dob"] = $row["dob"];
             $foundUser["role"] = $row["role"];
+            $foundUser["img"] = $row["img"];
         }
     }
     return $foundUser;
@@ -100,4 +101,15 @@ function addUser($name, $email, $password, $phone, $role, $dob)
             VALUES ('$name', '$email', '$password', '$phone', '$role', '$dob')";
 
     return mysqli_query($conn, $sql);
+}
+
+
+function updateImgByUid($uid, $img_location)
+{
+    $conn = initDB();
+    $sqlUser = "UPDATE user 
+                SET img='$img_location' 
+                WHERE uid='$uid'";
+
+    return mysqli_query($conn, $sqlUser);
 }

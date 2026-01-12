@@ -128,7 +128,8 @@ function loadAvailableSlots(selectBox) {
           slotBox.appendChild(el);
         }
       } else {
-        alert(data.message);
+        // alert(data.message);
+        showToast(data.message, "warning");
       }
     };
 
