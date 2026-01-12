@@ -1,5 +1,13 @@
 <?php
-    session_start();   
+    require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\DoctorModel.php';
+    require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\SpecializationModel.php';
+    require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\UserModel.php';
+
+    function allDoctors()
+    {
+        return getAllDoctorsAdmin();
+    }
+
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $email = trim($_POST['doc_email']);
@@ -10,10 +18,12 @@
         $phone = trim($_POST['doc_phone']);
         $bio = trim($_POST['doc_bio']);
 
+
+
         $emailRegex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
 
         if (empty($email)) {
-            $_SESSION['emailError'] = 'Enter Your Email Address';
+            $_SESSION['emailError'] = 'Enter Your Email ';
             $_SESSION['openModal'] = true;
             header('Location: /Doc_House/view/Admin/pages/Doctor.php');
             exit;
@@ -133,5 +143,77 @@
             $_SESSION['openModal'] = true;
             header('Location: /Doc_House/view/Admin/pages/Doctor.php');
         }
+
+        $doctor = [
+            'email'          => trim($_POST['doc_email']),
+            'name'           => trim($_POST['doc_name']),
+            'pass'       => trim($_POST['doc_pass']),
+            'specialization' => trim($_POST['doc_specialization']),
+            'fee'            => trim($_POST['doc_fee']),
+            'phone'          => trim($_POST['doc_phone']),
+            'bio'            => trim($_POST['doc_bio']),
+        ];
+
+
+        $userData = [
+            'email'          => $email,
+            'name'           => $name,
+            'password'       => $pass,
+            'specialization' => $specialization,
+            'fee'            => $fee,
+            'phone'          => $phone,
+            'bio'            => $bio,
+            'role'           => 'admin',
+            'dob'            => '2002-10-10'
+        ];
+
+        $result = addUser($userData);
+
+
+        $uid  = getUserID($email);
+        $spid = getSpcID($specialization);
+
+
+        $doctorData = [
+            'uid'  => $uid,
+            'fee'  => $fee,
+            'bio'  => $bio,
+            'spid' => $spid
+        ];
+
+        $doctorResult = addDoctorAdmin($doctorData);
+
+
+
+        if ($doctorResult) {
+            unset(
+                $_SESSION['email'],
+                $_SESSION['pass'],
+                $_SESSION['name'],
+                $_SESSION['specialization'],
+                $_SESSION['fee'],
+                $_SESSION['phone'],
+                $_SESSION['bio'],
+                $_SESSION['emailError'],
+                $_SESSION['passError'],
+                $_SESSION['nameError'],
+                $_SESSION['specialError'],
+                $_SESSION['feeError'],
+                $_SESSION['phoneError'],
+                $_SESSION['bioError'],
+                $_SESSION['openModal']
+            );
+
+            // $_SESSION['toster'] = [
+            //     'message' => 'Doctor registered successfully!'
+            // ];
+
+            header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+            exit;
+        } else {
+            echo "Insert failed";
+        }
+
+
     }
 ?>

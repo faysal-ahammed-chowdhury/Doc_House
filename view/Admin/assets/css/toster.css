@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.toster-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.toster{
+    background-color: gray;
+    padding: 20px 40px;
+    border-radius: 3px;
+    /* max-width: 250px; */
+    display: inline-block;
+    text-align: center;
+    margin: 10px;
+    /* flex-grow: 1; */
+}

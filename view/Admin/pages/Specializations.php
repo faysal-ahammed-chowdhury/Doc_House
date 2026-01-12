@@ -1,3 +1,7 @@
+<?php
+    include_once "C:\\xampp\htdocs\Doc_House\controller\Admin\SpecializationController.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,24 +68,38 @@
             </div>
         </seection>
 
-        <section id="add_specialization" class="section">
-            <div class="filter-bar" id="doctorFilterBar">
 
-                <!-- Search Doctor -->
+
+        <section id="add_specialization" class="section">
+            <form class="filter-bar" id="specializationForm" action="../../../controller/Admin/SpecializationController.php" method="post" enctype="multipart/form-data">
+
                 <div class="filter-group">
-                    <label for="searchDoctor">New Specialization Name</label>
+                    <label for="specialization">New Specialization Name</label>
                     <input
-                    type="text"
-                    id="searchDoctor"
-                    class="filter-input"
-                    placeholder="e.g. Neurologist, Dentist..."
+                        type="text"
+                        id="specialization"
+                        name="specialization"
+                        class="filter-input"
+                        value="<?php
+                            echo (isset($_SESSION['specialization']) && !empty($_SESSION['specialization'])) ? $_SESSION['specialization'] : "";
+                            unset($_SESSION['specialization']);
+                        ?>"
+                        placeholder="e.g. Neurologist, Dentist..."
                     />
+                    <span class="error-message">
+                        <?php
+                        if (isset($_SESSION['specializationError'])) {
+                            echo $_SESSION['specializationError'];
+                            unset($_SESSION['specializationError']);
+                        }
+                        ?>
+                    </span>
                 </div>
 
                 <!-- Action Buttons -->
                 <div class="filter-actions">
                     <button
-                    type="button"
+                    type="submit"
                     class="btn btn-add"
                     id="applyDoctorFilter"
                     >
@@ -90,7 +108,7 @@
                     </button>
                 </div>
 
-            </div>
+            </form>
 
         </section>
 
@@ -123,6 +141,10 @@
                 </tr>
             </table>
         </section>
+
+
     </main>
+
+    <script src="../assets/js/specialization.js"></script>
 </body>
 </html>

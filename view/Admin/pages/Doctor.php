@@ -1,5 +1,11 @@
 <?php
-    session_start();    
+    // session_start();    
+
+    // require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\ShowDoctorController.php";
+    require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\SpecializationController.php";
+    require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\UserController.php";
+    require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\DoctorController.php";
+    
 ?>
 
 <!DOCTYPE html>
@@ -10,6 +16,7 @@
     <title>Doctor</title>
     <link rel="stylesheet" href="../assets/css/doctor.css">
     <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/toster.css">
 
     <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
@@ -19,8 +26,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body data-open-modal="<?php echo isset($_SESSION['openModal']) ? 'true' : 'false'; ?>">
-    <?php unset($_SESSION['openModal']); ?>
+<body data-open-modal="<?php echo ($_SESSION['openModal'] ?? false) ? 'true' : 'false'; ?>">
+<?php unset($_SESSION['openModal']); ?>
     
 
     <header>
@@ -96,7 +103,7 @@
                                                     <label for="doc_pass">Temporary Password</label>
                                                     <div class="input-wrapper">
                                                         <i class="ri-key-line"></i>
-                                                        <input id="doc_pass" name="doc_pass" type="test" value="<?php
+                                                        <input id="doc_pass" name="doc_pass" type="text" value="<?php
                                                             echo (isset($_SESSION['pass']) && !empty($_SESSION['pass'])) ? $_SESSION['pass'] : "";
                                                             unset($_SESSION['pass']);
                                                         ?>" placeholder="Create a strong password">
@@ -104,7 +111,7 @@
                                                             <?php
                                                             if (isset($_SESSION['passError'])) {
                                                                 echo $_SESSION['passError'];
-                                                                unset($_SESSION['passError']); // clear after showing
+                                                                unset($_SESSION['passError']);
                                                             }
                                                             ?>
                                                         </span>
@@ -131,7 +138,7 @@
                                                             <?php
                                                             if (isset($_SESSION['nameError'])) {
                                                                 echo $_SESSION['nameError'];
-                                                                unset($_SESSION['nameError']); // clear after showing
+                                                                unset($_SESSION['nameError']);
                                                             }
                                                             ?>
                                                         </span>
@@ -141,8 +148,11 @@
                                                 <div class="field">
                                                     <label for="doc_specialization">Specialization</label>
                                                     <div class="input-wrapper">
+                                                        <?php
+                                                            $dataSpec = allSpecialization();
+                                                        ?>
                                                         <i class="ri-stethoscope-line"></i>
-                                                        <select id="doc_specialization" name="doc_specialization" >
+                                                        <!-- <select id="doc_specialization" name="doc_specialization" >
                                                             
                                                             <option value="">Select specialization</option>
                                                             <option value="Neurologist" 
@@ -156,13 +166,30 @@
                                                                 ?>
                                                             >Cardiologist</option>
                                                           
+                                                        </select> -->
+
+
+                                                        <select id="doc_specialization" name="doc_specialization">
+                                                            <option value="">Select specialization</option>
+
+                                                            <?php foreach ($dataSpec as $d): ?>
+                                                                <option value="<?php echo htmlspecialchars($d['name']); ?>"
+                                                                    <?php 
+                                                                        // If session specialization matches, mark as selected
+                                                                        echo (isset($_SESSION['specialization']) && $_SESSION['specialization'] == $d['name']) ? 'selected' : ''; 
+                                                                    ?>
+                                                                >
+                                                                    <?php echo htmlspecialchars($d['name']); ?>
+                                                                </option>
+                                                            <?php endforeach; ?>
                                                         </select>
+
                                                         <?php unset($_SESSION['specialization']);?>
                                                         <span class="error-message">
                                                             <?php
                                                             if (isset($_SESSION['specialError'])) {
                                                                 echo $_SESSION['specialError'];
-                                                                unset($_SESSION['specialError']); // clear after showing
+                                                                unset($_SESSION['specialError']);
                                                             }
                                                             ?>
                                                         </span>
@@ -182,7 +209,7 @@
                                                             <?php
                                                             if (isset($_SESSION['feeError'])) {
                                                                 echo $_SESSION['feeError'];
-                                                                unset($_SESSION['feeError']); // clear after showing
+                                                                unset($_SESSION['feeError']);
                                                             }
                                                             ?>
                                                         </span>
@@ -203,7 +230,7 @@
                                                             <?php
                                                             if (isset($_SESSION['phoneError'])) {
                                                                 echo $_SESSION['phoneError'];
-                                                                unset($_SESSION['phoneError']); // clear after showing
+                                                                unset($_SESSION['phoneError']);
                                                             }
                                                             ?>
                                                         </span>
@@ -217,7 +244,7 @@
                                                     placeholder="Enter professional background, experience, and education details..."><?php
                                                         if (isset($_SESSION['bio'])) {
                                                             echo htmlspecialchars($_SESSION['bio']);
-                                                            unset($_SESSION['bio']); // clear after use
+                                                            unset($_SESSION['bio']);
                                                         }
                                                     ?>
                                                 </textarea>
@@ -226,7 +253,7 @@
                                                     <?php
                                                     if (isset($_SESSION['bioError'])) {
                                                         echo $_SESSION['bioError'];
-                                                        unset($_SESSION['bioError']); // clear after showing
+                                                        unset($_SESSION['bioError']);
                                                     }
                                                     ?>
                                                 </span>
@@ -240,7 +267,7 @@
                                         <div class="modal-action">
                                             <button type="button" class="close-btn"><i class="ri-close-large-line"></i> Close</button>
                                         </div>
-                                        <button type="submit" class="reg_button"><i class="ri-user-add-fill"></i> Register Doctor</button>
+                                        <input type="submit" value="Register Doctor" class="reg_button">
                                     </div>
                                 </div>
                             </form>
@@ -252,6 +279,7 @@
                 </div>
                 <hr>
             </div>
+
         </seection>
 
         <section id="search_doctor" class="section">
@@ -308,7 +336,20 @@
 
         </section>
 
+       <p>
+            <?php
+                if (isset($_SESSION['success']) && !empty($_SESSION['success'])) {
+                    echo $_SESSION['success'];
+                    unset($_SESSION['success']);
+                }
+            ?>
+        </p>
+
+
         <section id="table_section" class="section">
+            <?php
+                $dataDoc = allDoctors();
+            ?>
             <table>
                 <tr>
                     <th>DOCTOR</th>
@@ -317,29 +358,29 @@
                     <th>PHONE</th>
                     <th>ACTION</th>
                 </tr>
-                <tr>
-                    <td>
-                        Dr. Sarah Jenkins
-                    </td>
-                    <td>
-                        sarah@gmail.com
-                    </td>
-                    <td>
-                        Cardiologist
-                    </td>
-                    <td>
-                        +8801223598745
-                    </td>
-                    <td>
-                        <button id="edit_btn"><i class="ri-edit-2-fill"></i></button>
-                        <button id="delete_btn"><i class="ri-delete-bin-6-fill"></i></button>
-                    </td>
-                </tr>
+                <?php foreach ($dataDoc as $doctor): ?>
+                    <tr>
+                        <td>Dr. <?= htmlspecialchars($doctor['name']) ?></td>
+                        <td><?= htmlspecialchars($doctor['email']) ?></td>
+                        <td><?= htmlspecialchars($doctor['specialization']) ?></td>
+                        <td><?= htmlspecialchars($doctor['phone']) ?></td>
+                        <td>
+                            <button id="edit_btn" data-uid="<?= $doctor['uid'] ?>"><i class="ri-edit-2-fill"></i></button>
+                            <button id="delete_btn" data-uid="<?= $doctor['uid'] ?>"><i class="ri-delete-bin-6-fill"></i></button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </table>
+
+
         </section>
+
+
+
     </main>
 
 
     <script src="../assets/js/doctor_modal.js"></script>
+    <script src="../assets/js/toster.js"></script>
 </body>
 </html>
