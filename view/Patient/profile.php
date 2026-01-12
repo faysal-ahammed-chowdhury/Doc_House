@@ -36,14 +36,32 @@ require_once "../../controller/Patient/profileController.php";
     <section class="profile-section">
         <div class="container">
             <div class="profile-card-and-info">
-                <form class="profile-card">
+
+                <form action="/Doc_House/controller/Patient/profilePicUploadController.php"
+                    class="profile-card" method="POST" enctype="multipart/form-data">
+                    <div
+                        <?php echo (isset($_SESSION['picErr']) && !empty($_SESSION['picErr'])) ? 'style="display: block;"' : 'style="display: none;"'; ?>
+                        class="error-box">
+                        <span class="error-text"><?php echo $_SESSION['picErr'] ?></span>
+                        <?php unset($_SESSION['picErr']); ?>
+                    </div>
+                    <div
+                        <?php echo (isset($_SESSION['picSuccess']) && !empty($_SESSION['picSuccess'])) ? 'style="display: block;"' : 'style="display: none;"'; ?>
+                        class="success-box">
+                        <span class="success-text"><?php echo $_SESSION['picSuccess'] ?></span>
+                        <?php unset($_SESSION['picSuccess']); ?>
+                    </div>
                     <div class="avatar">
                         <?php echo !empty($curUser['img']) ?
-                            '<img src="../images/dummy_patient.png" alt="Doctor">'
-                            : $curUser['name'][0] ?>
+                            "<img src=\"$curUser[img]\" alt=\"Patient\">" : $curUser['name'][0] ?>
                     </div>
                     <div class="name"><?php echo $curUser['name'] ?></div>
                     <p style="margin-top: 7px;">Patient ID: #PAT-<?php echo $curUser['pid'] ?></p>
+                    <div class="thin-line"></div>
+                    <div class="profile-pic-box">
+                        <input type="file" name="profile_pic" id="profile-pic">
+                        <input class="btn" type="submit" value="Update Profile Picture">
+                    </div>
                 </form>
                 <div class="info">
                     <div

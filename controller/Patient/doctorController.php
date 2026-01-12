@@ -15,6 +15,7 @@ $docName = isset($_GET['doc_name']) ? $_GET['doc_name'] : '';
 $docSpecialityID = isset($_GET['specialization']) ? $_GET['specialization'] : '';
 
 $doctorList = [];
+$allDoctorList = getAllDoctors();
 
 if (!empty($docName) && !empty($docSpecialityID)) {
     $doctorList = getDoctorsByNameAndSpId($docName, $docSpecialityID);

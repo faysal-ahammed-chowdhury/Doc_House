@@ -35,13 +35,13 @@ require_once "../../controller/Patient/doctorProfileController.php";
 			<div class="doctor-info-and-book-appointment">
 				<div class="doctor-info">
 					<div class="doctor-hero">
-						<div class="avatar-frame">
+						<div class="avatar">
 							<?php echo !empty($doctor['img']) ?
 								"<img src=\"$doctor[img]\" alt=\"Doctor\">" : $doctor['name'][0] ?>
 						</div>
 						<div class="name-card">
-							<span class="spec-pill"><?php echo $doctor['specialization'] ?></span>
 							<h2><?php echo $doctor['name'] ?></h2>
+							<span class="spec-pill"><?php echo $doctor['specialization'] ?></span>
 						</div>
 					</div>
 
