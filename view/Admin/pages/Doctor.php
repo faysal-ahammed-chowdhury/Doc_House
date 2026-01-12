@@ -1,7 +1,10 @@
 <?php
-    session_start();    
-    // include_once "../assets/js/toster.js";
-    // require_once "../../../controller/Admin/ShowDoctorController.php";
+    // session_start();    
+
+    // require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\ShowDoctorController.php";
+    require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\SpecializationController.php";
+    require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\UserController.php";
+    require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\DoctorController.php";
     
 ?>
 
@@ -145,8 +148,11 @@
                                                 <div class="field">
                                                     <label for="doc_specialization">Specialization</label>
                                                     <div class="input-wrapper">
+                                                        <?php
+                                                            $dataSpec = allSpecialization();
+                                                        ?>
                                                         <i class="ri-stethoscope-line"></i>
-                                                        <select id="doc_specialization" name="doc_specialization" >
+                                                        <!-- <select id="doc_specialization" name="doc_specialization" >
                                                             
                                                             <option value="">Select specialization</option>
                                                             <option value="Neurologist" 
@@ -160,7 +166,24 @@
                                                                 ?>
                                                             >Cardiologist</option>
                                                           
+                                                        </select> -->
+
+
+                                                        <select id="doc_specialization" name="doc_specialization">
+                                                            <option value="">Select specialization</option>
+
+                                                            <?php foreach ($dataSpec as $d): ?>
+                                                                <option value="<?php echo htmlspecialchars($d['name']); ?>"
+                                                                    <?php 
+                                                                        // If session specialization matches, mark as selected
+                                                                        echo (isset($_SESSION['specialization']) && $_SESSION['specialization'] == $d['name']) ? 'selected' : ''; 
+                                                                    ?>
+                                                                >
+                                                                    <?php echo htmlspecialchars($d['name']); ?>
+                                                                </option>
+                                                            <?php endforeach; ?>
                                                         </select>
+
                                                         <?php unset($_SESSION['specialization']);?>
                                                         <span class="error-message">
                                                             <?php
@@ -324,6 +347,9 @@
 
 
         <section id="table_section" class="section">
+            <?php
+                $dataDoc = allDoctors();
+            ?>
             <table>
                 <tr>
                     <th>DOCTOR</th>
@@ -332,44 +358,21 @@
                     <th>PHONE</th>
                     <th>ACTION</th>
                 </tr>
-                <tr>
-                    <td>
-                        Dr. Sarah Jenkins
-                    </td>
-                    <td>
-                        sarah@gmail.com
-                    </td>
-                    <td>
-                        Cardiologist
-                    </td>
-                    <td>
-                        +8801223598745
-                    </td>
-                    <td>
-                        <button id="edit_btn"><i class="ri-edit-2-fill"></i></button>
-                        <button id="delete_btn"><i class="ri-delete-bin-6-fill"></i></button>
-                    </td>
-                </tr>
+                <?php foreach ($dataDoc as $doctor): ?>
+                    <tr>
+                        <td>Dr. <?= htmlspecialchars($doctor['name']) ?></td>
+                        <td><?= htmlspecialchars($doctor['email']) ?></td>
+                        <td><?= htmlspecialchars($doctor['specialization']) ?></td>
+                        <td><?= htmlspecialchars($doctor['phone']) ?></td>
+                        <td>
+                            <button id="edit_btn" data-uid="<?= $doctor['uid'] ?>"><i class="ri-edit-2-fill"></i></button>
+                            <button id="delete_btn" data-uid="<?= $doctor['uid'] ?>"><i class="ri-delete-bin-6-fill"></i></button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </table>
 
-                    <?php
-            // require_once "../../../model/Doctor.php";
-            // $data = getAllDoctors();
 
-            
-            // $data = showAllDoctor();
-
-            if(isset($data))
-                {
-                echo " Data";
-            }else
-            {
-                echo "No";
-            }
-
-            // var_dump($data);
-            echo count($data);
-        ?>
         </section>
 
 
