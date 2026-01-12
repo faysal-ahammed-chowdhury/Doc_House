@@ -1,5 +1,7 @@
 <?php
     session_start();   
+    include_once "../../model/Doctor.php";
+
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $email = trim($_POST['doc_email']);
@@ -10,10 +12,12 @@
         $phone = trim($_POST['doc_phone']);
         $bio = trim($_POST['doc_bio']);
 
+
+
         $emailRegex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
 
         if (empty($email)) {
-            $_SESSION['emailError'] = 'Enter Your Email Address';
+            $_SESSION['emailError'] = 'Enter Your Email ';
             $_SESSION['openModal'] = true;
             header('Location: /Doc_House/view/Admin/pages/Doctor.php');
             exit;
@@ -133,5 +137,70 @@
             $_SESSION['openModal'] = true;
             header('Location: /Doc_House/view/Admin/pages/Doctor.php');
         }
+
+        $doctor = [
+            'email'          => trim($_POST['doc_email']),
+            'name'           => trim($_POST['doc_name']),
+            'pass'       => trim($_POST['doc_pass']),
+            'specialization' => trim($_POST['doc_specialization']),
+            'fee'            => trim($_POST['doc_fee']),
+            'phone'          => trim($_POST['doc_phone']),
+            'bio'            => trim($_POST['doc_bio'])
+        ];
+
+        $add = addDoctor($doctor);
+
+        if ($add) {
+            unset(
+                $_SESSION['email'],
+                $_SESSION['pass'],
+                $_SESSION['name'],
+                $_SESSION['specialization'],
+                $_SESSION['fee'],
+                $_SESSION['phone'],
+                $_SESSION['bio'],
+                $_SESSION['emailError'],
+                $_SESSION['passError'],
+                $_SESSION['nameError'],
+                $_SESSION['specialError'],
+                $_SESSION['feeError'],
+                $_SESSION['phoneError'],
+                $_SESSION['bioError'],
+                $_SESSION['openModal']
+            );
+
+            // $_SESSION['toster'] = [
+            //     'message' => 'Doctor registered successfully!'
+            // ];
+
+            header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+            exit;
+        } else {
+            echo "Insert failed";
+        }
+
+        $allDoctor = getAllDoctors();
+        var_dump($allDoctor);
+
+
+
+        // $conn = mysqli_connect("localhost", "root", "", "doc_house");
+
+        // if (!$conn) {
+        //     die("Connection failed: " . mysqli_connect_error());
+        // }
+
+        // $sql = "INSERT INTO newTest (name, email, password, phone, role, dob)
+        //         VALUES ('$name', '$email', '$pass', '$phone', 'admin', 'two')";
+
+        // if (mysqli_query($conn, $sql)) {
+        //     echo "Success";
+        //     $_SESSION['openModal'] = false;
+        //     header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+        // } else {
+        //     echo "SQL Error: " . mysqli_error($conn);
+        // }
+
+
     }
 ?>

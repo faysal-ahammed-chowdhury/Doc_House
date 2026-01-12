@@ -1,5 +1,8 @@
 <?php
     session_start();    
+    // include_once "../assets/js/toster.js";
+    // require_once "../../../controller/Admin/ShowDoctorController.php";
+    
 ?>
 
 <!DOCTYPE html>
@@ -10,6 +13,7 @@
     <title>Doctor</title>
     <link rel="stylesheet" href="../assets/css/doctor.css">
     <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/toster.css">
 
     <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
@@ -19,8 +23,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body data-open-modal="<?php echo isset($_SESSION['openModal']) ? 'true' : 'false'; ?>">
-    <?php unset($_SESSION['openModal']); ?>
+<body data-open-modal="<?php echo ($_SESSION['openModal'] ?? false) ? 'true' : 'false'; ?>">
+<?php unset($_SESSION['openModal']); ?>
     
 
     <header>
@@ -96,7 +100,7 @@
                                                     <label for="doc_pass">Temporary Password</label>
                                                     <div class="input-wrapper">
                                                         <i class="ri-key-line"></i>
-                                                        <input id="doc_pass" name="doc_pass" type="test" value="<?php
+                                                        <input id="doc_pass" name="doc_pass" type="text" value="<?php
                                                             echo (isset($_SESSION['pass']) && !empty($_SESSION['pass'])) ? $_SESSION['pass'] : "";
                                                             unset($_SESSION['pass']);
                                                         ?>" placeholder="Create a strong password">
@@ -104,7 +108,7 @@
                                                             <?php
                                                             if (isset($_SESSION['passError'])) {
                                                                 echo $_SESSION['passError'];
-                                                                unset($_SESSION['passError']); // clear after showing
+                                                                unset($_SESSION['passError']);
                                                             }
                                                             ?>
                                                         </span>
@@ -131,7 +135,7 @@
                                                             <?php
                                                             if (isset($_SESSION['nameError'])) {
                                                                 echo $_SESSION['nameError'];
-                                                                unset($_SESSION['nameError']); // clear after showing
+                                                                unset($_SESSION['nameError']);
                                                             }
                                                             ?>
                                                         </span>
@@ -162,7 +166,7 @@
                                                             <?php
                                                             if (isset($_SESSION['specialError'])) {
                                                                 echo $_SESSION['specialError'];
-                                                                unset($_SESSION['specialError']); // clear after showing
+                                                                unset($_SESSION['specialError']);
                                                             }
                                                             ?>
                                                         </span>
@@ -182,7 +186,7 @@
                                                             <?php
                                                             if (isset($_SESSION['feeError'])) {
                                                                 echo $_SESSION['feeError'];
-                                                                unset($_SESSION['feeError']); // clear after showing
+                                                                unset($_SESSION['feeError']);
                                                             }
                                                             ?>
                                                         </span>
@@ -203,7 +207,7 @@
                                                             <?php
                                                             if (isset($_SESSION['phoneError'])) {
                                                                 echo $_SESSION['phoneError'];
-                                                                unset($_SESSION['phoneError']); // clear after showing
+                                                                unset($_SESSION['phoneError']);
                                                             }
                                                             ?>
                                                         </span>
@@ -217,7 +221,7 @@
                                                     placeholder="Enter professional background, experience, and education details..."><?php
                                                         if (isset($_SESSION['bio'])) {
                                                             echo htmlspecialchars($_SESSION['bio']);
-                                                            unset($_SESSION['bio']); // clear after use
+                                                            unset($_SESSION['bio']);
                                                         }
                                                     ?>
                                                 </textarea>
@@ -226,7 +230,7 @@
                                                     <?php
                                                     if (isset($_SESSION['bioError'])) {
                                                         echo $_SESSION['bioError'];
-                                                        unset($_SESSION['bioError']); // clear after showing
+                                                        unset($_SESSION['bioError']);
                                                     }
                                                     ?>
                                                 </span>
@@ -240,7 +244,7 @@
                                         <div class="modal-action">
                                             <button type="button" class="close-btn"><i class="ri-close-large-line"></i> Close</button>
                                         </div>
-                                        <button type="submit" class="reg_button"><i class="ri-user-add-fill"></i> Register Doctor</button>
+                                        <input type="submit" value="Register Doctor" class="reg_button">
                                     </div>
                                 </div>
                             </form>
@@ -252,6 +256,7 @@
                 </div>
                 <hr>
             </div>
+
         </seection>
 
         <section id="search_doctor" class="section">
@@ -308,6 +313,16 @@
 
         </section>
 
+       <p>
+            <?php
+                if (isset($_SESSION['success']) && !empty($_SESSION['success'])) {
+                    echo $_SESSION['success'];
+                    unset($_SESSION['success']);
+                }
+            ?>
+        </p>
+
+
         <section id="table_section" class="section">
             <table>
                 <tr>
@@ -336,10 +351,33 @@
                     </td>
                 </tr>
             </table>
+
+                    <?php
+            // require_once "../../../model/Doctor.php";
+            // $data = getAllDoctors();
+
+            
+            // $data = showAllDoctor();
+
+            if(isset($data))
+                {
+                echo " Data";
+            }else
+            {
+                echo "No";
+            }
+
+            // var_dump($data);
+            echo count($data);
+        ?>
         </section>
+
+
+
     </main>
 
 
     <script src="../assets/js/doctor_modal.js"></script>
+    <script src="../assets/js/toster.js"></script>
 </body>
 </html>
