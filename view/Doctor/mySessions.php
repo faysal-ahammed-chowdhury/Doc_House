@@ -1,9 +1,14 @@
+<?php 
+require_once "../../middleware/authMiddleware.php";
+require_once "../../middleware/doctorMiddleware.php";
+require_once "../../controller/Doctor/sessionController.php"; 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>My Sessions</title>
-    
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -23,12 +28,12 @@
 
     <section class="sessions-section">
         <div class="container">
-            
             <div class="sessions-grid">
                 
                 <div class="create-session-card">
                     <h3><i class="fa-solid fa-circle-plus"></i> Create Session</h3>
                     <form action="" method="POST">
+                        <input type="hidden" name="add_session" value="1">
                         <div class="field">
                             <label>Date</label>
                             <input type="date" name="date" class="form-control" required>
@@ -53,98 +58,72 @@
                         </div>
                         <button type="submit" class="add-session-btn">Add Session</button>
                     </form>
-                    <div class="info-box">
-                        <div class="icon"><i class="fa-solid fa-circle-info"></i></div>
-                        <div class="text">This will automatically generate appointment slots based on the duration you select.</div>
-                    </div>
                 </div>
 
                 <div class="session-lists-container">
                     
                     <div class="list-card">
                         <h3 class="card-title"><i class="fa-solid fa-calendar-check"></i> Upcoming Sessions</h3>
-                        
-                        <div class="session-item">
-                            <div class="date-block">
-                                <span class="day">30</span>
-                                <span class="month">DEC</span>
-                            </div>
-                            <div class="session-info">
-                                <h4>Session #SES-102</h4>
-                                <p><i class="fa-regular fa-clock"></i> 09:00 AM - 12:00 PM</p>
-                                <div class="badges">
-                                    <span class="badge time">15 Min Slots</span>
-                                    <span class="badge count">6 Booked</span>
+                        <?php if (empty($upcomingSessions)): ?>
+                            <p style="padding: 20px; color: #777;">No upcoming sessions.</p>
+                        <?php else: ?>
+                            <?php foreach ($upcomingSessions as $ses): ?>
+                                <div class="session-item">
+                                    <div class="date-block">
+                                        <span class="day"><?php echo date('d', strtotime($ses['date'])); ?></span>
+                                        <span class="month"><?php echo strtoupper(date('M', strtotime($ses['date']))); ?></span>
+                                    </div>
+                                    <div class="session-info">
+                                        <h4>Session #SES-<?php echo $ses['sid']; ?></h4>
+                                        <p><i class="fa-regular fa-clock"></i> 
+                                            <?php echo date('h:i A', strtotime($ses['start_time'])); ?> - 
+                                            <?php echo date('h:i A', strtotime($ses['end_time'])); ?>
+                                        </p>
+                                        <div class="badges">
+                                            <span class="badge time"><?php echo $ses['slot_duration']; ?> Min Slots</span>
+                                            <span class="badge count"><?php echo $ses['booked_count']; ?> Booked</span>
+                                        </div>
+                                    </div>
+                                    <div class="session-actions">
+                                        <a href="sessionList.php?sid=<?php echo $ses['sid']; ?>" class="btn-icon view"><i class="fa-solid fa-eye"></i></a>
+                                        <a href="mySession.php?delete_id=<?php echo $ses['sid']; ?>" class="btn-icon delete" onclick="return confirm('Delete this session?')"><i class="fa-solid fa-trash-can"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="session-actions">
-                                <a href="sessionList.php" class="btn-icon view"><i class="fa-solid fa-eye"></i></a>
-                                <a href="#" class="btn-icon delete"><i class="fa-solid fa-trash-can"></i></a>
-                            </div>
-                        </div>
-
-                        <div class="session-item">
-                            <div class="date-block">
-                                <span class="day">30</span>
-                                <span class="month">DEC</span>
-                            </div>
-                            <div class="session-info">
-                                <h4>Session #SES-102</h4>
-                                <p><i class="fa-regular fa-clock"></i> 02:00 PM - 05:00 PM</p>
-                                <div class="badges">
-                                    <span class="badge time">15 Min Slots</span>
-                                    <span class="badge count">6 Booked</span>
-                                </div>
-                            </div>
-                            <div class="session-actions">
-                                <a href="sessionList.php" class="btn-icon view"><i class="fa-solid fa-eye"></i></a>
-                                <a href="#" class="btn-icon delete"><i class="fa-solid fa-trash-can"></i></a>
-                            </div>
-                        </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
 
                     <div class="list-card">
                         <h3 class="card-title history"><i class="fa-solid fa-clock-rotate-left"></i> Past Sessions</h3>
-                        
-                        <div class="session-item">
-                            <div class="date-block">
-                                <span class="day">28</span>
-                                <span class="month">DEC</span>
-                            </div>
-                            <div class="session-info">
-                                <h4>Session #SES-101</h4>
-                                <p><i class="fa-regular fa-clock"></i> 09:00 AM - 12:00 PM</p>
-                                <div class="badges">
-                                    <span class="badge time">15 Min Slots</span>
-                                    <span class="badge count">6 Booked</span>
+                        <?php if (empty($pastSessions)): ?>
+                            <p style="padding: 20px; color: #777;">No past sessions.</p>
+                        <?php else: ?>
+                            <?php foreach ($pastSessions as $ses): ?>
+                                <div class="session-item">
+                                    <div class="date-block">
+                                        <span class="day"><?php echo date('d', strtotime($ses['date'])); ?></span>
+                                        <span class="month"><?php echo strtoupper(date('M', strtotime($ses['date']))); ?></span>
+                                    </div>
+                                    <div class="session-info">
+                                        <h4>Session #SES-<?php echo $ses['sid']; ?></h4>
+                                        <p><i class="fa-regular fa-clock"></i> 
+                                            <?php echo date('h:i A', strtotime($ses['start_time'])); ?> - 
+                                            <?php echo date('h:i A', strtotime($ses['end_time'])); ?>
+                                        </p>
+                                        <div class="badges">
+                                            <span class="badge count"><?php echo $ses['booked_count']; ?> Booked</span>
+                                        </div>
+                                    </div>
+                                    <div class="session-actions">
+                                        <a href="sessionList.php?sid=<?php echo $ses['sid']; ?>" class="btn-icon view"><i class="fa-solid fa-eye"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="session-actions">
-                                <a href="sessionList.php" class="btn-icon view"><i class="fa-solid fa-eye"></i></a>
-                            </div>
-                        </div>
-
-                        <div class="session-item">
-                            <div class="date-block">
-                                <span class="day">25</span>
-                                <span class="month">DEC</span>
-                            </div>
-                            <div class="session-info">
-                                <h4>Session #SES-099</h4>
-                                <p><i class="fa-regular fa-clock"></i> 10:00 AM - 01:00 PM</p>
-                                <div class="badges">
-                                    <span class="badge time">30 Min Slots</span>
-                                    <span class="badge count">4 Booked</span>
-                                </div>
-                            </div>
-                            <div class="session-actions">
-                                <a href="sessionList.php" class="btn-icon view"><i class="fa-solid fa-eye"></i></a>
-                            </div>
-                        </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
 
                 </div> 
-                </div>
+            </div>
         </div>
     </section>
 
