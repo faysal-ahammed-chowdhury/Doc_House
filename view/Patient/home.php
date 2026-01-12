@@ -44,7 +44,7 @@ include_once "../../controller/Patient/specializationController.php";
                     foreach ($allSpecializations as $signgleSpecialization) {
                     ?>
                         <a href="doctors.php?specialization=<?php echo $signgleSpecialization['spid'] ?>" class="specialty-card">
-                            <div class="icon-box"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <div class="icon-box"><i class="fa-solid fa-stethoscope"></i></div>
                             <h3><?php echo $signgleSpecialization["name"] ?></h3>
                         </a>
                     <?php

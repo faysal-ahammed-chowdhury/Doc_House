@@ -34,20 +34,35 @@ require_once "../../controller/Patient/doctorProfileController.php";
 		<div class="container">
 			<div class="doctor-info-and-book-appointment">
 				<div class="doctor-info">
-					<div class="avatar">
-						<?php echo !empty($doctor['img']) ?
-							'<img src="../images/dummy_doctor.png" alt="Doctor">'
-							: $doctor['name'][0] ?>
-					</div>
-					<div class="content">
-						<h2 class="name"><?php echo $doctor['name'] ?></h2>
-						<p class="specialization"><?php echo $doctor['specialization'] ?></p>
-						<div class="contact-info">
-							<p><i class="fas fa-phone"></i> <?php echo $doctor['phone'] ?></p>
-							<p><i class="fas fa-envelope"></i> <?php echo $doctor['email'] ?></p>
+					<div class="doctor-hero">
+						<div class="avatar-frame">
+							<?php echo !empty($doctor['img']) ?
+								"<img src=\"$doctor[img]\" alt=\"Doctor\">" : $doctor['name'][0] ?>
 						</div>
-						<p class="fee">Consultant Fee: <span class="tk"><?php echo $doctor['fee'] ?> Taka</span></p>
-						<p class="bio">
+						<div class="name-card">
+							<span class="spec-pill"><?php echo $doctor['specialization'] ?></span>
+							<h2><?php echo $doctor['name'] ?></h2>
+						</div>
+					</div>
+
+					<div class="detail-section">
+						<h4 class="detail-title">Professional Contact</h4>
+						<div class="contact-grid">
+							<div class="contact-box">
+								<i class="fas fa-phone"></i>
+								<label>Phone</label>
+								<span><?php echo $doctor['phone'] ?></span>
+							</div>
+							<div class="contact-box">
+								<i class="fas fa-envelope"></i>
+								<label>Email</label>
+								<span><?php echo $doctor['email'] ?></span>
+							</div>
+						</div>
+
+
+						<h4 class="detail-title">About the Specialist</h4>
+						<p class="bio-text">
 							<?php echo $doctor['bio'] ?>
 						</p>
 					</div>
@@ -78,6 +93,11 @@ require_once "../../controller/Patient/doctorProfileController.php";
 								<select name="slot" id="slot">
 									<option value="">Select a Slot</option>
 								</select>
+							</div>
+							<div class="thin-line"></div>
+							<div class="fee-box">
+								<h4>Consultation Fee</h4>
+								<h3><?php echo $doctor['fee'] ?> BDT</h3>
 							</div>
 							<input
 								class="primary-btn submit-btn"

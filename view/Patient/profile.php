@@ -130,8 +130,8 @@ require_once "../../controller/Patient/profileController.php";
                         </div>
 
                         <div class="field">
-                            <input class="submit-btn" type="submit" value="Update Profile">
                             <button onclick="showDisplayMode()" type=" button" class="btn-reset" id="cancelEditBtn">Cancel</button>
+                            <input class="submit-btn" type="submit" value="Update Profile">
                         </div>
                     </form>
                 </div>

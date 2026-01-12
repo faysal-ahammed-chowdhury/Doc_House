@@ -6,7 +6,7 @@ require_once "User.php";
 function getAllDoctors()
 {
     $conn = initDB();
-    $sql = "SELECT d.did, d.uid, d.spid, u.name AS doctor_name, s.name AS specialization_name
+    $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.name AS doctor_name, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
             INNER JOIN specialization s ON d.spid = s.spid";
@@ -19,9 +19,13 @@ function getAllDoctors()
             $doctor = [];
             $doctor["DID"] = $row["did"];
             $doctor["name"] = $row["doctor_name"];
+            $doctor["email"] = $row["email"];
+            $doctor["phone"] = $row["phone"];
+            $doctor["fee"] = $row["fee"];
             $doctor["specializationID"] = $row["spid"];
             $doctor["specialization"] = $row["specialization_name"];
-            $doctor["img"] = "";
+            $doctor["bio"] = $row["bio"];
+            $doctor["img"] = "../images/dummy_doctor.png";
 
             array_push($doctors, $doctor);
         }
@@ -30,10 +34,25 @@ function getAllDoctors()
     return $doctors;
 }
 
+function getDIdByUId($uid)
+{
+    $conn = initDB();
+    $sql = "SELECT did FROM doctor WHERE uid='$uid'";
+    $result = mysqli_query($conn, $sql);
+
+    $did = "";
+    if (mysqli_num_rows($result) == 1) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $did = $row["did"];
+        }
+    }
+    return $did;
+}
+
 function getDoctorsByName($name)
 {
     $conn = initDB();
-    $sql = "SELECT d.did, d.uid, d.spid, u.name AS doctor_name, s.name AS specialization_name
+    $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.name AS doctor_name, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
             INNER JOIN specialization s ON d.spid = s.spid
@@ -47,8 +66,12 @@ function getDoctorsByName($name)
             $doctor = [];
             $doctor["DID"] = $row["did"];
             $doctor["name"] = $row["doctor_name"];
+            $doctor["email"] = $row["email"];
+            $doctor["phone"] = $row["phone"];
+            $doctor["fee"] = $row["fee"];
             $doctor["specializationID"] = $row["spid"];
             $doctor["specialization"] = $row["specialization_name"];
+            $doctor["bio"] = $row["bio"];
             $doctor["img"] = "";
 
             array_push($doctors, $doctor);
@@ -62,7 +85,7 @@ function getDoctorsByName($name)
 function getDoctorsBySpId($spid)
 {
     $conn = initDB();
-    $sql = "SELECT d.did, d.uid, d.spid, u.name AS doctor_name, s.name AS specialization_name
+    $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.name AS doctor_name, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
             INNER JOIN specialization s ON d.spid = s.spid
@@ -76,8 +99,12 @@ function getDoctorsBySpId($spid)
             $doctor = [];
             $doctor["DID"] = $row["did"];
             $doctor["name"] = $row["doctor_name"];
+            $doctor["email"] = $row["email"];
+            $doctor["phone"] = $row["phone"];
+            $doctor["fee"] = $row["fee"];
             $doctor["specializationID"] = $row["spid"];
             $doctor["specialization"] = $row["specialization_name"];
+            $doctor["bio"] = $row["bio"];
             $doctor["img"] = "";
 
             array_push($doctors, $doctor);
@@ -91,7 +118,7 @@ function getDoctorsBySpId($spid)
 function getDoctorsByNameAndSpId($name, $spid)
 {
     $conn = initDB();
-    $sql = "SELECT d.did, d.uid, d.spid, u.name AS doctor_name, s.name AS specialization_name
+    $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.name AS doctor_name, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
             INNER JOIN specialization s ON d.spid = s.spid
@@ -106,8 +133,12 @@ function getDoctorsByNameAndSpId($name, $spid)
             $doctor = [];
             $doctor["DID"] = $row["did"];
             $doctor["name"] = $row["doctor_name"];
+            $doctor["email"] = $row["email"];
+            $doctor["phone"] = $row["phone"];
+            $doctor["fee"] = $row["fee"];
             $doctor["specializationID"] = $row["spid"];
             $doctor["specialization"] = $row["specialization_name"];
+            $doctor["bio"] = $row["bio"];
             $doctor["img"] = "";
 
             array_push($doctors, $doctor);

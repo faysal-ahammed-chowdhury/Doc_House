@@ -16,7 +16,7 @@ if (isset($_SESSION['user'])) {
         header("Location: /Doc_House/view/Patient/home.php");
         exit();
     } else if ($user['role'] == DOCTOR) {
-        header("Location: /Doc_House/view/Patient/home.php"); // will fix later
+        header("Location: /Doc_House/view/Doctor/dashboard.php");
         exit();
     }
 }
