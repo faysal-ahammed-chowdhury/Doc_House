@@ -6,7 +6,6 @@
         $conn = initDB();
         $sql = "INSERT INTO specialization (name) VALUES (
             '{$data['name']}'
-            -- '{$data['image']}'
         )";
 
         return mysqli_query($conn, $sql);
