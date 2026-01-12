@@ -1,4 +1,6 @@
 <?php
+require_once "../../middleware/authMiddleware.php";
+require_once "../../middleware/doctorMiddleware.php";
 require_once '../../model/Doctor/appointment_model.php';
 
 if (isset($_GET['id']) && isset($_GET['status'])) {
