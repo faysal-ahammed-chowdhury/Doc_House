@@ -32,11 +32,10 @@ include_once "../../controller/Patient/specializationController.php";
 
     <section class="doctor-and-filter-section">
         <div class="container">
-            <div class="doctor-and-filter">
-                <form action="" class="filter">
-                    <h3>Filter</h3>
+            <div class="filter-bar">
+                <form action="" class="filter-form">
                     <div class="field">
-                        <label for="doc_name">Name</label>
+                        <label for="doc_name">Doctor's Name:</label>
                         <input type="text" id="doc_name" name="doc_name" value="<?php echo $docName; ?>" />
                     </div>
                     <div class="field">
@@ -55,8 +54,13 @@ include_once "../../controller/Patient/specializationController.php";
                             ?>
                         </select>
                     </div>
-                    <input type="submit" value="Apply" class="filter-btn" />
+                    <button type="submit" class="btn-filter">
+                        <i class="fa-solid fa-filter"></i> Filter
+                    </button>
+                    <a href="/Doc_House/view/Patient/doctors.php" type="submit" class="btn-reset">Reset</a>
                 </form>
+            </div>
+            <div class="doctor-list">
                 <?php
                 if (count($doctorList) == 0) {
                 ?>
@@ -65,26 +69,37 @@ include_once "../../controller/Patient/specializationController.php";
                 } else {
                 ?>
                     <div class="doctors">
-                        <?php
-                        foreach ($doctorList as $singleDoc) {
-                        ?>
+                        <?php foreach ($doctorList as $singleDoc) { ?>
                             <div class="doc-card">
-                                <div class="info">
+                                <div class="card-head">
                                     <div class="avatar">
                                         <?php echo !empty($singleDoc['img']) ?
-                                            '<img src="../images/dummy_doctor.png" alt="Doctor">'
-                                            : $singleDoc['name'][0] ?>
+                                            "<img src=\"$singleDoc[img]\" alt=\"Doctor\">" : $singleDoc['name'][0] ?>
                                     </div>
-                                    <h3><?php echo $singleDoc['name'] ?></h3>
-                                    <p><?php echo $singleDoc['specialization'] ?></p>
+                                    <div class="doc-meta">
+                                        <h3><?php echo $singleDoc['name'] ?></h3>
+                                        <span class="spec-pill"><?php echo $singleDoc['specialization'] ?></span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <a href="doctor_profile.php?DID=<?php echo $singleDoc['DID'] ?>" class="view-profile-btn" href="">View Profile</a>
+
+                                <div class="info-stack">
+                                    <div class="stack-item">
+                                        <span class="label-text">Phone</span>
+                                        <span class="val-text"><?php echo $singleDoc['phone'] ?></span>
+                                    </div>
+                                    <div class="stack-item">
+                                        <span class="label-text">Email</span>
+                                        <span class="val-text"><?php echo $singleDoc['email'] ?></span>
+                                    </div>
+                                    <div class="stack-item fee-row">
+                                        <span class="label-text">Consultant Fee</span>
+                                        <span class="fee-highlight"><?php echo $singleDoc['fee'] ?> BDT</span>
+                                    </div>
                                 </div>
+
+                                <a href="doctor_profile.php?DID=<?php echo $singleDoc['DID'] ?>" class="view-profile-btn">Book Appointment</a>
                             </div>
-                        <?php
-                        }
-                        ?>
+                        <?php } ?>
                     </div>
                 <?php
                 }

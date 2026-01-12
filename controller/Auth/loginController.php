@@ -42,6 +42,12 @@ if (!$valid) {
     exit();
 }
 
+if ($curUser['role'] == 'doctor') {
+    $curUser["did"] = getDIdByUId($curUser["uid"]);
+} else if ($curUser['role'] == 'patient') {
+    $curUser["pid"] = getPIdByUId($curUser["uid"]);
+}
+
 $_SESSION['user'] = $curUser;
 
 unset($_SESSION['old_email']);

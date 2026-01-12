@@ -17,12 +17,6 @@ function getUserByEmail($email)
             $foundUser["dob"] = $row["dob"];
             $foundUser["role"] = $row["role"];
         }
-
-        if ($foundUser["role"] == 'patient') {
-            $foundUser["pid"] = getPIdByUId($foundUser["uid"]);
-        } else if ($foundUser["role"] == 'doctor') {
-        } else if ($foundUser["role"] == 'admin') {
-        }
     }
     return $foundUser;
 }
