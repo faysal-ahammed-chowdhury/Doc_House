@@ -6,7 +6,7 @@ require_once "User.php";
 function getAllDoctors()
 {
     $conn = initDB();
-    $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.name AS doctor_name, s.name AS specialization_name
+    $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.img, u.name AS doctor_name, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
             INNER JOIN specialization s ON d.spid = s.spid";
@@ -25,7 +25,7 @@ function getAllDoctors()
             $doctor["specializationID"] = $row["spid"];
             $doctor["specialization"] = $row["specialization_name"];
             $doctor["bio"] = $row["bio"];
-            $doctor["img"] = "../images/dummy_doctor.png";
+            $doctor["img"] = $row["img"];
 
             array_push($doctors, $doctor);
         }
@@ -52,7 +52,7 @@ function getDIdByUId($uid)
 function getDoctorsByName($name)
 {
     $conn = initDB();
-    $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.name AS doctor_name, s.name AS specialization_name
+    $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.img, u.name AS doctor_name, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
             INNER JOIN specialization s ON d.spid = s.spid
@@ -72,7 +72,7 @@ function getDoctorsByName($name)
             $doctor["specializationID"] = $row["spid"];
             $doctor["specialization"] = $row["specialization_name"];
             $doctor["bio"] = $row["bio"];
-            $doctor["img"] = "";
+            $doctor["img"] = $row["img"];
 
             array_push($doctors, $doctor);
         }
@@ -85,7 +85,7 @@ function getDoctorsByName($name)
 function getDoctorsBySpId($spid)
 {
     $conn = initDB();
-    $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.name AS doctor_name, s.name AS specialization_name
+    $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.img, u.name AS doctor_name, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
             INNER JOIN specialization s ON d.spid = s.spid
@@ -105,7 +105,7 @@ function getDoctorsBySpId($spid)
             $doctor["specializationID"] = $row["spid"];
             $doctor["specialization"] = $row["specialization_name"];
             $doctor["bio"] = $row["bio"];
-            $doctor["img"] = "";
+            $doctor["img"] = $row["img"];
 
             array_push($doctors, $doctor);
         }
@@ -118,7 +118,7 @@ function getDoctorsBySpId($spid)
 function getDoctorsByNameAndSpId($name, $spid)
 {
     $conn = initDB();
-    $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.name AS doctor_name, s.name AS specialization_name
+    $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.img, u.name AS doctor_name, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
             INNER JOIN specialization s ON d.spid = s.spid
@@ -139,7 +139,7 @@ function getDoctorsByNameAndSpId($name, $spid)
             $doctor["specializationID"] = $row["spid"];
             $doctor["specialization"] = $row["specialization_name"];
             $doctor["bio"] = $row["bio"];
-            $doctor["img"] = "";
+            $doctor["img"] = $row["img"];
 
             array_push($doctors, $doctor);
         }
@@ -153,7 +153,7 @@ function getDoctorsByNameAndSpId($name, $spid)
 function getDoctorsByDId($did)
 {
     $conn = initDB();
-    $sql = "SELECT d.did, d.uid, d.spid, d.fee, d.bio, u.name AS doctor_name, u.email, u.phone, s.name AS specialization_name
+    $sql = "SELECT d.did, d.uid, d.spid, d.fee, d.bio, u.img, u.name AS doctor_name, u.email, u.phone, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
             INNER JOIN specialization s ON d.spid = s.spid
@@ -172,7 +172,7 @@ function getDoctorsByDId($did)
             $doctor["specializationID"] = $row["spid"];
             $doctor["specialization"] = $row["specialization_name"];
             $doctor["bio"] = $row["bio"];
-            $doctor["img"] = "";
+            $doctor["img"] = $row["img"];
         }
     }
 
