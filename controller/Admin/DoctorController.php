@@ -1,6 +1,12 @@
 <?php
-    session_start();   
-    include_once "../../model/Doctor.php";
+    require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\DoctorModel.php';
+    require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\SpecializationModel.php';
+    require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\UserModel.php';
+
+    function allDoctors()
+    {
+        return getAllDoctorsAdmin();
+    }
 
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -145,12 +151,41 @@
             'specialization' => trim($_POST['doc_specialization']),
             'fee'            => trim($_POST['doc_fee']),
             'phone'          => trim($_POST['doc_phone']),
-            'bio'            => trim($_POST['doc_bio'])
+            'bio'            => trim($_POST['doc_bio']),
         ];
 
-        $add = addDoctor($doctor);
 
-        if ($add) {
+        $userData = [
+            'email'          => $email,
+            'name'           => $name,
+            'password'       => $pass,
+            'specialization' => $specialization,
+            'fee'            => $fee,
+            'phone'          => $phone,
+            'bio'            => $bio,
+            'role'           => 'admin',
+            'dob'            => '2002-10-10'
+        ];
+
+        $result = addUser($userData);
+
+
+        $uid  = getUserID($email);
+        $spid = getSpcID($specialization);
+
+
+        $doctorData = [
+            'uid'  => $uid,
+            'fee'  => $fee,
+            'bio'  => $bio,
+            'spid' => $spid
+        ];
+
+        $doctorResult = addDoctorAdmin($doctorData);
+
+
+
+        if ($doctorResult) {
             unset(
                 $_SESSION['email'],
                 $_SESSION['pass'],
@@ -178,28 +213,6 @@
         } else {
             echo "Insert failed";
         }
-
-        $allDoctor = getAllDoctors();
-        var_dump($allDoctor);
-
-
-
-        // $conn = mysqli_connect("localhost", "root", "", "doc_house");
-
-        // if (!$conn) {
-        //     die("Connection failed: " . mysqli_connect_error());
-        // }
-
-        // $sql = "INSERT INTO newTest (name, email, password, phone, role, dob)
-        //         VALUES ('$name', '$email', '$pass', '$phone', 'admin', 'two')";
-
-        // if (mysqli_query($conn, $sql)) {
-        //     echo "Success";
-        //     $_SESSION['openModal'] = false;
-        //     header('Location: /Doc_House/view/Admin/pages/Doctor.php');
-        // } else {
-        //     echo "SQL Error: " . mysqli_error($conn);
-        // }
 
 
     }
