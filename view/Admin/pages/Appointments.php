@@ -213,9 +213,9 @@
                                                                     <?php echo (isset($_SESSION['statusApp']) && $_SESSION['statusApp'] == 'Accepted') ? 'selected' : ''; ?>>
                                                                     Accepted
                                                                 </option>
-                                                                <option value="Panding"
-                                                                    <?php echo (isset($_SESSION['statusApp']) && $_SESSION['statusApp'] == 'Panding') ? 'selected' : ''; ?>>
-                                                                    Panding
+                                                                <option value="Pending"
+                                                                    <?php echo (isset($_SESSION['statusApp']) && $_SESSION['statusApp'] == 'Pending') ? 'selected' : ''; ?>>
+                                                                    Pending
                                                                 </option>
                                                                 <option value="Rejected"
                                                                     <?php echo (isset($_SESSION['statusApp']) && $_SESSION['statusApp'] == 'Rejected') ? 'selected' : ''; ?>>
@@ -299,8 +299,8 @@
                             name="appointmentStatus"
                         >
                             <option value="">All Status</option>
-                            <option value="Accept">Accept</option>
-                            <option value="Panding">Panding</option>
+                            <option value="Accepted">Accepted</option>
+                            <option value="Pending">Pending</option>
                             <option value="Rejected">Rejected</option>
                         </select>
                         </div>
@@ -397,5 +397,6 @@
     <script src="../assets/js/appointments_modal.js"></script>
     <script src="../assets/js/patient_search_ajax.js"></script>
     <script src="../assets/js/appointments_ajax.js"></script>
+    <script src="../assets/js/search_appointment.js"></script>
 </body>
 </html>

@@ -2,9 +2,7 @@ const doctorSelect  = document.getElementById('doc_name');
 const sessionSelect = document.getElementById('doc_total_time');
 const slotSelect    = document.getElementById('doc_available_slot');
 
-/* ============================
-   Doctor → Session
-============================ */
+
 doctorSelect.addEventListener('change', function () {
     const uid = this.value;
 
@@ -31,9 +29,7 @@ doctorSelect.addEventListener('change', function () {
     xhr.send('uid=' + encodeURIComponent(uid));
 });
 
-/* ============================
-   Session → Slot
-============================ */
+
 sessionSelect.addEventListener('change', function () {
     const sessionId = this.value;
 

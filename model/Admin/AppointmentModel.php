@@ -63,6 +63,75 @@
     }
 
 
+    function getFilteredAppointments($patient = '', $doctor = '', $status = '', $date = ''){
+        $conn = initDB();
+
+        $sql = "SELECT 
+            a.aptid,
+            a.time AS appointment_time,
+            a.status AS appointment_status,
+
+            p.pid AS patient_id,
+            u_patient.name AS patient_name,
+
+            d.did AS doctor_id,
+            u_doctor.name AS doctor_name,
+
+            s.sid AS session_id,
+            s.date AS session_date
+
+            FROM appointment a
+            JOIN patient p ON a.pid = p.pid
+            JOIN user u_patient ON p.uid = u_patient.uid
+
+            JOIN session s ON a.sid = s.sid
+            JOIN doctor d ON s.did = d.did
+            JOIN user u_doctor ON d.uid = u_doctor.uid
+
+            WHERE 1=1";
+
+        $params = [];
+
+        if ($status !== '') {
+            $sql .= " AND a.status = ?";
+            $params[] = $status;
+        }
+
+        if ($patient !== '') {
+            $sql .= " AND u_patient.name LIKE ?";
+            $params[] = "%$patient%";
+        }
+
+        if ($doctor !== '') {
+            $sql .= " AND u_doctor.name LIKE ?";
+            $params[] = "%$doctor%";
+        }
+
+        
+
+        if ($date !== '') {
+            $sql .= " AND s.date = ?";
+            $params[] = $date;
+        }
+
+        $sql .= " ORDER BY a.aptid DESC";
+
+        $stmt = mysqli_prepare($conn, $sql);
+
+        if (!empty($params)) {
+            $types = str_repeat('s', count($params));
+            mysqli_stmt_bind_param($stmt, $types, ...$params);
+        }
+
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+
+
+
 
     function searchPatientsByUser($keyword) {
         $conn = initDB();

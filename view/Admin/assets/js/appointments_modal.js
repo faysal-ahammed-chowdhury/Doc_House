@@ -111,67 +111,11 @@ appointmentForm.addEventListener("submit", (e) => {
 });
 
 
-doctorFilterBar.addEventListener('submit', (e) => {
 
-    e.preventDefault();
-    let valid = true;
 
-    const pName = document.getElementById('pName');
-    const dName = document.getElementById('dName');
-    const status = document.getElementById('appointmentStatus');
-    const date = document.getElementById('date');
 
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
-    console.log(status.value);
 
-    if (!pName.value.trim()) {
-        showError(pName, "Enter Patient Name");
-        valid = false;
-        return;
-    } else {
-        clearError(pName);
-        valid = true;
-    }
 
-    if (!dName.value.trim()) {
-        showError(dName, "Enter Doctor Name");
-        valid = false;
-        return;
-    } else {
-        clearError(dName);
-        valid = true;
-    }
-
-    if (!status.value.trim()) {
-        showError(status, "Select Status");
-        valid = false;
-        return;
-    } else {
-        clearError(status);
-        valid = true;
-    }
-
-    if (!date.value.trim()) {
-        showError(date, "Enter Appointment Date");
-        valid = false;
-        return;
-    }
-    else if (!dateRegex.test(date.value.trim())) {
-        showError(date, `Enter a Valid Date`);
-        valid = false;
-        return;
-    }
-    else {
-        clearError(date);
-        valid = true;
-    }
-
-    if(valid)
-    {
-        doctorFilterBar.submit();
-    }
-
-})
 
 
