@@ -20,6 +20,50 @@
     }
 
 
+    function getAppointments()
+    {
+        $conn = initDB();
+
+        $sql = "SELECT 
+            a.aptid,
+            a.time AS appointment_time,
+            a.status AS appointment_status,
+            p.pid AS patient_id,
+            u_patient.name AS patient_name,
+            d.did AS doctor_id,
+            u_doctor.name AS doctor_name,
+            d.uid AS doctor_uid,
+            d.fee AS doctor_fee,
+            d.bio AS doctor_bio,
+            d.spid AS doctor_specialization_id,
+            s.sid AS session_id,
+            s.date AS session_date,
+            s.start_time AS session_start_time,
+            s.end_time AS session_end_time,
+            s.slot_duration AS session_slot_duration
+        FROM appointment a
+        JOIN patient p ON a.pid = p.pid
+        JOIN user u_patient ON p.uid = u_patient.uid
+        JOIN session s ON a.sid = s.sid
+        JOIN doctor d ON s.did = d.did
+        JOIN user u_doctor ON d.uid = u_doctor.uid
+        ORDER BY a.aptid DESC";
+
+        $result = mysqli_query($conn, $sql);
+
+        $appointments = [];
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $appointments[] = $row;
+            }
+        }
+
+        return $appointments;
+    }
+
+
+
     function searchPatientsByUser($keyword) {
         $conn = initDB();
 

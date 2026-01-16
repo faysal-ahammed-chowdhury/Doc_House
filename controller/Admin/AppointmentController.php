@@ -3,6 +3,12 @@
     require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\SessionModel.php';
     session_start();
 
+    function getAppointmentsData()
+    {
+        $data = getAppointments();
+        return $data;
+    }
+
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $patientName = trim($_POST['patient_name']);
         $docName = trim($_POST['doc_name']);

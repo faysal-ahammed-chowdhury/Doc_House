@@ -1,7 +1,7 @@
 <?php
     require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\DoctorController.php";
+    require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\AppointmentController.php";
     require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\AppointmentModel.php';
-    session_start();    
 ?>
 
 <!DOCTYPE html>
@@ -343,82 +343,54 @@
 
             <section id="table_section" class="section">
                 <h1>Recent Appointments</h1>
+                <?php
+                    $appointments = getAppointmentsData();
+                ?>
                 <table>
                     <tr>
-                        <th>APTID</th>
                         <th>PATIENT</th>
                         <th>DOCTOR</th>
                         <th>SCHEDULE</th>
                         <th>STATUS</th>
                         <th>ACTION</th>
                     </tr>
-                    <tr>
-                        <td>1024</td>
-                        <td>
-                            <div>
+
+                    <?php foreach ($appointments as $apt): ?>
+                        <tr>
+                            <td>
                                 <div>
-                                    <h4>JD</h4>
+                                    <div>
+                                        <h4><?= substr($apt['patient_name'], 0, 2) ?></h4>
+                                    </div>
+                                    <div>
+                                        <h4><?= htmlspecialchars($apt['patient_name']) ?></h4>
+                                        <p>PID-<?= $apt['patient_id'] ?></p>
+                                    </div>
                                 </div>
+                            </td>
+                            <td>
                                 <div>
-                                    <h4>John Doe</h4>
-                                    <p>PID-501</p>
+                                    <h4><?= htmlspecialchars($apt['doctor_name']) ?></h4>
+                                    <p>DID-<?= $apt['doctor_id'] ?></p>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <h4>Dr. Sarah Jenkins</h4>
-                                <p>DID-882</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <h4>Dec 30, 2025</h4>
-                                <p>10:00 AM (SIS-102)</p>
-                            </div>
-                        </td>
-                        <td>
-                            <p>Accept</p>
-                        </td>
-                        <td>
-                            <button id="edit_btn"><i class="ri-edit-2-fill"></i></button>
-                            <button id="delete_btn"><i class="ri-delete-bin-6-fill"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1024</td>
-                        <td>
-                            <div>
+                            </td>
+                            <td>
                                 <div>
-                                    <h4>JD</h4>
+                                    <h4><?= date("M d, Y", strtotime($apt['session_date'])) ?></h4>
+                                    <p><?= date("h:i A", strtotime($apt['appointment_time'])) ?> (SIS-<?= $apt['session_id'] ?>)</p>
                                 </div>
-                                <div>
-                                    <h4>John Doe</h4>
-                                    <p>PID-501</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <h4>Dr. Sarah Jenkins</h4>
-                                <p>DID-882</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <h4>Dec 30, 2025</h4>
-                                <p>10:00 AM (SIS-102)</p>
-                            </div>
-                        </td>
-                        <td>
-                            <p>Accept</p>
-                        </td>
-                        <td>
-                            <button id="edit_btn"><i class="ri-edit-2-fill"></i></button>
-                            <button id="delete_btn"><i class="ri-delete-bin-6-fill"></i></button>
-                        </td>
-                    </tr>
+                            </td>
+                            <td>
+                                <p><?= ucfirst($apt['appointment_status']) ?></p>
+                            </td>
+                            <td>
+                                <button id="edit_btn" data-aptid="<?= $apt['aptid'] ?>"><i class="ri-edit-2-fill"></i></button>
+                                <button id="delete_btn" data-aptid="<?= $apt['aptid'] ?>"><i class="ri-delete-bin-6-fill"></i></button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </table>
+
             </section>
         </main>
 
