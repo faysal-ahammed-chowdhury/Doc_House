@@ -163,7 +163,7 @@
             'fee'            => $fee,
             'phone'          => $phone,
             'bio'            => $bio,
-            'role'           => 'admin',
+            'role'           => 'doctor',
             'dob'            => '2002-10-10'
         ];
 
@@ -203,10 +203,6 @@
                 $_SESSION['bioError'],
                 $_SESSION['openModal']
             );
-
-            // $_SESSION['toster'] = [
-            //     'message' => 'Doctor registered successfully!'
-            // ];
 
             header('Location: /Doc_House/view/Admin/pages/Doctor.php');
             exit;

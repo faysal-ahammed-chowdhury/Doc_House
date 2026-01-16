@@ -2,21 +2,21 @@
     require_once "C:\\xampp\htdocs\Doc_House\model\db.php";
 
 
-function addDoctorAdmin($data)
-{
-    $conn = initDB();
+    function addDoctorAdmin($data)
+    {
+        $conn = initDB();
 
-    $uid  = (int)$data['uid'];
-    $fee  = (float)$data['fee'];
-    $bio  = mysqli_real_escape_string($conn, $data['bio']);
-    $spid = (int)$data['spid'];
+        $uid  = (int)$data['uid'];
+        $fee  = (float)$data['fee'];
+        $bio  = mysqli_real_escape_string($conn, $data['bio']);
+        $spid = (int)$data['spid'];
 
-    $sql = "INSERT INTO doctor (uid, fee, bio, spid)
-            VALUES ($uid, $fee, '$bio', $spid)";
+        $sql = "INSERT INTO doctor (uid, fee, bio, spid)
+                VALUES ($uid, $fee, '$bio', $spid)";
 
 
-    return mysqli_query($conn, $sql);
-}
+        return mysqli_query($conn, $sql);
+    }
 
 
 
