@@ -64,16 +64,13 @@ appointmentForm.addEventListener("submit", (e) => {
     const availableSlot = document.getElementById("doc_available_slot");
     const status = document.getElementById("status");
 
-
     if (!patientName.value.trim()) {
         showError(patientName, "Enter Patient Name");
         valid = false;
         return;
     } else {
         clearError(patientName);
-        valid = true;
     }
-
 
     if (!doctorName.value.trim()) {
         showError(doctorName, "Select Doctor Name");
@@ -81,9 +78,7 @@ appointmentForm.addEventListener("submit", (e) => {
         return;
     } else {
         clearError(doctorName);
-        valid = true;
     }
-
 
     if (!totalTime.value.trim()) {
         showError(totalTime, "Select Available Session");
@@ -91,9 +86,7 @@ appointmentForm.addEventListener("submit", (e) => {
         return;
     } else {
         clearError(totalTime);
-        valid = true;
     }
-
 
     if (!availableSlot.value.trim()) {
         showError(availableSlot, "Select Available Slot");
@@ -101,9 +94,7 @@ appointmentForm.addEventListener("submit", (e) => {
         return;
     } else {
         clearError(availableSlot);
-        valid = true;
     }
-
 
     if (!status.value.trim()) {
         showError(status, "Select Appointment Status");
@@ -111,9 +102,12 @@ appointmentForm.addEventListener("submit", (e) => {
         return;
     } else {
         clearError(status);
-        valid = true;
     }
 
+
+    if (valid) {
+        appointmentForm.submit();
+    }
 });
 
 
@@ -171,6 +165,11 @@ doctorFilterBar.addEventListener('submit', (e) => {
     else {
         clearError(date);
         valid = true;
+    }
+
+    if(valid)
+    {
+        doctorFilterBar.submit();
     }
 
 })
