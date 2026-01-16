@@ -1,12 +1,16 @@
 <?php
+    require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\AppointmentModel.php';
+    require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\SessionModel.php';
     session_start();
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $patientName = trim($_POST['patient_name']);
         $docName = trim($_POST['doc_name']);
-        $docTotalTime = trim($POST['doc_total_time']);
+        $docTotalTime = trim($_POST['doc_total_time']);
         $docAvailableSlot = trim($_POST['doc_available_slot']);
         $status = trim($_POST['status']);
+
+        $pid  = (int)$_POST['patient_id'];
         
 
         if(empty($patientName)){
@@ -71,7 +75,37 @@
             $_SESSION['statusApp'] = $status;
             $_SESSION['openModal'] = true;
             header('Location: /Doc_House/view/Admin/pages/Appointments.php');
+        }
+
+        $timeParts = explode('-', $docAvailableSlot);
+        $time = $timeParts[0];
+
+        $sid = getSessionIDByDID($docTotalTime);
+
+
+        $data = [
+            'sid' => $sid,
+            'pid' => $pid,
+            'time' => $time,
+            'status' => $status
+        ];
+
+        $result = addAppointment($data);
+
+        if($result)
+        {
+            unset(
+                $_SESSION['patientNameApp'],
+                $_SESSION['docNameApp'],
+                $_SESSION['docTotalTimeApp'],
+                $_SESSION['docAvailableSlotApp'],
+                $_SESSION['statusApp'],
+                $_SESSION['openModal'],
+            );
+
+            header('Location: /Doc_House/view/Admin/pages/Appointments.php');
             exit;
         }
+
     }
 ?>
