@@ -1,4 +1,6 @@
 <?php
+    require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\DoctorController.php";
+    require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\AppointmentModel.php';
     session_start();    
 ?>
 
@@ -51,7 +53,7 @@
         </header>
 
         <main>
-            <seection >
+            <section >
                 <div id="top_section">
                     <hr>
                     <div id="title_container">
@@ -64,6 +66,10 @@
 
                             <div class="modal" id="modal">
                                 <form id="appointmentForm" action="../../../controller/Admin/AppointmentController.php" method="POST">
+                                    
+                                    <!-- ✅ hidden input to store selected patient PID -->
+                                    <input type="hidden" name="patient_id" id="patient_id">
+
                                     <div class="modal-box">
                                         <div class="form-container">                                   
                                             <!-- Section 1 -->
@@ -75,18 +81,31 @@
                                                         <label>Patient Name</label>
                                                         <div class="input-wrapper">
                                                             <i class="ri-fingerprint-2-fill"></i>
-                                                            <input id="patient_name" name="patient_name" type="text" value="<?php
-                                                            echo (isset($_SESSION['patientNameApp']) && !empty($_SESSION['patientNameApp'])) ? $_SESSION['patientNameApp'] : "";
-                                                            unset($_SESSION['patientNameApp']);
-                                                        ?>" placeholder="Search By Patient Name..">
-                                                        <span class="error-message">
-                                                            <?php
-                                                            if (isset($_SESSION['patientNameErrorApp'])) {
-                                                                echo $_SESSION['patientNameErrorApp'];
-                                                                unset($_SESSION['patientNameErrorApp']); // clear after showing
-                                                            }
-                                                            ?>
-                                                        </span>
+                                                            <input 
+                                                                id="patient_name" 
+                                                                name="patient_name" 
+                                                                type="text" 
+                                                                value="<?php
+                                                                    echo (isset($_SESSION['patientNameApp']) && !empty($_SESSION['patientNameApp'])) 
+                                                                        ? $_SESSION['patientNameApp'] 
+                                                                        : '';
+                                                                    unset($_SESSION['patientNameApp']);
+                                                                ?>" 
+                                                                placeholder="Search By Patient Name.." 
+                                                                autocomplete="off"
+                                                            >
+
+                                                            <!-- AJAX results -->
+                                                            <div id="patientResults" class="search-results"></div>
+
+                                                            <span class="error-message">
+                                                                <?php
+                                                                if (isset($_SESSION['patientNameErrorApp'])) {
+                                                                    echo $_SESSION['patientNameErrorApp'];
+                                                                    unset($_SESSION['patientNameErrorApp']);
+                                                                }
+                                                                ?>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -98,53 +117,66 @@
                                                 <hr>
 
                                                 <div class="appointment_input">
+                                                    
                                                     <div class="field">
+                                                        <?php
+                                                            $dataDoc = allDoctors();
+                                                        ?>
                                                         <label>Doctor Name</label>
                                                         <div class="input-wrapper">
                                                             <i class="ri-user-line"></i>
-                                                            <select id="doc_name" name="doc_name">
-                                                                <option value="" disable>Select by Doctor Name</option>
-                                                                <option value="Dr. Sarah Jenkins" 
-                                                                    <?php echo (isset($_SESSION['docNameApp']) && $_SESSION['docNameApp'] == 'Dr. Sarah Jenkins') ? 'selected' : '';                                                               
-                                                                    ?>
-                                                                >Dr. Sarah Jenkins</option>
-                                                                <option value="Dr. Sarah Khan"
-                                                                <?php echo (isset($_SESSION['docNameApp']) && $_SESSION['docNameApp'] == 'Dr. Sarah Khan') ? 'selected' : '';                                                                
+                                                           <select id="doc_name" name="doc_name">
+                                                                <option value="">Select by Doctor Name</option>
+                                                                <?php foreach($dataDoc as $doctor): 
+                                                                   $selected = (isset($_SESSION['userIdApp']) && $_SESSION['userIdApp'] == $doctor['uid']) ? 'selected' : '';
                                                                 ?>
-                                                                >Dr. Sarah Khan</option>
+                                                                <option value="<?= $doctor['uid'] ?>" <?= $selected ?>
+                                                                    <?php echo (isset($_SESSION['docNameApp']) && $_SESSION['docNameApp'] == $selected) ? 'selected' : ''; ?>    
+                                                                >
+                                                                    <?= htmlspecialchars($doctor['name']) ?> (<?= htmlspecialchars($doctor['specialization']) ?>)
+                                                                </option>
+                                                                <?php endforeach; ?>
                                                             </select>
-                                                            <?php unset($_SESSION['docNameApp']);?>
+
+                                                            <?php
+                                                                if (isset($_SESSION['userIdApp'])) {
+                                                                    echo "Selected Doctor UID: " . $_SESSION['userIdApp'];
+                                                                }
+                                                            ?>
+                                                            <?php unset($_SESSION['docNameApp']); ?>
+
                                                             <span class="error-message">
                                                                 <?php
                                                                 if (isset($_SESSION['docNameErrorApp'])) {
                                                                     echo $_SESSION['docNameErrorApp'];
-                                                                    unset($_SESSION['docNameErrorApp']); // clear after showing
+                                                                    unset($_SESSION['docNameErrorApp']);
                                                                 }
                                                                 ?>
                                                             </span>
                                                         </div>
                                                     </div>
+
                                                     <div class="field">
                                                         <label>Available Session</label>
                                                         <div class="input-wrapper">
                                                             <i class="ri-calendar-todo-line"></i>
                                                             <select id="doc_total_time" name="doc_total_time">
-                                                                <option value="" >Select Available Session</option>
-                                                                <option value="Jan" 
-                                                                    <?php echo (isset($_SESSION['docTotalTimeApp']) && $_SESSION['docTotalTimeApp'] == 'Jan') ? 'selected' : '';                                                                
-                                                                ?>
-                                                                >Jan</option>
+                                                                <option value="">Select Available Session</option>
+                                                                <option value="Jan"
+                                                                    <?php echo (isset($_SESSION['docTotalTimeApp']) && $_SESSION['docTotalTimeApp'] == 'Jan') ? 'selected' : ''; ?>>
+                                                                    Jan
+                                                                </option>
                                                             </select>
-                                                            <?php unset($_SESSION['docTotalTimeApp']);?>
+                                                            <?php unset($_SESSION['docTotalTimeApp']); ?>
+
                                                             <span class="error-message">
                                                                 <?php
-                                                                    if (isset($_SESSION['docTotalTimeErrorApp'])) {
-                                                                        echo $_SESSION['docTotalTimeErrorApp'];
-                                                                        unset($_SESSION['docTotalTimeErrorApp']); // clear after showing
-                                                                    }
+                                                                if (isset($_SESSION['docTotalTimeErrorApp'])) {
+                                                                    echo $_SESSION['docTotalTimeErrorApp'];
+                                                                    unset($_SESSION['docTotalTimeErrorApp']);
+                                                                }
                                                                 ?>
                                                             </span>
-
                                                         </div>
                                                     </div>
 
@@ -155,76 +187,80 @@
                                                             <select id="doc_available_slot" name="doc_available_slot">
                                                                 <option value="" disable>Select Your Slot</option>
                                                                 <option value="10.30AM-11.00AM"
-                                                                    <?php echo (isset($_SESSION['docAvailableSlotApp']) && $_SESSION['docAvailableSlotApp'] == 'Jan 02(10.30AM-02.00PM)') ? 'selected' : '';                                                               
-                                                                    ?>
-                                                                >10.30AM-11.00AM</option>
+                                                                    <?php echo (isset($_SESSION['docAvailableSlotApp']) && $_SESSION['docAvailableSlotApp'] == '10.30AM-11.00AM') ? 'selected' : ''; ?>>
+                                                                    10.30AM-11.00AM
+                                                                </option>
                                                             </select>
-                                                            <?php unset($_SESSION['docAvailableSlotApp']);?>
+                                                            <?php unset($_SESSION['docAvailableSlotApp']); ?>
+
                                                             <span class="error-message">
                                                                 <?php
                                                                 if (isset($_SESSION['docAvailableSlotErrorApp'])) {
                                                                     echo $_SESSION['docAvailableSlotErrorApp'];
-                                                                    unset($_SESSION['docAvailableSlotErrorApp']); // clear after showing
+                                                                    unset($_SESSION['docAvailableSlotErrorApp']);
                                                                 }
                                                                 ?>
                                                             </span>
                                                         </div>
                                                     </div>
 
-                                                     <div class="field">
+                                                    <div class="field">
                                                         <label>Appointment Status</label>
                                                         <div class="input-wrapper">
                                                             <i class="ri-information-2-fill"></i>
                                                             <select id="status" name="status">
                                                                 <option value="Accepted"
-                                                                    <?php echo (isset($_SESSION['statusApp']) && $_SESSION['statusApp'] == 'Accepted') ? 'selected' : '';                                                               
-                                                                    ?>
-                                                                >Accepted</option>
+                                                                    <?php echo (isset($_SESSION['statusApp']) && $_SESSION['statusApp'] == 'Accepted') ? 'selected' : ''; ?>>
+                                                                    Accepted
+                                                                </option>
                                                                 <option value="Panding"
-                                                                    <?php echo (isset($_SESSION['statusApp']) && $_SESSION['statusApp'] == 'Panding') ? 'selected' : '';                                                               
-                                                                    ?>
-                                                                >Panding</option>
+                                                                    <?php echo (isset($_SESSION['statusApp']) && $_SESSION['statusApp'] == 'Panding') ? 'selected' : ''; ?>>
+                                                                    Panding
+                                                                </option>
                                                                 <option value="Rejected"
-                                                                    <?php echo (isset($_SESSION['statusApp']) && $_SESSION['statusApp'] == 'Rejected') ? 'selected' : '';                                                               
-                                                                    ?>
-                                                                >Rejected</option>
+                                                                    <?php echo (isset($_SESSION['statusApp']) && $_SESSION['statusApp'] == 'Rejected') ? 'selected' : ''; ?>>
+                                                                    Rejected
+                                                                </option>
                                                             </select>
-                                                            <?php unset($_SESSION['statusApp']);?>
+                                                            <?php unset($_SESSION['statusApp']); ?>
+
                                                             <span class="error-message">
                                                                 <?php
-                                                                    if (isset($_SESSION['statusErrorApp'])) {
-                                                                        echo $_SESSION['statusErrorApp'];
-                                                                        unset($_SESSION['statusErrorApp']); // clear after showing
-                                                                    }
+                                                                if (isset($_SESSION['statusErrorApp'])) {
+                                                                    echo $_SESSION['statusErrorApp'];
+                                                                    unset($_SESSION['statusErrorApp']);
+                                                                }
                                                                 ?>
                                                             </span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                               
                                             </div>
-
                                         </div>
 
                                         <hr>
 
                                         <div id="modal_btn_container">
                                             <div class="modal-action">
-                                                <button type="button" class="close-btn"><i class="ri-close-large-line"></i> Close</button>
+                                                <button type="button" class="close-btn">
+                                                    <i class="ri-close-large-line"></i> Close
+                                                </button>
                                             </div>
-                                            <button type="submit" class="reg_button"><i class="ri-calendar-event-line"></i> Confirm Booking</button>
+                                            <button type="submit" class="reg_button">
+                                                <i class="ri-calendar-event-line"></i> Confirm Booking
+                                            </button>
                                         </div>
-                                    
                                     </div>
                                 </form>
                             </div>
+
                         </div>
                         <div>
                         </div>
                     </div>
                     <hr>
                 </div>
-            </seection>
+            </section>
 
 
             <section id="search_appointment" class="section">
@@ -387,5 +423,7 @@
         </main>
 
     <script src="../assets/js/appointments_modal.js"></script>
+    <script src="../assets/js/patient_search_ajax.js"></script>
+    <script src="../assets/js/appointments_ajax.js"></script>
 </body>
 </html>
