@@ -18,21 +18,36 @@
         return mysqli_query($conn, $sql);
     }
 
-function getUserID($email)
-{
-    $conn = initDB();
-    $email = mysqli_real_escape_string($conn, trim($email));
+    function getUserID($email)
+    {
+        $conn = initDB();
+        $email = mysqli_real_escape_string($conn, trim($email));
 
-    $sql = "SELECT uid FROM `user` WHERE email = '$email' LIMIT 1";
-    $result = mysqli_query($conn, $sql);
+        $sql = "SELECT uid FROM `user` WHERE email = '$email' LIMIT 1";
+        $result = mysqli_query($conn, $sql);
 
-    if ($result && mysqli_num_rows($result) === 1) {
-        $row = mysqli_fetch_assoc($result);
-        return (int)$row['uid'];
+        if ($result && mysqli_num_rows($result) === 1) {
+            $row = mysqli_fetch_assoc($result);
+            return (int)$row['uid'];
+        }
+
+        return null;
     }
 
-    return null;
-}
+    function updateUser($data)
+    {
+        $conn = initDB();
+
+        $sql = "UPDATE user SET 
+                    name = '{$data['name']}',
+                    email = '{$data['email']}',
+                    password = '{$data['password']}',
+                    phone = '{$data['phone']}'
+                WHERE uid = {$data['uid']}";
+
+        return mysqli_query($conn, $sql);
+    }
+
 
 
 

@@ -5,7 +5,7 @@ const specUpdateError = document.getElementById("specUpdateError");
 const cancelBtn = document.getElementById("cancel-btn");
 const updateForm = document.getElementById("updateSpecForm");
 
-// Open modal
+
 document.addEventListener("click", function (e) {
     const editBtn = e.target.closest(".edit_btn");
     if (!editBtn) return;
@@ -19,13 +19,13 @@ document.addEventListener("click", function (e) {
     updateModal.classList.add("active");
 });
 
-// Cancel modal
+
 cancelBtn.addEventListener("click", () => {
     updateModal.classList.remove("active");
     specUpdateError.textContent = "";
 });
 
-// AJAX update
+// ajax update
 updateForm.addEventListener("submit", function (e) {
     e.preventDefault();
 

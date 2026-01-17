@@ -8,6 +8,83 @@
         return getAllDoctorsAdmin();
     }
 
+    // update
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'getDoctor') {
+        header('Content-Type: application/json');
+        $email = $_POST['doctor_email'] ?? null;
+
+        if ($email) {
+            $doctorData = getDoctorByEmail($email);
+            if (!empty($doctorData)) {
+                echo json_encode($doctorData[0]);
+            } else {
+                echo json_encode([]);
+            }
+        } else {
+            echo json_encode([]);
+        }
+
+        exit;
+    }
+
+
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateDoctor'])) {
+
+        $uid = trim($_POST['doctor_uid']);
+        $email = trim($_POST['doc_email']);
+        $name = trim($_POST['doc_name']);
+        $pass = trim($_POST['doc_pass']);
+        $phone = trim($_POST['doc_phone']);
+        $specialization = trim($_POST['doc_specialization']);
+        $fee = trim($_POST['doc_fee']);
+        $bio = trim($_POST['doc_bio']);
+
+        $spid = getSpcID($specialization);
+
+
+        $userData = [
+            'uid'      => $uid,
+            'name'     => $name,
+            'email'    => $email,
+            'password' => $pass,
+            'phone'    => $phone
+        ];
+
+        $doctorData = [
+            'uid'  => $uid,
+            'fee'  => $fee,
+            'bio'  => $bio,
+            'spid' => $spid
+        ];
+
+
+        $userUpdated = updateUser($userData);
+
+        $doctorUpdated = updateDoctorAdmin($doctorData);
+
+        if ($userUpdated && $doctorUpdated) {
+            echo json_encode([
+                "success" => true,
+                "message" => "Doctor updated successfully",
+                "uid" => $uid
+            ]);
+        } else {
+            echo json_encode([
+                "success" => false,
+                "message" => "Failed to update doctor!"
+            ]);
+        }
+
+        header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+        exit;
+    }
+
+
+
+
+
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $email = trim($_POST['doc_email']);
@@ -17,6 +94,23 @@
         $fee = trim($_POST['doc_fee']);
         $phone = trim($_POST['doc_phone']);
         $bio = trim($_POST['doc_bio']);
+
+
+        // update
+
+        // if (isset($_POST['action']) && $_POST['action'] === 'getDoctor' && isset($_POST['doctor_email'])) {
+        //     $email = $_POST['doctor_email'];
+        //     $doctorData = getDoctorByEmail($email);
+
+        //     if (!empty($doctorData)) {
+        //         echo json_encode($doctorData[0]); // send first record
+        //     } else {
+        //         echo json_encode([]);
+        //     }
+        //     exit;
+        // }
+
+
 
 
 

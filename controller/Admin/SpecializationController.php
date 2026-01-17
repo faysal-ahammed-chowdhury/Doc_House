@@ -1,11 +1,16 @@
 <?php
 session_start();
-require_once 'C:\\xampp\\htdocs\\Doc_House\\model\\Admin\\SpecializationModel.php';
+require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\SpecializationModel.php';
 
     function getSpecialization()
     {
-        return getAllSpecializationA();
+        $data = getAllSpecializationA();
+        // var_dump($data);
+        return $data;
     }
+
+    // $data = getSpecialization();
+    // var_dump($data);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

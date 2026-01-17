@@ -41,6 +41,9 @@
         return $specializations;
     }
 
+    // $data = getAllSpecializationA();
+    // var_dump($data);
+
 
 
 
