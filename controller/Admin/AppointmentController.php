@@ -109,6 +109,11 @@
                 $_SESSION['openModal'],
             );
 
+                $_SESSION['toast'] = [
+        'message' => 'Appointment added successfully',
+        'type' => 'success'
+    ];
+
             header('Location: /Doc_House/view/Admin/pages/Appointments.php');
             exit;
         }

@@ -20,8 +20,6 @@
 
 
 
-
-
     function getAllDoctorsAdmin() {
         $conn = initDB();
 

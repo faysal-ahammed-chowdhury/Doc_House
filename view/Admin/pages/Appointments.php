@@ -12,7 +12,7 @@
     <title>Appointments</title>
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/appointments.css">
-    <!-- <link rel="stylesheet" href="../assets/css/appointments.css"> -->
+    <link rel="stylesheet" href="../assets/css/toster.css">
 
     <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
@@ -67,7 +67,6 @@
                             <div class="modal" id="modal">
                                 <form id="appointmentForm" action="../../../controller/Admin/AppointmentController.php" method="POST">
                                     
-                                    <!-- ✅ hidden input to store selected patient PID -->
                                     <input type="hidden" name="patient_id" id="patient_id">
 
                                     <div class="modal-box">
@@ -254,8 +253,16 @@
                                 </form>
                             </div>
 
-                        </div>
-                        <div>
+                            <?php if(isset($_SESSION['toast'])): ?>
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        showToast("<?= $_SESSION['toast']['message'] ?>", "<?= $_SESSION['toast']['type'] ?>");
+                                    });
+                                </script>
+                                <?php
+                                    unset($_SESSION['toast']);
+                                endif;
+                            ?>
                         </div>
                     </div>
                     <hr>
@@ -347,56 +354,89 @@
                     $appointments = getAppointmentsData();
                 ?>
                 <table>
-                    <tr>
-                        <th>PATIENT</th>
-                        <th>DOCTOR</th>
-                        <th>SCHEDULE</th>
-                        <th>STATUS</th>
-                        <th>ACTION</th>
-                    </tr>
-
-                    <?php foreach ($appointments as $apt): ?>
+                    <thead>
                         <tr>
-                            <td>
-                                <div>
-                                    <div>
-                                        <h4><?= substr($apt['patient_name'], 0, 2) ?></h4>
-                                    </div>
-                                    <div>
-                                        <h4><?= htmlspecialchars($apt['patient_name']) ?></h4>
-                                        <p>PID-<?= $apt['patient_id'] ?></p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <h4><?= htmlspecialchars($apt['doctor_name']) ?></h4>
-                                    <p>DID-<?= $apt['doctor_id'] ?></p>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <h4><?= date("M d, Y", strtotime($apt['session_date'])) ?></h4>
-                                    <p><?= date("h:i A", strtotime($apt['appointment_time'])) ?> (SIS-<?= $apt['session_id'] ?>)</p>
-                                </div>
-                            </td>
-                            <td>
-                                <p><?= ucfirst($apt['appointment_status']) ?></p>
-                            </td>
-                            <td>
-                                <button id="edit_btn" data-aptid="<?= $apt['aptid'] ?>"><i class="ri-edit-2-fill"></i></button>
-                                <button id="delete_btn" data-aptid="<?= $apt['aptid'] ?>"><i class="ri-delete-bin-6-fill"></i></button>
-                            </td>
+                            <th>PATIENT</th>
+                            <th>DOCTOR</th>
+                            <th>SCHEDULE</th>
+                            <th>STATUS</th>
+                            <th>ACTION</th>
                         </tr>
-                    <?php endforeach; ?>
-                </table>
+                    </thead>
 
+                    <tbody id="tableBody">
+                        <?php foreach ($appointments as $apt): ?>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <div>
+                                            <h4><?= substr($apt['patient_name'], 0, 2) ?></h4>
+                                        </div>
+                                        <div>
+                                            <h4><?= htmlspecialchars($apt['patient_name']) ?></h4>
+                                            <p>PID-<?= $apt['patient_id'] ?></p>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div>
+                                        <h4><?= htmlspecialchars($apt['doctor_name']) ?></h4>
+                                        <p>DID-<?= $apt['doctor_id'] ?></p>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div>
+                                        <h4><?= date("M d, Y", strtotime($apt['session_date'])) ?></h4>
+                                        <p><?= date("h:i A", strtotime($apt['appointment_time'])) ?> (SIS-<?= $apt['session_id'] ?>)</p>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <p><?= ucfirst($apt['appointment_status']) ?></p>
+                                </td>
+
+                                <td>
+                                    <button id="edit_btn" data-aptid="<?= $apt['aptid'] ?>">
+                                        <i class="ri-edit-2-fill"></i>
+                                    </button>
+
+                                    <button id="delete_btn" data-aptid="<?= $apt['aptid'] ?>">
+                                        <i class="ri-delete-bin-6-fill"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <div class="modal" id="deleteModal">
+                    <div class="modal-box">
+                        <h3>Confirm Delete</h3>
+                        <p>Are you sure you want to delete this appointment?</p>
+
+                        <div class="modal-action">
+                        <button type="button" id="cancelDelete">Cancel</button>
+                        <button type="button" id="confirmDelete" class="danger">
+                            Yes, Delete
+                        </button>
+                        </div>
+                    </div>
+                </div>
+                
             </section>
+            <?php include 'C:\xampp\htdocs\Doc_House\view\Admin\pages\Toster.php'; ?>
+
+
+
+
         </main>
 
+    <script src="../assets/js/toster.js"></script>
     <script src="../assets/js/appointments_modal.js"></script>
     <script src="../assets/js/patient_search_ajax.js"></script>
     <script src="../assets/js/appointments_ajax.js"></script>
     <script src="../assets/js/search_appointment.js"></script>
+    <script src="../assets/js/delete_appointment_ajax.js"></script>
 </body>
 </html>

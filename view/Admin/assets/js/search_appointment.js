@@ -6,7 +6,7 @@ const dNameInput = document.getElementById("dName");
 const statusSelect = document.getElementById("appointmentStatus");
 const dateInput = document.getElementById("date");
 
-// const tableBody = document.querySelector("#table_section table");
+
 const tableBody = document.querySelector("#table_section table tbody");
 
 

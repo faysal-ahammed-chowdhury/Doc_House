@@ -129,6 +129,18 @@
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    function deleteAppointment($aptid)
+    {
+        $conn = initDB();
+
+        $sql = "DELETE FROM appointment WHERE aptid = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $aptid);
+
+        return mysqli_stmt_execute($stmt);
+    }
+
+
 
 
 

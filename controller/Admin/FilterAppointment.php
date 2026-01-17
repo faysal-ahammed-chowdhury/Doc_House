@@ -6,7 +6,6 @@
     $status = isset($_POST['status']) ? trim($_POST['status']) : '';
     $date    = isset($_POST['date']) ? trim($_POST['date']) : '';
 
-    // Call a function in AppointmentModel to fetch filtered appointments
     $appointments = getFilteredAppointments($patient, $doctor, $status, $date);
 
  

@@ -184,16 +184,6 @@ textarea:focus {
 
 
 
-/* textarea {
-  width: 100%;
-  min-height: 120px;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-  font-size: 14px;
-  resize: vertical;
-} */
-
 
 .full-width {
   margin-top: 25px;
@@ -455,3 +445,16 @@ table td p {
   border-radius: 50%;
   cursor: pointer;
 }
+
+#dialog_container{
+  height: 100%;
+  width: 100%;
+
+}
+
+#my_modal_5{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
