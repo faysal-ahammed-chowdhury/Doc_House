@@ -10,15 +10,15 @@
 
  
     if(!empty($appointments)){
-        echo '
-            <tr>
-                <th>PATIENT</th>
-                <th>DOCTOR</th>
-                <th>SCHEDULE</th>
-                <th>STATUS</th>
-                <th>ACTION</th>
-            </tr>
-        ';
+        // echo '
+        //     <tr>
+        //         <th>PATIENT</th>
+        //         <th>DOCTOR</th>
+        //         <th>SCHEDULE</th>
+        //         <th>STATUS</th>
+        //         <th>ACTION</th>
+        //     </tr>
+        // ';
         foreach($appointments as $apt){
             echo '
             

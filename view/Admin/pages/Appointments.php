@@ -427,9 +427,6 @@
             </section>
             <?php include 'C:\xampp\htdocs\Doc_House\view\Admin\pages\Toster.php'; ?>
 
-
-
-
         </main>
 
     <script src="../assets/js/toster.js"></script>

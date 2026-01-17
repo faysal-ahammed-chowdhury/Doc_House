@@ -162,7 +162,7 @@
                                                             <?php foreach ($dataSpec as $d): ?>
                                                                 <option value="<?php echo htmlspecialchars($d['name']); ?>"
                                                                     <?php 
-                                                                        // If session specialization matches, mark as selected
+
                                                                         echo (isset($_SESSION['specialization']) && $_SESSION['specialization'] == $d['name']) ? 'selected' : ''; 
                                                                     ?>
                                                                 >
@@ -336,6 +336,7 @@
         <section id="table_section" class="section">
             <?php
                 $dataDoc = allDoctors();
+                var_dump($dataDoc);
             ?>
             <table>
                 <tr>
