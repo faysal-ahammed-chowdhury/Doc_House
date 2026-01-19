@@ -51,9 +51,10 @@ require_once "../../controller/Doctor/sessionController.php";
                         <div class="field">
                             <label>Slot Duration (Minutes)</label>
                             <select name="duration" class="form-control">
-                                <option value="15">15 Minutes</option>
                                 <option value="30">30 Minutes</option>
                                 <option value="60">60 Minutes</option>
+                                <option value="60">90 Minutes</option>
+                                <option value="60">120 Minutes</option>
                             </select>
                         </div>
                         <button type="submit" class="add-session-btn">Add Session</button>
