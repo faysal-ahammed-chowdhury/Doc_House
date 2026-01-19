@@ -1,13 +1,7 @@
 <?php
 require_once __DIR__ . '/../../model/Doctor/session_model.php';
 
-if (isset($_SESSION['user']['did'])) {
-    $doctor_id = $_SESSION['user']['did'];
-} elseif (isset($_SESSION['did'])) {
-    $doctor_id = $_SESSION['did'];
-} else {
-    $doctor_id = 11;
-}
+$doctor_id = $_SESSION['user']['did'] ?? 0;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_session'])) {
     $date = $_POST['date'];
@@ -15,10 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_session'])) {
     $end = $_POST['end_time'];
     $duration = $_POST['duration'];
 
-    if (addSession($doctor_id, $date, $start, $end, $duration)) {
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit();
-    }
+    addSession($doctor_id, $date, $start, $end, $duration);
 }
 
 if (isset($_GET['delete_id'])) {
