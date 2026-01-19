@@ -10,7 +10,7 @@ require_once "../../controller/Doctor/sessionController.php";
 <head>
     <meta charset="UTF-8">
     <title>My Sessions</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
@@ -44,11 +44,11 @@ require_once "../../controller/Doctor/sessionController.php";
                         <div class="two-field">
                             <div class="field">
                                 <label>Start Time</label>
-                                <input type="time" name="start_time" class="form-control" required>
+                                <input type="time" name="start_time" id="startTime" class="form-control" required>
                             </div>
                             <div class="field">
                                 <label>End Time</label>
-                                <input type="time" name="end_time" class="form-control" required>
+                                <input type="time" name="end_time" id="endTime" class="form-control" required disabled>
                             </div>
                         </div>
                         <div class="field">
@@ -92,7 +92,8 @@ require_once "../../controller/Doctor/sessionController.php";
                                         <a href="sessionList.php?sid=<?php echo $ses['sid']; ?>" class="btn-icon view">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>
-                                        <a href="mySessions.php?delete_id=<?php echo $ses['sid']; ?>" class="btn-icon delete" onclick="return confirm('Delete this session?')">
+                                        <a href="mySessions.php?delete_id=<?php echo $ses['sid']; ?>" class="btn-icon delete"
+                                            onclick="return confirm('Delete this session?')">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </a>
                                     </div>
@@ -136,35 +137,7 @@ require_once "../../controller/Doctor/sessionController.php";
         </div>
     </section>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var form = document.getElementById("createSessionForm");
-
-            form.addEventListener("submit", function (e) {
-                e.preventDefault();
-
-                var formData = new FormData(form);
-                var xhr = new XMLHttpRequest();
-
-                xhr.open("POST", "", true);
-                xhr.responseType = "document";
-
-                xhr.onload = function () {
-                    if (this.status === 200) {
-                        var newList = this.response.getElementById('session-lists');
-                        if (newList) {
-                            document.getElementById('session-lists').innerHTML = newList.innerHTML;
-                            form.reset();
-                        }
-                    } 
-                    else {
-                        alert("Error adding session.");
-                    }
-                };
-                xhr.send(formData);
-            });
-        });
-    </script>
+<script src="assets/doctor_sessions.js"></script>
 
 </body>
 </html>
