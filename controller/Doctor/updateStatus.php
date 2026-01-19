@@ -7,9 +7,17 @@ if (isset($_GET['id']) && isset($_GET['status'])) {
     $id = $_GET['id'];
     $status = $_GET['status'];
 
-    updateAppointmentStatus($id, $status);
+    $result = updateAppointmentStatus($id, $status);
+    if ($result) {
+        http_response_code(200); 
+        echo "Success";
+    } else {
+        http_response_code(500);
+        echo "Database Error";
+    }
+}else {
+ 
+    http_response_code(400);
+    echo "Invalid Request";
 }
-
-header("Location: ../../view/Doctor/appointments.php");
-exit();
 ?>
