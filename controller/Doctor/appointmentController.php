@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../model/Doctor/appointment_model.php';
+require_once '/../../model/Doctor/appointment_model.php';
 
 $doctor_id = $_SESSION['user']['did'] ?? 0;
 
