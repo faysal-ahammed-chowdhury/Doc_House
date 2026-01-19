@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <nav>
     <div class="container">
         <div class="content">
@@ -23,11 +27,19 @@
                 <div class="user">
                     <p class="hello">Hello,</p>
                     <p class="name">
-                        <a href="doctorProfile.php">Dr. Sarah Jenkins</a>
+                        <a href="doctorProfile.php">
+                            <?php 
+                            if (isset($_SESSION['user']['name'])) {
+                                echo htmlspecialchars($_SESSION['user']['name']); 
+                            } else {
+                                echo "Doctor";
+                            }
+                            ?>
+                        </a>
                     </p>
                 </div>
                 <div class="logout">
-                    <a href="logout.php" title="Logout">
+                    <a href="../../controller/Auth/logoutController.php" title="Logout">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </a>
                 </div>
