@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../../model/Doctor/session_model.php';
+require_once "../../model/Doctor/session_model.php";
 
 if (!isset($_GET['sid'])) {
-    header("Location: mySession.php");
+    header("Location: mySessions.php");
     exit();
 }
 
@@ -12,7 +12,7 @@ $appointments = getAppointmentsBySession($sid);
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     deleteSession($sid);
-    header("Location: mySession.php");
+    header("Location: mySessions.php");
     exit();
 }
 ?>
