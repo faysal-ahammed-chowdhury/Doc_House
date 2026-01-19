@@ -40,21 +40,23 @@ require_once "../../controller/Doctor/appointmentController.php";
                     <div class="field">
                         <label>Status</label>
                         <select name="status">
-                            <option value="" <?php if ($filterStatus == "")
-                                echo "selected"; ?>>All Status</option>
-                            <option value="pending" <?php if ($filterStatus == "pending")
-                                echo "selected"; ?>>Pending
+                            <option value="" <?php if ($filterStatus == "")echo "selected"; ?>>
+                                All Status
                             </option>
-                            <option value="accepted" <?php if ($filterStatus == "accepted")
-                                echo "selected"; ?>>Accepted
+                            <option value="pending" <?php if ($filterStatus == "pending")echo "selected"; ?>>
+                                Pending
                             </option>
-                            <option value="rejected" <?php if ($filterStatus == "rejected")
-                                echo "selected"; ?>>Rejected
+                            <option value="accepted" <?php if ($filterStatus == "accepted")echo "selected"; ?>>
+                                Accepted
+                            </option>
+                            <option value="rejected" <?php if ($filterStatus == "rejected")echo "selected"; ?>>
+                                Rejected
                             </option>
                         </select>
                     </div>
                     <button type="submit" class="btn-filter">
-                        <i class="fa-solid fa-filter"></i> Filter
+                        <i class="fa-solid fa-filter"></i> 
+                        Filter
                     </button>
                     <a href="appointments.php" class="btn-reset">Reset</a>
                 </form>
