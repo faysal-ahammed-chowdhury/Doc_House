@@ -109,12 +109,10 @@ require_once "../../controller/Doctor/appointmentController.php";
                                     </td>
                                     <td class="actions">
                                         <?php if ($apt['status'] == 'pending') { ?>
-                                            <a href="../../controller/Doctor/updateStatus.php?id=<?php echo $apt['aptid']; ?>&status=accepted"
-                                                class="accept ajax-status-btn">
+                                            <a href="../../controller/Doctor/updateStatus.php?id=<?php echo $apt['aptid']; ?>&status=accepted" class="accept ajax-status-btn">
                                                 <i class="fa-solid fa-check"></i>
                                             </a>
-                                            <a href="../../controller/Doctor/updateStatus.php?id=<?php echo $apt['aptid']; ?>&status=rejected"
-                                                class="cancel ajax-status-btn">
+                                            <a href="../../controller/Doctor/updateStatus.php?id=<?php echo $apt['aptid']; ?>&status=rejected" class="cancel ajax-status-btn">
                                                 <i class="fa-solid fa-xmark"></i>
                                             </a>
                                         <?php } else { ?>
