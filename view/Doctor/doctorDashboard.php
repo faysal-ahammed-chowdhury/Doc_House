@@ -1,5 +1,4 @@
 <?php 
-session_start();
 require_once "../../middleware/authMiddleware.php";
 require_once "../../middleware/doctorMiddleware.php";
 require_once "../../controller/Doctor/dashboardController.php";
