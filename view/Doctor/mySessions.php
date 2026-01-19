@@ -1,22 +1,24 @@
-<?php 
+<?php
 require_once "../../middleware/authMiddleware.php";
 require_once "../../middleware/doctorMiddleware.php";
-require_once "../../controller/Doctor/sessionController.php"; 
+require_once "../../controller/Doctor/sessionController.php";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>My Sessions</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
 
-    <?php 
-        $page = 'sessions'; 
-        include 'header.php'; 
+    <?php
+    $page = 'sessions';
+    include 'header.php';
     ?>
 
     <section class="page-header">
@@ -29,10 +31,11 @@ require_once "../../controller/Doctor/sessionController.php";
     <section class="sessions-section">
         <div class="container">
             <div class="sessions-grid">
-                
+
                 <div class="create-session-card">
                     <h3><i class="fa-solid fa-circle-plus"></i> Create Session</h3>
-                    <form action="" method="POST">
+
+                    <form action="" method="POST" id="createSessionForm">
                         <input type="hidden" name="add_session" value="1">
                         <div class="field">
                             <label>Date</label>
@@ -53,16 +56,16 @@ require_once "../../controller/Doctor/sessionController.php";
                             <select name="duration" class="form-control">
                                 <option value="30">30 Minutes</option>
                                 <option value="60">60 Minutes</option>
-                                <option value="60">90 Minutes</option>
-                                <option value="60">120 Minutes</option>
+                                <option value="90">90 Minutes</option>
+                                <option value="120">120 Minutes</option>
                             </select>
                         </div>
                         <button type="submit" class="add-session-btn">Add Session</button>
                     </form>
                 </div>
 
-                <div class="session-lists-container">
-                    
+                <div class="session-lists-container" id="session-lists">
+
                     <div class="list-card">
                         <h3 class="card-title"><i class="fa-solid fa-calendar-check"></i> Upcoming Sessions</h3>
                         <?php if (empty($upcomingSessions)): ?>
@@ -76,8 +79,8 @@ require_once "../../controller/Doctor/sessionController.php";
                                     </div>
                                     <div class="session-info">
                                         <h4>Session #SES-<?php echo $ses['sid']; ?></h4>
-                                        <p><i class="fa-regular fa-clock"></i> 
-                                            <?php echo date('h:i A', strtotime($ses['start_time'])); ?> - 
+                                        <p><i class="fa-regular fa-clock"></i>
+                                            <?php echo date('h:i A', strtotime($ses['start_time'])); ?> -
                                             <?php echo date('h:i A', strtotime($ses['end_time'])); ?>
                                         </p>
                                         <div class="badges">
@@ -86,8 +89,12 @@ require_once "../../controller/Doctor/sessionController.php";
                                         </div>
                                     </div>
                                     <div class="session-actions">
-                                        <a href="sessionList.php?sid=<?php echo $ses['sid']; ?>" class="btn-icon view"><i class="fa-solid fa-eye"></i></a>
-                                        <a href="mySession.php?delete_id=<?php echo $ses['sid']; ?>" class="btn-icon delete" onclick="return confirm('Delete this session?')"><i class="fa-solid fa-trash-can"></i></a>
+                                        <a href="sessionList.php?sid=<?php echo $ses['sid']; ?>" class="btn-icon view">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </a>
+                                        <a href="mySession.php?delete_id=<?php echo $ses['sid']; ?>" class="btn-icon delete" onclick="return confirm('Delete this session?')">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </a>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
@@ -107,8 +114,8 @@ require_once "../../controller/Doctor/sessionController.php";
                                     </div>
                                     <div class="session-info">
                                         <h4>Session #SES-<?php echo $ses['sid']; ?></h4>
-                                        <p><i class="fa-regular fa-clock"></i> 
-                                            <?php echo date('h:i A', strtotime($ses['start_time'])); ?> - 
+                                        <p><i class="fa-regular fa-clock"></i>
+                                            <?php echo date('h:i A', strtotime($ses['start_time'])); ?> -
                                             <?php echo date('h:i A', strtotime($ses['end_time'])); ?>
                                         </p>
                                         <div class="badges">
@@ -116,17 +123,48 @@ require_once "../../controller/Doctor/sessionController.php";
                                         </div>
                                     </div>
                                     <div class="session-actions">
-                                        <a href="sessionList.php?sid=<?php echo $ses['sid']; ?>" class="btn-icon view"><i class="fa-solid fa-eye"></i></a>
+                                        <a href="sessionList.php?sid=<?php echo $ses['sid']; ?>" class="btn-icon view"><i
+                                                class="fa-solid fa-eye"></i></a>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </div>
 
-                </div> 
+                </div>
             </div>
         </div>
     </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var form = document.getElementById("createSessionForm");
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                var formData = new FormData(form);
+                var xhr = new XMLHttpRequest();
+
+                xhr.open("POST", "", true);
+                xhr.responseType = "document";
+
+                xhr.onload = function () {
+                    if (this.status === 200) {
+                        var newList = this.response.getElementById('session-lists');
+                        if (newList) {
+                            document.getElementById('session-lists').innerHTML = newList.innerHTML;
+                            form.reset();
+                        }
+                    } 
+                    else {
+                        alert("Error adding session.");
+                    }
+                };
+                xhr.send(formData);
+            });
+        });
+    </script>
 
 </body>
 </html>
