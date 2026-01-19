@@ -92,7 +92,7 @@ require_once "../../controller/Doctor/sessionController.php";
                                         <a href="sessionList.php?sid=<?php echo $ses['sid']; ?>" class="btn-icon view">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>
-                                        <a href="mySession.php?delete_id=<?php echo $ses['sid']; ?>" class="btn-icon delete" onclick="return confirm('Delete this session?')">
+                                        <a href="mySessions.php?delete_id=<?php echo $ses['sid']; ?>" class="btn-icon delete" onclick="return confirm('Delete this session?')">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </a>
                                     </div>
