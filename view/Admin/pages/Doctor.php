@@ -2,6 +2,11 @@
     require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\SpecializationController.php";
     require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\DoctorController.php";
     require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\SpecializationModel.php';
+    include 'C:\xampp\htdocs\Doc_House\view\Admin\pages\Toster.php';
+
+
+    $dataSpec = getSpecialization();
+
     
 ?>
 
@@ -145,9 +150,7 @@
                                                 <div class="field">
                                                     <label for="doc_specialization">Specialization</label>
                                                     <div class="input-wrapper">
-                                                        <?php
-                                                            $dataSpec = getSpecialization();
-                                                        ?>
+                                                        
                                                         <i class="ri-stethoscope-line"></i>
                                                             
                                                             <?php echo (isset($_SESSION['specialization']) && $_SESSION['specialization'] == 'Neurologist') ? 'selected' : ''; 
@@ -271,56 +274,59 @@
         </seection>
 
         <section id="search_doctor" class="section">
-            <div class="filter-bar" id="doctorFilterBar">
+            <!-- <form action="../../../controller/Admin/DoctorController.php" method="POST"> -->
+                <div class="filter-bar" id="doctorFilterBar">
 
-                <!-- Search Doctor -->
-                <div class="filter-group">
-                    <label for="searchDoctor">Search Doctor</label>
-                    <input
-                    type="text"
-                    id="searchDoctor"
-                    class="filter-input"
-                    placeholder="Search by name or email"
-                    />
-                </div>
-
-                <!-- Specialization -->
-                <div class="filter-group">
-                    <label for="doctorSpecialization">Specialization</label>
-                    <div class="input-wrapper">
-                    <i class="ri-stethoscope-line"></i>
-                    <select
-                        id="doctorSpecialization"
-                        class="filter-select"
-                    >
-                        <option value="">All Specializations</option>
-                        <option value="neurologist">Neurologist</option>
-                        <option value="cardiologist">Cardiologist</option>
-                    </select>
+                    <!-- Search Doctor -->
+                    <div class="filter-group">
+                        <label for="searchDoctor">Search Doctor</label>
+                        <input
+                        type="text"
+                        id="searchDoctor"
+                        class="filter-input"
+                        placeholder="Search by name or email"
+                        />
                     </div>
+
+                    <!-- Specialization -->
+                    <div class="filter-group">
+                        <label for="doctorSpecialization">Specialization</label>
+                        <div class="input-wrapper">
+                            <i class="ri-stethoscope-line"></i>
+                            <select id="doctorSpecialization" class="filter-select">
+                                <option value="">All Specializations</option>
+                                <?php foreach ($dataSpec as $spec): ?>
+                                    <option value="<?= htmlspecialchars($spec['name']) ?>">
+                                        <?= htmlspecialchars($spec['name']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="filter-actions">
+                        <button
+                        type="button"
+                        class="btn btn-filter"
+                        id="applyDoctorFilter"
+                        >
+                        <i class="ri-filter-fill"></i>
+                        Filter
+                        </button>
+
+                        <button
+                        type="button"
+                        class="btn btn-reset"
+                        id="resetDoctorFilter"
+                        >
+                        Reset
+                        </button>
+                    </div>
+
                 </div>
-
-                <!-- Action Buttons -->
-                <div class="filter-actions">
-                    <button
-                    type="button"
-                    class="btn btn-filter"
-                    id="applyDoctorFilter"
-                    >
-                    <i class="ri-filter-fill"></i>
-                    Filter
-                    </button>
-
-                    <button
-                    type="button"
-                    class="btn btn-reset"
-                    id="resetDoctorFilter"
-                    >
-                    Reset
-                    </button>
-                </div>
-
-            </div>
+            <!-- </form> -->
+            
 
         </section>
 
@@ -340,30 +346,49 @@
                 // var_dump($dataDoc);
             ?>
             <table>
-                <tr>
-                    <th>DOCTOR</th>
-                    <th>EMAIL</th>
-                    <th>SPECIALIZATION</th>
-                    <th>PHONE</th>
-                    <th>ACTION</th>
-                </tr>
-                <?php foreach ($dataDoc as $doctor): ?>
+                <thead>
                     <tr>
-                        <td>Dr. <?= htmlspecialchars($doctor['name']) ?></td>
-                        <td><?= htmlspecialchars($doctor['email']) ?></td>
-                        <td><?= htmlspecialchars($doctor['specialization']) ?></td>
-                        <td><?= htmlspecialchars($doctor['phone']) ?></td>
-                        <td>
-                            <button class="edit-btn" 
-                                    data-uid="<?= $doctor['uid'] ?>" 
-                                    data-email="<?= htmlspecialchars($doctor['email']) ?>">
-                                <i class="ri-edit-2-fill"></i>
-                            </button>
-                            <button class="delete_btn" data-uid="<?= $doctor['uid'] ?>"><i class="ri-delete-bin-6-fill"></i></button>
-                        </td>
+                        <th>DOCTOR</th>
+                        <th>EMAIL</th>
+                        <th>SPECIALIZATION</th>
+                        <th>PHONE</th>
+                        <th>ACTION</th>
                     </tr>
-                <?php endforeach; ?>
+                </thead>
+                <tbody>
+                    <?php foreach ($dataDoc as $doctor): ?>
+                        <tr>
+                            <td>Dr. <?= htmlspecialchars($doctor['name']) ?></td>
+                            <td><?= htmlspecialchars($doctor['email']) ?></td>
+                            <td><?= htmlspecialchars($doctor['specialization']) ?></td>
+                            <td><?= htmlspecialchars($doctor['phone']) ?></td>
+                            <td>
+                                <button class="edit-btn" 
+                                        data-uid="<?= $doctor['uid'] ?>" 
+                                        data-email="<?= htmlspecialchars($doctor['email']) ?>">
+                                    <i class="ri-edit-2-fill"></i>
+                                </button>
+                                <button class="delete_btn" data-uid="<?= $doctor['uid'] ?>"><i class="ri-delete-bin-6-fill"></i></button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
             </table>
+
+
+            <div class="modal-delete" id="deleteModal">
+                <div class="modal-box-delete">
+                    <h3>Confirm Delete</h3>
+                    <p>Are you sure you want to delete this appointment?</p>
+
+                    <div class="modal-action-delete">
+                    <button type="button" id="cancelDelete">Cancel</button>
+                    <button type="button" id="confirmDelete" class="danger">
+                        Yes, Delete
+                    </button>
+                    </div>
+                </div>
+            </div>
 
             <div class="modal-update" id="modalUpdate">
                 <form id="doctorFormUpdate" action="/Doc_House/controller/Admin/DoctorController.php" method="POST">
@@ -551,12 +576,14 @@
         </section>
 
 
-<?php include 'C:\xampp\htdocs\Doc_House\view\Admin\pages\Toster.php'; ?>
+    
     </main>
 
 
     <script src="../assets/js/toster.js"></script>
     <script src="../assets/js/doctor_modal.js"></script>
     <script src="../assets/js/doctor_update.js"></script>
+    <script src="../assets/js/delete_doctor.js"></script>
+    <script src="../assets/js/search_doctor.js"></script>
 </body>
 </html>

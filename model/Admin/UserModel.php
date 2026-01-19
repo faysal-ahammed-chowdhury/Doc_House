@@ -49,6 +49,17 @@
     }
 
 
+    function deleteUserByUID($uid) {
+        $conn = initDB();
+        $uid  = (int)$uid;
+
+        $sql = "DELETE FROM user WHERE uid = $uid";
+
+        return mysqli_query($conn, $sql);
+    }
+
+
+
 
 
 ?>

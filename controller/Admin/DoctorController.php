@@ -8,9 +8,44 @@
         return getAllDoctorsAdmin();
     }
 
-    // update
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'getDoctor') {
+    // Delete
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'deleteDoctor') {
+        header('Content-Type: application/json');
+
+        $uid = $_POST['uid'] ?? null;
+
+        if (!$uid) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Invalid ID'
+            ]);
+            exit;
+        }
+
+        // delete from doctor first
+        $doctorDeleted = deleteDoctorByUID($uid);
+        $userDeleted   = deleteUserByUID($uid);
+
+        if ($doctorDeleted && $userDeleted) {
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Doctor deleted successfully'
+            ]);
+        } else {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Delete failed'
+            ]);
+        }
+        exit;
+    }
+
+
+    // Get
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'getDoctor') {
         header('Content-Type: application/json');
         $email = $_POST['doctor_email'] ?? null;
 
@@ -29,6 +64,35 @@
     }
 
 
+    // Filter
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filterDoctors') {
+    header('Content-Type: application/json');
+
+    $search = trim($_POST['search'] ?? '');
+    $specialization = trim($_POST['specialization'] ?? '');
+
+    $doctors = getFilteredDoctors($search, $specialization);
+
+    if (!empty($doctors)) {
+        echo json_encode([
+            'status' => 'success',
+            'doctors' => $doctors
+        ]);
+    } else {
+        echo json_encode([
+            'status' => 'error',
+            'doctors' => []
+        ]);
+    }
+    exit;
+}
+
+
+
+
+
+    // Update
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateDoctor'])) {
 
@@ -65,20 +129,20 @@
         $doctorUpdated = updateDoctorAdmin($doctorData);
 
         if ($userUpdated && $doctorUpdated) {
-            echo json_encode([
-                "success" => true,
-                "message" => "Doctor updated successfully",
-                "uid" => $uid
-            ]);
+            $_SESSION['toast'] = [
+                'message' => 'Doctor updated successfully',
+                'type' => 'success'
+            ];
         } else {
-            echo json_encode([
-                "success" => false,
-                "message" => "Failed to update doctor!"
-            ]);
+            $_SESSION['toast'] = [
+                'message' => 'Failed to update doctor!',
+                'type' => 'error'
+            ];
         }
 
         header('Location: /Doc_House/view/Admin/pages/Doctor.php');
         exit;
+
     }
 
 
@@ -86,7 +150,7 @@
 
 
 
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['updateDoctor'])) {
         $email = trim($_POST['doc_email']);
         $name = trim($_POST['doc_name']);
         $pass = trim($_POST['doc_pass']);
@@ -94,23 +158,6 @@
         $fee = trim($_POST['doc_fee']);
         $phone = trim($_POST['doc_phone']);
         $bio = trim($_POST['doc_bio']);
-
-
-        // update
-
-        // if (isset($_POST['action']) && $_POST['action'] === 'getDoctor' && isset($_POST['doctor_email'])) {
-        //     $email = $_POST['doctor_email'];
-        //     $doctorData = getDoctorByEmail($email);
-
-        //     if (!empty($doctorData)) {
-        //         echo json_encode($doctorData[0]); // send first record
-        //     } else {
-        //         echo json_encode([]);
-        //     }
-        //     exit;
-        // }
-
-
 
 
 
@@ -306,4 +353,8 @@
 
 
     }
+
+
+
+
 ?>

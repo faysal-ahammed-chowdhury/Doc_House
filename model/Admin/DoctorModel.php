@@ -92,6 +92,47 @@
         return mysqli_query($conn, $sql);
     }
 
+    function getFilteredDoctors($search = '', $specialization = '') {
+        $conn = initDB();
+
+        $search = mysqli_real_escape_string($conn, $search);
+        $specialization = mysqli_real_escape_string($conn, $specialization);
+
+        $sql = "SELECT u.uid, u.name, u.email, u.phone, s.name AS specialization
+                FROM user u
+                INNER JOIN doctor d ON u.uid = d.uid
+                INNER JOIN specialization s ON d.spid = s.spid
+                WHERE u.role = 'doctor'";
+
+        if ($search !== '') {
+            $sql .= " AND (u.name LIKE '%$search%' OR u.email LIKE '%$search%')";
+        }
+
+        if ($specialization !== '') {
+            $sql .= " AND LOWER(s.name) = LOWER('$specialization')";
+        }
+
+        $result = mysqli_query($conn, $sql);
+        $doctors = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $doctors[] = $row;
+        }
+
+        return $doctors;
+    }
+
+
+
+
+
+    function deleteDoctorByUID($uid) {
+        $conn = initDB();
+        $uid  = (int)$uid;
+
+        $sql = "DELETE FROM doctor WHERE uid = $uid";
+
+        return mysqli_query($conn, $sql);
+    }
 
 
 

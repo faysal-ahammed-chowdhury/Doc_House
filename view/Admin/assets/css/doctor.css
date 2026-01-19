@@ -554,3 +554,57 @@ table tr:last-child td {
   cursor: pointer;
   font-weight: 600;
 }
+
+.modal-delete{
+    max-width: 400px;
+    width: 90%;
+    padding: 30px 50px;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    border-radius: 10px;
+    background-color: #fff;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none;
+}
+
+.modal-delete.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-box-delete{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-action-delete{
+  display: flex;
+  gap: 5px;
+  justify-content: end;
+}
+
+#cancelDelete{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: transparent;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+#confirmDelete{
+    border: none;
+    background-color: #3ba6f6;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+
