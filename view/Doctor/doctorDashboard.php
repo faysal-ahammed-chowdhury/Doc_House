@@ -132,7 +132,57 @@ require_once "../../controller/Doctor/dashboardController.php";
         </div>
     </section>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var buttons = document.querySelectorAll(".ajax-status-btn");
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener("click", function(e) {
+                e.preventDefault(); 
+                
+                var clickedBtn = this;
+                var url = clickedBtn.getAttribute("href");
 
+                updateStatus(url, clickedBtn);
+            });
+        }
+    });
+
+    function updateStatus(url, btnElement) {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            if (this.status === 200) {
+                updateInterface(btnElement, url);
+            } else {
+                console.error("Server Error: " + this.status);
+            }
+        };
+        xhr.open('GET', url, true);
+        xhr.send();
+    }
+
+    function updateInterface(btnElement, url) {
+        var row = btnElement.closest("tr");
+        var statusCell = row.querySelector(".status");
+        var actionCell = row.querySelector(".actions");
+        var counter = document.getElementById("pending-count");
+
+        if (url.indexOf("status=accepted") !== -1) {
+            statusCell.textContent = "Accepted";
+            statusCell.className = "status accepted";
+        } else {
+            statusCell.textContent = "Rejected";
+            statusCell.className = "status rejected";
+        }
+
+        actionCell.innerHTML = "";
+        if (counter) {
+            var currentVal = parseInt(counter.textContent);
+            if (currentVal > 0) {
+                counter.textContent = currentVal - 1;
+            }
+        }
+    }
+</script>
 
 </body>
 </html>
