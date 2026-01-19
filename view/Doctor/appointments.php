@@ -108,11 +108,11 @@ require_once "../../controller/Doctor/appointmentController.php";
                                     <td class="actions">
                                         <?php if ($apt['status'] == 'pending') { ?>
                                             <a href="../../controller/Doctor/updateStatus.php?id=<?php echo $apt['aptid']; ?>&status=accepted"
-                                                class="accept">
+                                                class="accept ajax-status-btn">
                                                 <i class="fa-solid fa-check"></i>
                                             </a>
                                             <a href="../../controller/Doctor/updateStatus.php?id=<?php echo $apt['aptid']; ?>&status=rejected"
-                                                class="cancel">
+                                                class="cancel ajax-status-btn">
                                                 <i class="fa-solid fa-xmark"></i>
                                             </a>
                                         <?php } else { ?>
@@ -127,10 +127,52 @@ require_once "../../controller/Doctor/appointmentController.php";
                     </tbody>
                 </table>
             </div>
-
         </div>
     </section>
 
-</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var buttons = document.querySelectorAll(".ajax-status-btn");
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener("click", function(e) {
+                e.preventDefault(); 
+                
+                var clickedBtn = this;
+                var url = clickedBtn.getAttribute("href");
 
+                updateStatus(url, clickedBtn);
+            });
+        }
+    });
+
+    function updateStatus(url, btnElement) {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            if (this.status === 200) {
+                updateInterface(btnElement, url);
+            } else {
+                console.error("Server Error: " + this.status);
+            }
+        };
+        xhr.open('GET', url, true);
+        xhr.send();
+    }
+
+    function updateInterface(btnElement, url) {
+        var row = btnElement.closest("tr");
+        var statusCell = row.querySelector(".status");
+        var actionCell = row.querySelector(".actions");
+
+        if (url.indexOf("status=accepted") !== -1) {
+            statusCell.textContent = "Accepted";
+            statusCell.className = "status accepted";
+        } else {
+            statusCell.textContent = "Rejected";
+            statusCell.className = "status rejected";
+        }
+        actionCell.innerHTML = "";
+    }
+</script>
+
+</body>
 </html>
