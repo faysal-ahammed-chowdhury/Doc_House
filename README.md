@@ -77,7 +77,7 @@ The system enables patients to book appointments, doctors to manage sessions and
 
 ## 🚀 How to Run the Project
 1. Install **XAMPP** on your system and **Git (optional)** if you want to clone the repository.  
-2. Copy the project folder **Doc_House** into your XAMPP `htdocs` directory, e.g.: `C:\xampp\htdocs\Doc_House`
+2. Copy the project folder **Doc_House** into your XAMPP `htdocs` directory, e.g.: `C:\xampp\htdocs\Doc_House` Or, if you have Git installed, you can clone the repository directly: `git clone https://github.com/faysal-ahammed-chowdhury/Doc_House.git`
 3. Start **Apache** and **MySQL** from the XAMPP control panel.  
 4. Open **phpMyAdmin** in your browser (`http://localhost/phpmyadmin`) and import the database file provided in the project folder.  
 5. Open your browser and visit: `http://localhost/Doc_House`
