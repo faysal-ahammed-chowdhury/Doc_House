@@ -538,7 +538,8 @@ nav .content .logo {
   color: #ffa000;
 }
 
-.status.cancelled {
+.status.cancelled,
+.status.rejected {
   background: #ffebee;
   color: #c62828;
 }

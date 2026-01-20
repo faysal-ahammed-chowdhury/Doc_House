@@ -50,7 +50,7 @@ if (strlen($password) > 0) {
     }
 
     if ($password !== $cpassword) {
-        $_SESSION['updateProfileErr'] = "Passwords did not mathced";
+        $_SESSION['updateProfileErr'] = "Passwords do not match!";
         header("Location: /Doc_House/view/Patient/profile.php");
         exit();
     }
@@ -69,7 +69,7 @@ if (strlen($password) == 0) {
 // work with model here
 if (updateUserByUid($_SESSION['user']['uid'], $name, $phone, $dob, $password) && updatePatientByPid($_SESSION['user']['pid'], $weight, $gender)) {
     unset($_SESSION['updateProfileErr']);
-    $_SESSION['updateProfileSuccess'] = "Profile Updated";
+    $_SESSION['updateProfileSuccess'] = "Profile updated successfully!";
     $_SESSION['user']['name'] = $name;
     header("Location: /Doc_House/view/Patient/profile.php");
 } else {
