@@ -4,7 +4,7 @@ require_once 'db.php';
 function getAppointmentsByDoctor($did, $date = null, $status = null)
 {
     $conn = initDB();
-
+    $did = (int) $did;
     $sql = "SELECT a.aptid, a.time, a.status, s.date, u.name AS patient_name
             FROM appointment a
             JOIN session s ON a.sid = s.sid

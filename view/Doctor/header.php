@@ -32,7 +32,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         <a href="doctorProfile.php">
                             <?php 
                             if (isset($_SESSION['user']['name'])) {
-                                echo htmlspecialchars($_SESSION['user']['name']); 
+                                echo $_SESSION['user']['name']; 
                             } else {
                                 echo "Doctor";
                             }
