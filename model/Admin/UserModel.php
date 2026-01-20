@@ -61,6 +61,34 @@
         return null;
     }
 
+
+    function getOnlyPatient()
+    {
+        $conn = initDB();
+        $sql = "SELECT * FROM user 
+                WHERE role='patient'";
+        $result = mysqli_query($conn, $sql);
+
+        $patients = [];
+        if($result && mysqli_num_rows($result) > 0)
+        {
+            while($row = mysqli_fetch_assoc($result))
+            {
+                $patient = [];
+
+                $patient['uid'] = $row['uid'];
+                $patient['name'] = $row['name'];
+                $patient['email'] = $row['email'];
+                $patient['phone'] = $row['phone'];
+                $patient['dob'] = $row['dob'];
+
+                array_push($patients, $patient);
+            }
+        }
+
+        return $patients;
+    }
+
     function updateUser($data)
     {
         $conn = initDB();

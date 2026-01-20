@@ -63,6 +63,8 @@
     }
 
 
+
+
     function getFilteredAppointments($patient = '', $doctor = '', $status = '', $date = ''){
         $conn = initDB();
 
@@ -129,6 +131,8 @@
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+
+
     function deleteAppointment($aptid)
     {
         $conn = initDB();
@@ -141,6 +145,16 @@
     }
 
 
+
+    function deleteAppointmentByPid($pid)
+    {
+        $conn = initDB();
+        $pid = (int)$pid;
+
+        $sql = "DELETE FROM appointment WHERE pid = $pid";
+
+        return mysqli_query($conn, $sql);
+    }
 
 
 
@@ -179,54 +193,54 @@
 
 
 
-function getDoctorID($uid)
-{
-    $conn = initDB();
-    $uid = (int)$uid;
+    function getDoctorID($uid)
+    {
+        $conn = initDB();
+        $uid = (int)$uid;
 
-    $sql = "SELECT did FROM doctor WHERE uid = $uid LIMIT 1";
-    $result = mysqli_query($conn, $sql);
+        $sql = "SELECT did FROM doctor WHERE uid = $uid LIMIT 1";
+        $result = mysqli_query($conn, $sql);
 
-    if ($result && mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        return (int)$row['did'];
-    }
-
-    return null;
-}
-
-
-
-
-function getSessionByID($uid)
-{
-    $conn = initDB();
-
-    $did = getDoctorID($uid);
-    if (!$did) {
-        return [];
-    }
-
-    $sql = "SELECT * FROM session WHERE did = $did AND status='open'";
-    $result = mysqli_query($conn, $sql);
-
-    $sessions = [];
-
-    if ($result && mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $sessions[] = [
-                'did'           => $row['did'],
-                'date'          => $row['date'],
-                'start_time'    => $row['start_time'],
-                'end_time'      => $row['end_time'],
-                'slot_duration' => $row['slot_duration'],
-                'status'        => $row['status']
-            ];
+        if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            return (int)$row['did'];
         }
+
+        return null;
     }
 
-    return $sessions;
-}
+
+
+
+    function getSessionByID($uid)
+    {
+        $conn = initDB();
+
+        $did = getDoctorID($uid);
+        if (!$did) {
+            return [];
+        }
+
+        $sql = "SELECT * FROM session WHERE did = $did AND status='open'";
+        $result = mysqli_query($conn, $sql);
+
+        $sessions = [];
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $sessions[] = [
+                    'did'           => $row['did'],
+                    'date'          => $row['date'],
+                    'start_time'    => $row['start_time'],
+                    'end_time'      => $row['end_time'],
+                    'slot_duration' => $row['slot_duration'],
+                    'status'        => $row['status']
+                ];
+            }
+        }
+
+        return $sessions;
+    }
 
 
 ?>

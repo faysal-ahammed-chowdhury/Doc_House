@@ -1,3 +1,8 @@
+<?php
+    require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\UserModel.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +11,7 @@
     <title>Patients</title>
     <link rel="stylesheet" href="../assets/css/patients.css">
     <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/toster.css">
 
     <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
@@ -77,14 +83,6 @@
                     />
                 </div>
 
-                <!-- Specialization -->
-                <div class="filter-group">
-                    <label for="doctorSpecialization">Registration Date</label>
-                    <div class="input-wrapper">
-                        <input type="date" name="regDate" id="regDate">
-                    </div>
-                </div>
-
                 <!-- Action Buttons -->
                 <div class="filter-actions">
                     <button        
@@ -101,38 +99,73 @@
         </section>
 
         <section id="table_section" class="section">
+            <?php
+                $patientData = getOnlyPatient();
+            ?>
+
             <h3>Patient Directory</h3>
             <table>
                 <tr>
-                    <th>Patient</th>
-                    <th>Contact Info</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
                     <th>Date of Birth</th>
-                    <th>Joined Date</th>
                     <th>ACTION</th>
                 </tr>
-                <tr>
-                    <td>
-                        Dr. Sarah Jenkins
-                    </td>
-                    <td>
-                        sarah@gmail.com
-                    </td>
-                    <td>
-                        May 12, 1990
-                    </td>
-                    <td>
-                        May 12, 1990
-                    </td>
-                    <td>
-                        <button id="edit_btn"><i class="ri-edit-2-fill"></i></button>
-                        <button id="delete_btn"><i class="ri-delete-bin-6-fill"></i></button>
-                    </td>
-                </tr>
+
+                <?php if (!empty($patientData)) : ?>
+                    <?php foreach ($patientData as $patient) : ?>
+                        <tr>
+                            <td>
+                                <?php echo htmlspecialchars($patient['name']); ?>
+                            </td>
+
+                            <td>
+                                <?php echo htmlspecialchars($patient['email']); ?>
+                            </td>
+
+                            <td>
+                                <?php echo htmlspecialchars($patient['phone']); ?>
+                            </td>
+
+                            <td>
+                                <?php echo date("M d, Y", strtotime($patient['dob'])); ?>
+                            </td>
+
+                            <td>
+                                <button class="delete_btn" data-uid="<?= $patient['uid'] ?>"><i class="ri-delete-bin-6-fill"></i></button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="5" style="text-align:center;">
+                            No patients found
+                        </td>
+                    </tr>
+                <?php endif; ?>
             </table>
+
+            <div class="modal-delete" id="deleteModal">
+                <div class="modal-box-delete">
+                    <h3>Confirm Delete</h3>
+                    <p>Are you sure you want to delete this appointment?</p>
+
+                    <div class="modal-action-delete">
+                    <button type="button" id="cancelDelete">Cancel</button>
+                    <button type="button" id="confirmDelete" class="danger">
+                        Yes, Delete
+                    </button>
+                    </div>
+                </div>
+            </div>
+
+            <?php include 'C:\xampp\htdocs\Doc_House\view\Admin\pages\Toster.php'; ?>
         </section>
 
     </main>
 
+    <script src="../assets/js/toster.js"></script>
     <script src="../assets/js/patients.js"></script>
 </body>
 </html>
