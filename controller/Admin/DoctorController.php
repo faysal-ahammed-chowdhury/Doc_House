@@ -328,7 +328,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filte
             'phone'          => $phone,
             'bio'            => $bio,
             'role'           => 'doctor',
-            'dob'            => '2002-10-10'
+            'dob'            => ''
         ];
 
         $result = addUser($userData);

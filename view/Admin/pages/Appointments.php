@@ -38,6 +38,7 @@
                         <li><a href="../pages/Patients.php"><i class="ri-team-line"></i>Patients</a></li>
                         <li id="menu_item_button"><a href="../pages/Appointments.php"><i class="ri-calendar-event-line"></i>Appointments</a></li>
                         <li><a href="../pages/Specializations.php"><i class="ri-brain-2-line"></i>Specializations</a></li>
+                        <li><a href="../pages/Admin.php"><i class="ri-admin-fill"></i>Admin</a></li>
                     </ul>
                 </div>
                 <div id="profile">
