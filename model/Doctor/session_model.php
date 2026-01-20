@@ -4,8 +4,12 @@ require_once 'db.php';
 function addSession($did, $date, $start, $end, $duration)
 {
     $conn = initDB();
-    $did = (int) $did;
-    $duration = (int) $duration;
+    
+    $did = mysqli_real_escape_string($conn, $did);
+    $date = mysqli_real_escape_string($conn, $date);
+    $start = mysqli_real_escape_string($conn, $start);
+    $end = mysqli_real_escape_string($conn, $end);
+    $duration = mysqli_real_escape_string($conn, $duration);
 
     $sql = "INSERT INTO session (did, date, start_time, end_time, slot_duration, status) 
             VALUES ('$did', '$date', '$start', '$end', '$duration', 'open')";
@@ -17,7 +21,8 @@ function getUpcomingSessions($did)
 {
     $conn = initDB();
     $date = date('Y-m-d');
-    $did = (int)$did;
+    $did = mysqli_real_escape_string($conn, $did);
+
     $sql = "SELECT *, 
             (SELECT COUNT(*) FROM appointment WHERE sid = session.sid) as booked_count 
             FROM session 
@@ -35,7 +40,8 @@ function getPastSessions($did)
 {
     $conn = initDB();
     $date = date('Y-m-d');
-    $did = (int)$did;
+    $did = mysqli_real_escape_string($conn, $did);
+
     $sql = "SELECT *, 
             (SELECT COUNT(*) FROM appointment WHERE sid = session.sid) as booked_count 
             FROM session 
@@ -52,7 +58,7 @@ function getPastSessions($did)
 function getSessionById($sid)
 {
     $conn = initDB();
-    $sid = (int)$sid;
+    $sid = mysqli_real_escape_string($conn, $sid);
     $sql = "SELECT * FROM session WHERE sid = '$sid'";
     $result = mysqli_query($conn, $sql);
     return mysqli_fetch_assoc($result);
@@ -61,7 +67,7 @@ function getSessionById($sid)
 function getAppointmentsBySession($sid)
 {
     $conn = initDB();
-    $sid = (int)$sid;
+    $sid = mysqli_real_escape_string($conn, $sid);
     $sql = "SELECT a.*, u.name as patient_name 
             FROM appointment a
             JOIN patient p ON a.pid = p.pid
@@ -79,7 +85,7 @@ function getAppointmentsBySession($sid)
 function deleteSession($sid)
 {
     $conn = initDB();
-    $sid = (int)$sid;
+    $sid = mysqli_real_escape_string($conn, $sid);
     $sql = "DELETE FROM session WHERE sid='$sid'";
     return mysqli_query($conn, $sql);
 }
