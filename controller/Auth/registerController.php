@@ -118,6 +118,7 @@ $tmpUId = getUIdByEmail($email);
 addPatient($tmpUId, $gender, $weight);
 
 $_SESSION['user'] = getUserByEmail($email);
+$_SESSION['user']['pid'] = getPIdByUId($tmpUId);
 unset($_SESSION['regErr']);
 unset($_SESSION['regData']);
 header("Location: /Doc_House/view/Auth/register.php");

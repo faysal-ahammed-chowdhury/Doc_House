@@ -82,7 +82,7 @@ require_once "../../controller/Patient/appointmentController.php";
                                     <td class="date"><?php echo date("d-m-Y", strtotime($singleAppointment["date"])) ?></td>
                                     <td class="date"><?php echo date("h:i A", strtotime($singleAppointment["time"])); ?></td>
                                     <td class="status-td">
-                                        <span class="status <?php echo $singleAppointment['status'] ?>"><?php echo strtoupper($singleAppointment['status']) ?></span>
+                                        <span class="status <?php echo strtolower($singleAppointment['status']) ?>"><?php echo strtoupper($singleAppointment['status']) ?></span>
                                     </td>
                                     <td class="actions">
                                         <?php echo $singleAppointment['status'] == 'pending' ?

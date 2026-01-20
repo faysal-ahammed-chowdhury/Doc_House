@@ -34,6 +34,7 @@ document.getElementById("confirmDelete").addEventListener("click", () => {
       document.getElementById("deleteModal").classList.remove("active");
       selectedAptId = null;
       showToast("Appointment deleted successfully", "success");
+      location.reload();
     } else {
       alert("Failed to delete appointment.");
     }
