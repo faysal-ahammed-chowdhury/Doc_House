@@ -1,5 +1,6 @@
 <?php require_once "../../middleware/guestMiddleware.php";
 require_once "../../model/Patient/User.php";
+require_once "../../model/Patient/Doctor.php";
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $_SESSION['loginErr'] = "Something is wrong! Try again.";
