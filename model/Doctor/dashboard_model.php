@@ -9,7 +9,8 @@ function getDashboardStats($did) {
     $sql = "SELECT COUNT(DISTINCT a.pid) as total 
             FROM appointment a 
             JOIN session s ON a.sid = s.sid 
-            WHERE s.did = '$did'";
+            WHERE s.did = '$did'
+            AND a.status = 'accepted'";
 
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);

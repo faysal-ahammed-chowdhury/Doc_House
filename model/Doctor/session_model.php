@@ -24,7 +24,7 @@ function getUpcomingSessions($did)
     $did = mysqli_real_escape_string($conn, $did);
 
     $sql = "SELECT *, 
-            (SELECT COUNT(*) FROM appointment WHERE sid = session.sid) as booked_count 
+            (SELECT COUNT(*) FROM appointment a WHERE sid = session.sid AND a.status = 'accepted') as booked_count 
             FROM session 
             WHERE did = '$did' AND date >= '$date' 
             ORDER BY date ASC, start_time ASC";
@@ -43,7 +43,7 @@ function getPastSessions($did)
     $did = mysqli_real_escape_string($conn, $did);
 
     $sql = "SELECT *, 
-            (SELECT COUNT(*) FROM appointment WHERE sid = session.sid) as booked_count 
+            (SELECT COUNT(*) FROM appointment a WHERE sid = session.sid AND a.status = 'accepted') as booked_count 
             FROM session 
             WHERE did = '$did' AND date < '$date' 
             ORDER BY date DESC";
@@ -101,11 +101,12 @@ function getBookedTimesBySession($sid)
 }
 
 
-function deleteSession($sid)
+function deleteSession($sid, $did)
 {
     $conn = initDB();
     $sid = mysqli_real_escape_string($conn, $sid);
-    $sql = "DELETE FROM session WHERE sid='$sid'";
+    $did = mysqli_real_escape_string($conn, $did);
+    $sql = "DELETE FROM session WHERE sid='$sid' AND did='$did'";
     return mysqli_query($conn, $sql);
 }
 ?>

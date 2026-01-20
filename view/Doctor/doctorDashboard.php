@@ -37,7 +37,7 @@ require_once "../../controller/Doctor/dashboardController.php";
                         <i class="fa-solid fa-users"></i>
                     </div>
                     <div class="text-content">
-                        <h3><?php echo $stats['total_patients']; ?></h3>
+                        <h3 id="total-patients-count"><?php echo $stats['total_patients']; ?></h3>
                         <p>Total Patients</p>
                     </div>
                 </div>
@@ -137,10 +137,8 @@ require_once "../../controller/Doctor/dashboardController.php";
         for (var i = 0; i < buttons.length; i++) {
             buttons[i].addEventListener("click", function(e) {
                 e.preventDefault(); 
-                
                 var clickedBtn = this;
                 var url = clickedBtn.getAttribute("href");
-
                 updateStatus(url, clickedBtn);
             });
         }
@@ -150,7 +148,10 @@ require_once "../../controller/Doctor/dashboardController.php";
         const xhr = new XMLHttpRequest();
         xhr.onload = function() {
             if (this.status === 200) {
-                updateInterface(btnElement, url);
+                var response = JSON.parse(this.responseText);
+                if(response.success) {
+                    updateInterface(btnElement, url, response.stats);
+                }
             } else {
                 console.error("Server Error: " + this.status);
             }
@@ -159,29 +160,23 @@ require_once "../../controller/Doctor/dashboardController.php";
         xhr.send();
     }
 
-    function updateInterface(btnElement, url) {
+    function updateInterface(btnElement, url, newStats) {
         var row = btnElement.closest("tr");
         var statusCell = row.querySelector(".status");
         var actionCell = row.querySelector(".actions");
-        var counter = document.getElementById("pending-count");
-        var appointmentCounter = document.getElementById("today-count");
 
         if (url.indexOf("status=accepted") !== -1) {
             statusCell.textContent = "Accepted";
             statusCell.className = "status accepted";
-            var currentAppVal = parseInt(appointmentCounter.textContent);
-            appointmentCounter.textContent = currentAppVal + 1;
         } else {
             statusCell.textContent = "Rejected";
             statusCell.className = "status rejected";
         }
-
         actionCell.innerHTML = "";
-        if (counter) {
-            var currentVal = parseInt(counter.textContent);
-            if (currentVal > 0) {
-                counter.textContent = currentVal - 1;
-            }
+        if (newStats) {
+            document.getElementById("total-patients-count").textContent = newStats.total_patients;
+            document.getElementById("today-count").textContent = newStats.today_appointments;
+            document.getElementById("pending-count").textContent = newStats.pending_requests;
         }
     }
 </script>

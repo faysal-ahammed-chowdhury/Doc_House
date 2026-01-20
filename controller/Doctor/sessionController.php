@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_session'])) {
 }
 
 if (isset($_GET['delete_id'])) {
-    deleteSession($_GET['delete_id']);
+    deleteSession($_GET['delete_id'], $_SESSION['user']['did']);
     header("Location: mySessions.php");
     exit();
 }
