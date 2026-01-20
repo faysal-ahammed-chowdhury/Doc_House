@@ -9,6 +9,16 @@ if (isset($_POST['aptid'])) {
     if ($result) {
         $appointments = getAppointments();
         if(!empty($appointments)){
+             echo '
+                <tr>
+                    <th>PATIENT</th>
+                    <th>DOCTOR</th>
+                    <th>SCHEDULE</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                </tr>
+            ';
+
             foreach($appointments as $apt){
                 echo '
                 <tr>
@@ -27,8 +37,8 @@ if (isset($_POST['aptid'])) {
                     </td>
                     <td><p>'.ucfirst($apt['appointment_status']).'</p></td>
                     <td>
-                        <button class="edit_btn" data-aptid="'.$apt['aptid'].'"><i class="ri-edit-2-fill"></i></button>
-                        <button class="delete_btn" data-aptid="'.$apt['aptid'].'"><i class="ri-delete-bin-6-fill"></i></button>
+                        <button id="edit_btn" data-aptid="'.$apt['aptid'].'"><i class="ri-edit-2-fill"></i></button>
+                        <button id="delete_btn" data-aptid="'.$apt['aptid'].'"><i class="ri-delete-bin-6-fill"></i></button>
                     </td>
                 </tr>';
             }

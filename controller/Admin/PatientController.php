@@ -3,6 +3,8 @@ require_once 'C:\\xampp\\htdocs\\Doc_House\\model\\Admin\\UserModel.php';
 require_once 'C:\\xampp\\htdocs\\Doc_House\\model\\Admin\\PatientModel.php';
 require_once 'C:\\xampp\\htdocs\\Doc_House\\model\\Admin\\AppointmentModel.php';
 
+
+// delete
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'deletePatient') {
 
     $uid = isset($_POST['uid']) ? (int)$_POST['uid'] : 0;

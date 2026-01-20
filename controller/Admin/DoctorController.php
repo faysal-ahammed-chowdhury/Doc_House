@@ -9,11 +9,6 @@
     }
 
 
-    // if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        
-    // }
-
-
     // Delete
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'deleteDoctor') {
@@ -71,27 +66,27 @@
 
     // Filter
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filterDoctors') {
-    header('Content-Type: application/json');
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filterDoctors') {
+        header('Content-Type: application/json');
 
-    $search = trim($_POST['search'] ?? '');
-    $specialization = trim($_POST['specialization'] ?? '');
+        $search = trim($_POST['search'] ?? '');
+        $specialization = trim($_POST['specialization'] ?? '');
 
-    $doctors = getFilteredDoctors($search, $specialization);
+        $doctors = getFilteredDoctors($search, $specialization);
 
-    if (!empty($doctors)) {
-        echo json_encode([
-            'status' => 'success',
-            'doctors' => $doctors
-        ]);
-    } else {
-        echo json_encode([
-            'status' => 'error',
-            'doctors' => []
-        ]);
+        if (!empty($doctors)) {
+            echo json_encode([
+                'status' => 'success',
+                'doctors' => $doctors
+            ]);
+        } else {
+            echo json_encode([
+                'status' => 'error',
+                'doctors' => []
+            ]);
+        }
+        exit;
     }
-    exit;
-}
 
 
 
@@ -273,8 +268,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filte
 
         $cleanPhone = preg_replace('/[^0-9]/', '', $phone);
 
-        if (empty($phone)) {
-            $_SESSION['phoneError'] = 'Enter Your Phone Number';
+        if (empty($phone) || !is_numeric($phone) || strlen($phone) < 11 ) {
+            $_SESSION['phoneError'] = 'Enter A Valid Phone Number';
             $_SESSION['openModal'] = true;
             header('Location: /Doc_House/view/Admin/pages/Doctor.php');
             exit;
