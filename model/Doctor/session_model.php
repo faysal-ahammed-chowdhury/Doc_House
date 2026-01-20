@@ -72,7 +72,7 @@ function getAppointmentsBySession($sid)
             FROM appointment a
             JOIN patient p ON a.pid = p.pid
             JOIN user u ON p.uid = u.uid
-            WHERE a.sid = '$sid'
+            WHERE a.sid = '$sid' 
             ORDER BY a.time ASC";
 
     $result = mysqli_query($conn, $sql);
@@ -81,6 +81,25 @@ function getAppointmentsBySession($sid)
         $data[] = $row;
     return $data;
 }
+
+function getBookedTimesBySession($sid)
+{
+    $conn = initDB();
+    $sid = mysqli_real_escape_string($conn, $sid);
+    $sql = "SELECT a.*, u.name as patient_name 
+            FROM appointment a
+            JOIN patient p ON a.pid = p.pid
+            JOIN user u ON p.uid = u.uid
+            WHERE a.sid = '$sid' AND a.status = 'accepted'
+            ORDER BY a.time ASC";
+
+    $result = mysqli_query($conn, $sql);
+    $data = [];
+    while ($row = mysqli_fetch_assoc($result))
+        $data[] = $row;
+    return $data;
+}
+
 
 function deleteSession($sid)
 {
