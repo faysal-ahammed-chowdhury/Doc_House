@@ -372,14 +372,7 @@ table tr:last-child td {
 }
 
 
-/* table td > div {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-} */
-
-
-#edit_btn{
+.edit-btn{
     color: rgb(77, 180, 250);
     background-color: rgb(205, 228, 248);
     border: none;
@@ -388,7 +381,7 @@ table tr:last-child td {
     cursor: pointer;
 }
 
-#delete_btn{
+.delete_btn{
     color: rgb(245, 123, 123);
     background-color: rgb(249, 212, 212);
     border: none;
@@ -396,3 +389,222 @@ table tr:last-child td {
     border-radius: 50%;
     cursor: pointer;
 }
+
+
+
+
+/* for update modal */
+
+.modal-update {
+  position: fixed;
+  inset: 0;
+  display: none;  
+  align-items: center;  
+  justify-content: center;  
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5); 
+}
+
+.modal-box-update {
+  max-width: 1000px;
+  width: 90%;
+}
+
+
+.modal-update.active {
+  display: flex;
+  align-items: center;  
+  justify-content: center;  
+}
+
+
+#doctorFormUpdate {
+  min-width: 1000px;
+}
+
+.modal-box-update {
+  background: white;
+  padding: 24px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 1400px;
+}
+
+
+.form-container-update {
+  max-width: 900px;
+  margin: auto;
+  padding: 30px;
+  font-family: system-ui, sans-serif;
+}
+
+.form-section-update {
+  margin-bottom: 35px;
+}
+
+.form-section-update h3 {
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1f2937;
+}
+
+.form-section-update h3 i {
+  color: #3ba6f6;
+}
+
+.form-container-update hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 12px 0 24px;
+}
+
+
+.doctor-input-update {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+
+.field-update label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+  display: block;
+}
+
+
+.input-wrapper-update {
+  position: relative;
+}
+
+.input-wrapper-update i {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #9ca3af;
+}
+
+.input-wrapper-update input,
+.input-wrapper-update select,
+#doc_bio_update {
+  width: 100%;
+  padding: 11px 12px 11px 38px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+}
+
+#doc_bio_update {
+  padding-left: 12px;
+  min-height: 120px;
+  resize: vertical;
+}
+
+
+.input-wrapper-update input:focus,
+.input-wrapper-update select:focus,
+#doc_bio_update:focus {
+  border-color: #3ba6f6;
+  box-shadow: 0 0 0 2px rgba(59, 166, 246, 0.2);
+}
+
+
+.full-width-update {
+  margin-top: 25px;
+}
+
+
+.error-message-update {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 3px;
+  display: block;
+}
+
+
+#modal_btn_container_update {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+}
+
+
+.close-update {
+  background: transparent;
+  border: 1px solid #c1bdbd;
+  border-radius: 5px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.updateDoctor {
+  background: rgb(77, 180, 250);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 25px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.modal-delete{
+    max-width: 400px;
+    width: 90%;
+    padding: 30px 50px;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    border-radius: 10px;
+    background-color: #fff;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none;
+}
+
+.modal-delete.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-box-delete{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-action-delete{
+  display: flex;
+  gap: 5px;
+  justify-content: end;
+}
+
+#cancelDelete{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: transparent;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+#confirmDelete{
+    border: none;
+    background-color: #3ba6f6;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+

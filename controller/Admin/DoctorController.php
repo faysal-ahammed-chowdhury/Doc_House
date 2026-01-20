@@ -9,7 +9,148 @@
     }
 
 
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    // Delete
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'deleteDoctor') {
+        header('Content-Type: application/json');
+
+        $uid = $_POST['uid'] ?? null;
+
+        if (!$uid) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Invalid ID'
+            ]);
+            exit;
+        }
+
+        // delete from doctor first
+        $doctorDeleted = deleteDoctorByUID($uid);
+        $userDeleted   = deleteUserByUID($uid);
+
+        if ($doctorDeleted && $userDeleted) {
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Doctor deleted successfully'
+            ]);
+        } else {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Delete failed'
+            ]);
+        }
+        exit;
+    }
+
+
+    // Get
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'getDoctor') {
+        header('Content-Type: application/json');
+        $email = $_POST['doctor_email'] ?? null;
+
+        if ($email) {
+            $doctorData = getDoctorByEmail($email);
+            if (!empty($doctorData)) {
+                echo json_encode($doctorData[0]);
+            } else {
+                echo json_encode([]);
+            }
+        } else {
+            echo json_encode([]);
+        }
+
+        exit;
+    }
+
+
+    // Filter
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filterDoctors') {
+    header('Content-Type: application/json');
+
+    $search = trim($_POST['search'] ?? '');
+    $specialization = trim($_POST['specialization'] ?? '');
+
+    $doctors = getFilteredDoctors($search, $specialization);
+
+    if (!empty($doctors)) {
+        echo json_encode([
+            'status' => 'success',
+            'doctors' => $doctors
+        ]);
+    } else {
+        echo json_encode([
+            'status' => 'error',
+            'doctors' => []
+        ]);
+    }
+    exit;
+}
+
+
+
+
+
+    // Update
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateDoctor'])) {
+
+        $uid = trim($_POST['doctor_uid']);
+        $email = trim($_POST['doc_email']);
+        $name = trim($_POST['doc_name']);
+        $pass = trim($_POST['doc_pass']);
+        $phone = trim($_POST['doc_phone']);
+        $specialization = trim($_POST['doc_specialization']);
+        $fee = trim($_POST['doc_fee']);
+        $bio = trim($_POST['doc_bio']);
+
+        $spid = getSpcID($specialization);
+
+
+        $userData = [
+            'uid'      => $uid,
+            'name'     => $name,
+            'email'    => $email,
+            'password' => $pass,
+            'phone'    => $phone
+        ];
+
+        $doctorData = [
+            'uid'  => $uid,
+            'fee'  => $fee,
+            'bio'  => $bio,
+            'spid' => $spid
+        ];
+
+
+        $userUpdated = updateUser($userData);
+
+        $doctorUpdated = updateDoctorAdmin($doctorData);
+
+        if ($userUpdated && $doctorUpdated) {
+            $_SESSION['toast'] = [
+                'message' => 'Doctor updated successfully',
+                'type' => 'success'
+            ];
+        } else {
+            $_SESSION['toast'] = [
+                'message' => 'Failed to update doctor!',
+                'type' => 'error'
+            ];
+        }
+
+        header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+        exit;
+
+    }
+
+
+
+
+
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['updateDoctor'])) {
         $email = trim($_POST['doc_email']);
         $name = trim($_POST['doc_name']);
         $pass = trim($_POST['doc_pass']);
@@ -163,7 +304,7 @@
             'fee'            => $fee,
             'phone'          => $phone,
             'bio'            => $bio,
-            'role'           => 'admin',
+            'role'           => 'doctor',
             'dob'            => '2002-10-10'
         ];
 
@@ -204,10 +345,6 @@
                 $_SESSION['openModal']
             );
 
-            // $_SESSION['toster'] = [
-            //     'message' => 'Doctor registered successfully!'
-            // ];
-
             header('Location: /Doc_House/view/Admin/pages/Doctor.php');
             exit;
         } else {
@@ -216,4 +353,8 @@
 
 
     }
+
+
+
+
 ?>

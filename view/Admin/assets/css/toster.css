@@ -1,21 +1,27 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.toast {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  min-width: 260px;
+  padding: 14px 18px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 10000;
 }
 
-.toster-container{
-    display: flex;
-    justify-content: flex-end;
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.toster{
-    background-color: gray;
-    padding: 20px 40px;
-    border-radius: 3px;
-    /* max-width: 250px; */
-    display: inline-block;
-    text-align: center;
-    margin: 10px;
-    /* flex-grow: 1; */
-}
+
+.toast.success { background: #2e7d32; }
+.toast.error   { background: #d32f2f; }
+.toast.warning { background: #ed6c02; }
+.toast.info    { background: #0288d1; }
