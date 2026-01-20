@@ -1,5 +1,7 @@
 <?php
     session_start();
+    require_once "C:\\xampp\htdocs\Doc_House\middleware\authMiddleware.php";
+    require_once "C:\\xampp\htdocs\Doc_House\middleware\adminMiddleware.php";
     require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\AdminModel.php';
 ?>
 
@@ -14,6 +16,7 @@
     <link rel="stylesheet" href="../assets/css/admin.css">
     <link rel="stylesheet" href="../assets/css/toster.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"

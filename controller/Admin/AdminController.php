@@ -1,5 +1,7 @@
 <?php
     session_start();
+    require_once "C:\\xampp\htdocs\Doc_House\middleware\authMiddleware.php";
+    require_once "C:\\xampp\htdocs\Doc_House\middleware\adminMiddleware.php";
     require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\AdminModel.php';
     require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\UserModel.php';
 
@@ -12,11 +14,16 @@
             exit;
         }
 
+        if ($_POST['uid'] == $_SESSION['user']['uid']) {
+            echo 'Delete failed';
+            exit();
+        }
         $userDeleted = deleteUserByUID($uid);
 
 
         if ($userDeleted) {
             echo 'delete';
+            
         } else {
             echo 'Delete failed';
         }
