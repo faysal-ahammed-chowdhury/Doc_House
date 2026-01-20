@@ -72,6 +72,7 @@ dNameInput.addEventListener("keyup", (e) => {
 
 
 statusSelect.addEventListener("change", () => {
+  
   tableBody.innerHTML = '<tr><td colspan="5">Loading...</td></tr>';
 
   const xhr = new XMLHttpRequest();
@@ -80,6 +81,7 @@ statusSelect.addEventListener("change", () => {
 
   xhr.onload = function () {
     if (xhr.status === 200) {
+      console.log(xhr.responseText);
       tableBody.innerHTML = xhr.responseText;
     }
   };
@@ -95,6 +97,7 @@ statusSelect.addEventListener("change", () => {
     encodeURIComponent(dateInput.value);
 
   xhr.send(params);
+  
 });
 
 dateInput.addEventListener("change", () => {

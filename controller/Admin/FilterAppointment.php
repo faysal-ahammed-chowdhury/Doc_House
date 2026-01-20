@@ -9,6 +9,7 @@
     $date    = isset($_POST['date']) ? trim($_POST['date']) : '';
 
     $appointments = getFilteredAppointments($patient, $doctor, $status, $date);
+    http_response_code(200);
 
  
     if(!empty($appointments)){
@@ -26,7 +27,7 @@
             
             <tr>
                 <td>
-                    <p>APTID'. $apt['aptid']. '</p>
+                    <p>APTID-'. $apt['aptid']. '</p>
                 </td>
                 <td>
                     <div>
