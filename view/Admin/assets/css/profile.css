@@ -1,0 +1,379 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Barlow", sans-serif;
+}
+
+.container {
+  width: 1440px;
+  margin: auto;
+}
+
+/* page header */
+.page-header {
+  padding: 40px 0;
+}
+
+.page-header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.page-header p {
+  color: #777;
+  font-size: 16px;
+}
+
+/* profile section */
+.profile-section {
+  background: #f4f6f9;
+  padding: 60px 0;
+}
+
+.profile-card-and-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* profile card */
+.profile-card {
+  width: 320px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e1e1e1;
+  padding: 50px;
+  text-align: center;
+}
+
+.avatar {
+  width: 130px;
+  height: 130px;
+  background: #eef7ff;
+  color: #4db4fa;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  font-weight: 800;
+  border: 4px solid #eee;
+  margin: 0 auto 15px;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-card .name {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.profile-card p {
+  color: #777;
+  font-size: 16px;
+}
+
+.thin-line {
+  border-top: 1px solid #e2e8f0;
+  margin: 35px 0;
+}
+
+/* profile pic upload */
+.profile-pic-box {
+  margin-top: 30px;
+}
+
+.profile-pic-box input[type="file"] {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.profile-pic-box .btn {
+  width: 100%;
+  margin-top: 25px;
+  padding: 16px 20px;
+  background: #f8fafc;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* info panel */
+.profile-card-and-info .info {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid #e1e1e1;
+  flex: 1;
+}
+
+/* display mode */
+#displayMode {
+  padding: 10px 0;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+.field.two-field {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 15px;
+}
+
+.field.two-field:last-of-type {
+  border-bottom: none;
+  margin-bottom: 10px;
+}
+
+.first,
+.second {
+  flex: 1;
+  color: #444;
+  line-height: 1.6;
+}
+
+#displayMode strong {
+  display: block;
+  text-transform: uppercase;
+  color: #999;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+#editProfileBtn {
+  margin-top: 20px;
+  background-color: #4db4fa;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* edit mode */
+.hidden {
+  display: none;
+}
+
+.field label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.field input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fcfcfc;
+  font-size: 16px;
+}
+
+input[readonly] {
+  cursor: not-allowed;
+}
+
+.submit-btn {
+  width: 50%;
+  padding: 14px;
+  background-color: #4db4fa;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-reset {
+  background-color: #fff;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  width: 50%;
+  color: #fa5252;
+}
+
+/* messages */
+.error-box {
+  background-color: #fde8e8;
+  border: 1px solid #f8b4b4;
+  color: #9b1c1c;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.success-box {
+  background-color: #def7ec;
+  border: 1px solid #bcf0da;
+  color: #03543f;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.highlight {
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+}
+
+
+
+.user-profile-and-logout {
+  justify-self: end;
+}
+
+.user-profile-and-logout {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #eee;
+  padding: 6px 20px;
+  border-radius: 50px;
+}
+
+.user-profile-and-logout .user {
+  line-height: 1.2;
+  margin-right: 15px;
+  padding-right: 15px;
+  border-right: 1px solid #ddd;
+}
+
+.user .hello {
+  font-size: 12px;
+  color: #999;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.user .name {
+  color: #4db4fa !important;
+  font-weight: 700;
+}
+
+.logout a {
+  color: #e74c3c;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.logout a:hover {
+  color: #c0392b;
+}
+
+.login a {
+  color: #2ecc71;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.login a:hover {
+  color: #27ae60;
+}
+.user-profile-and-logout:hover {
+  border-color: #4db4fa;
+}
+
+.logout a:hover {
+  color: #c0392b;
+  opacity: 0.8;
+}
+
+.login a:hover {
+  color: #27ae60;
+  opacity: 0.8;
+}
+
+.name a {
+  text-decoration: none !important;
+  color: #000;
+}
+
+.submit-btn {
+  width: 100%;
+}
+
+.btn-reset {
+  color: #e74c3c;
+  font-weight: 600;
+  padding: 10px;
+  align-self: end;
+}
+
+.field .submit-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  background-color: #4db4fa;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#editMode .submit-btn {
+  width: 48.5%;
+}
+
+#editMode #cancelEditBtn {
+  display: inline-block;
+  background-color: #fa5252;
+  width: 48.5%;
+  color: #fff;
+  border: 1px solid #fa5252;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+.field.btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}

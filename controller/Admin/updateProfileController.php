@@ -3,14 +3,13 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once "../../middleware/authMiddleware.php";
-require_once "../../middleware/patientMiddleware.php";
-include_once "../../model/Patient/User.php";
-include_once "../../model/Patient/Patient.php";
+require_once "C:\\xampp\htdocs\Doc_House\middleware\authMiddleware.php";
+require_once "C:\\xampp\htdocs\Doc_House\middleware\adminMiddleware.php";
+require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\\UserModel.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $_SESSION['updateProfileErr'] = "Something is wrong! Try again.";
-    header("Location: /Doc_House/view/Patient/profile.php");
+    header("Location: /Doc_House/view/Admin/pages/profile.php");
     exit();
 }
 
@@ -18,10 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 if (
     !isset($_POST['fullname']) || !isset($_POST['email']) || !isset($_POST['phone'])
     || !isset($_POST['password']) || !isset($_POST['cpassword'])
-    || !isset($_POST['dob']) || !isset($_POST['gender']) || !isset($_POST['weight'])
+    || !isset($_POST['dob'])
 ) {
     $_SESSION['updateProfileErr'] = "Something is wrong! Try again.";
-    header("Location: /Doc_House/view/Patient/profile.php");
+    header("Location: /Doc_House/view/Admin/pages/profile.php");
     exit();
 }
 
@@ -30,36 +29,28 @@ $phone = trim($_POST['phone']);
 $password = trim($_POST['password']);
 $cpassword = trim($_POST['cpassword']);
 $dob = trim($_POST['dob']);
-$gender = trim($_POST['gender']);
-$weight = trim($_POST['weight']);
 
 
 if (
-    empty($name) || empty($phone) || empty($dob) || empty($gender) || empty($weight)
+    empty($name) || empty($phone) || empty($dob)
 ) {
     $_SESSION['updateProfileErr'] = "Can't be empty!";
-    header("Location: /Doc_House/view/Patient/profile.php");
+    header("Location: /Doc_House/view/Admin/pages/profile.php");
     exit();
 }
 
 if (strlen($password) > 0) {
     if (strlen($password) < 8) {
         $_SESSION['updateProfileErr'] = "Password must be at least 8 characters";
-        header("Location: /Doc_House/view/Patient/profile.php");
+        header("Location: /Doc_House/view/Admin/pages/profile.php");
         exit();
     }
 
     if ($password !== $cpassword) {
         $_SESSION['updateProfileErr'] = "Passwords do not match!";
-        header("Location: /Doc_House/view/Patient/profile.php");
+        header("Location: /Doc_House/view/Admin/pages/profile.php");
         exit();
     }
-}
-
-if (!($gender == "male" || $gender == "female")) {
-    $_SESSION['updateProfileErr'] = "Please select a gender";
-    header("Location: /Doc_House/view/Patient/profile.php");
-    exit();
 }
 
 if (strlen($password) == 0) {
@@ -68,18 +59,18 @@ if (strlen($password) == 0) {
 
 if ($dob > date('Y-m-d')) {
     $_SESSION['updateProfileErr'] = "Please select a valid Birth Date";
-    header("Location: /Doc_House/view/Patient/profile.php");
+    header("Location: /Doc_House/view/Admin/pages/profile.php");
     exit();
 }
 
 // work with model here
-if (updateUserByUid($_SESSION['user']['uid'], $name, $phone, $dob, $password) && updatePatientByPid($_SESSION['user']['pid'], $weight, $gender)) {
+if (updateUserByUid($_SESSION['user']['uid'], $name, $phone, $dob, $password)) {
     unset($_SESSION['updateProfileErr']);
     $_SESSION['updateProfileSuccess'] = "Profile updated successfully!";
     $_SESSION['user']['name'] = $name;
-    header("Location: /Doc_House/view/Patient/profile.php");
+    header("Location: /Doc_House/view/Admin/pages/profile.php");
 } else {
     $_SESSION['updateProfileErr'] = "Something is wrong";
-    header("Location: /Doc_House/view/Patient/profile.php");
+    header("Location: /Doc_House/view/Admin/pages/profile.php");
     exit();
 }

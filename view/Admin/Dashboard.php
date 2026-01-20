@@ -1,4 +1,6 @@
 <?php
+    require_once "../../middleware/authMiddleware.php";
+    require_once "../../middleware/adminMiddleware.php";
     require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\DoctorController.php";
     require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\AppointmentController.php";
     require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\PatientModel.php';
@@ -18,6 +20,7 @@
     href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
     rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <header>
@@ -37,14 +40,17 @@
                     <li><a href="./pages/Admin.php"><i class="ri-admin-fill"></i>Admin</a></li>
                 </ul>
             </div>
-            <div id="profile">
-                <div>
-                    <p>Administrator</p>
-                    <h4>MD Mehedi Hasan</h4>
+            <div class="user-profile-and-logout">
+                <div class="user">
+                    <p class="hello">Administrator</p>
+                    <p class="name">
+                        <a href="pages/profile.php"><?php echo $_SESSION['user']['name'] ?></a>
+                    </p>
                 </div>
-                <div>
-                    <i id="logout_icon" class="ri-logout-box-r-line"></i>
+                <div class="logout">
+                    <a href="../../controller/Auth/logoutController.php" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
                 </div>
+
             </div>
         </nav>
     </header>

@@ -114,6 +114,54 @@
     }
 
 
+    function getUserByUId($uid) {
+        $conn = initDB();
+        $sql = "SELECT * FROM user WHERE uid='$uid'";
+        $result = mysqli_query($conn, $sql);
+
+        $foundUser = [];
+        if (mysqli_num_rows($result) == 1) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $foundUser["uid"] = $row["uid"];
+                $foundUser["name"] = $row["name"];
+                $foundUser["email"] = $row["email"];
+                $foundUser["phone"] = $row["phone"];
+                $foundUser["dob"] = $row["dob"];
+                $foundUser["role"] = $row["role"];
+                $foundUser["img"] = $row["img"];
+            }
+        }
+        return $foundUser;
+    }
+
+    function updateUserByUid($uid, $name, $phone, $dob, $password = null) {
+        $conn = initDB();
+
+        if ($password !== null && strlen($password) > 0) {
+            $sqlUser = "
+                UPDATE user 
+                SET name='$name', phone='$phone', dob='$dob', password='$password' 
+                WHERE uid='$uid'
+            ";
+        } else {
+            $sqlUser = "
+                UPDATE user 
+                SET name='$name', phone='$phone', dob='$dob'
+                WHERE uid='$uid'
+            ";
+        }
+
+        return mysqli_query($conn, $sqlUser);
+    }
+
+    function updateImgByUid($uid, $img_location) {
+        $conn = initDB();
+        $sqlUser = "UPDATE user 
+                    SET img='$img_location' 
+                    WHERE uid='$uid'";
+
+        return mysqli_query($conn, $sqlUser);
+    }
 
 
 

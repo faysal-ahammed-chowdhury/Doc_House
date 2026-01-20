@@ -1,4 +1,6 @@
 <?php
+    require_once "C:\\xampp\htdocs\Doc_House\middleware\authMiddleware.php";
+    require_once "C:\\xampp\htdocs\Doc_House\middleware\adminMiddleware.php";
     require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\DoctorModel.php';
     require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\SpecializationModel.php';
     require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\UserModel.php';
