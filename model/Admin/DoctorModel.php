@@ -54,6 +54,8 @@
         return $doctors;
     }
 
+
+
     function getDoctorByEmail($email) {
         $conn = initDB();
         $stmt = $conn->prepare("SELECT u.uid, u.password, d.fee, d.bio 
@@ -79,6 +81,27 @@
 
 
 
+    function checkEmailExit($email)
+    {
+        $conn = initDB();
+
+        $sql = "SELECT email FROM user WHERE email = '$email'";
+
+        $result = mysqli_query($conn, $sql);
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // echo(checkEmailExit('mehedi@gmail.com'));
+
+
+
+
+
     function updateDoctorAdmin($data)
     {
         $conn = initDB();
@@ -91,6 +114,9 @@
 
         return mysqli_query($conn, $sql);
     }
+
+
+
 
     function getFilteredDoctors($search = '', $specialization = '') {
         $conn = initDB();

@@ -9,6 +9,11 @@
     }
 
 
+    // if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        
+    // }
+
+
     // Delete
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'deleteDoctor') {
@@ -146,9 +151,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filte
     }
 
 
+    // Live Search
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'checkEmail') {
+
+        $email = trim($_POST['email'] ?? '');
+
+        if ($email && checkEmailExit($email)) {
+            $_SESSION['openModal'] = true;
+            echo 'exists';
+        } else {
+            echo 'ok';
+        }
+        exit;
+    }
 
 
 
+
+    // Submit
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['updateDoctor'])) {
         $email = trim($_POST['doc_email']);
@@ -179,7 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filte
         else{
             $_SESSION['email'] = $email;
             $_SESSION['openModal'] = true;
-            header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+            // header('Location: /Doc_House/view/Admin/pages/Doctor.php');
             // exit;
         }
 
@@ -199,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filte
         else{
             $_SESSION['pass'] = $pass;
             $_SESSION['openModal'] = true;
-            header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+            // header('Location: /Doc_House/view/Admin/pages/Doctor.php');
             // exit;
         }
 
@@ -211,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filte
         }else{
             $_SESSION['name'] = $name;
             $_SESSION['openModal'] = true;
-            header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+            // header('Location: /Doc_House/view/Admin/pages/Doctor.php');
             // exit;
         }
 
@@ -226,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filte
         else{
             $_SESSION['specialization'] = $specialization;
             $_SESSION['openModal'] = true;
-            header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+            // header('Location: /Doc_House/view/Admin/pages/Doctor.php');
         }
 
 
@@ -246,10 +266,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filte
         else{
             $_SESSION['fee'] = $fee;
             $_SESSION['openModal'] = true;
-            header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+            // header('Location: /Doc_House/view/Admin/pages/Doctor.php');
         }
 
 
+
+        $cleanPhone = preg_replace('/[^0-9]/', '', $phone);
 
         if (empty($phone)) {
             $_SESSION['phoneError'] = 'Enter Your Phone Number';
@@ -257,19 +279,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filte
             header('Location: /Doc_House/view/Admin/pages/Doctor.php');
             exit;
         }
-        elseif(!is_numeric($phone) || strlen($phone) < 11){
-            $_SESSION['phoneError'] = 'Enter a valid phone number';
-            $_SESSION['phone'] = $phone;
-            $_SESSION['openModal'] = true;
-            header('Location: /Doc_House/view/Admin/pages/Doctor.php');
-            exit;
-        }
         else{
             $_SESSION['phone'] = $phone;
             $_SESSION['openModal'] = true;
-            header('Location: /Doc_House/view/Admin/pages/Doctor.php');
         }
-
 
 
 
@@ -282,8 +295,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filte
         else{
             $_SESSION['bio'] = $bio;
             $_SESSION['openModal'] = true;
-            header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+            // header('Location: /Doc_House/view/Admin/pages/Doctor.php');
         }
+
+
+        // $emailExit = checkEmailExit($email);
+        // if($emailExit)
+        // {
+        //     $_SESSION['emailError'] = 'Email Already Exit';
+        //     $_SESSION['openModal'] = true;
+        //     header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+        //     exit;
+        // }
 
         $doctor = [
             'email'          => trim($_POST['doc_email']),
@@ -305,7 +328,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filte
             'phone'          => $phone,
             'bio'            => $bio,
             'role'           => 'doctor',
-            'dob'            => '2002-10-10'
+            'dob'            => ''
         ];
 
         $result = addUser($userData);
@@ -345,16 +368,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'filte
                 $_SESSION['openModal']
             );
 
-            header('Location: /Doc_House/view/Admin/pages/Doctor.php');
-            exit;
+            
         } else {
             echo "Insert failed";
         }
 
-
+        header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+        exit;
     }
-
-
 
 
 ?>
