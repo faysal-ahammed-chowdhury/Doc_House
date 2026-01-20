@@ -81,18 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
           e.preventDefault();
           return;
         }
-
-        if (totalSessionMinutes != slotDuration) {
-          alert(
-            "Error: Total time (" +
-              totalSessionMinutes +
-              " mins) does not match slot duration (" +
-              slotDuration +
-              " mins)",
-          );
-          e.preventDefault();
-          return;
-        }
       }
 
       e.preventDefault();
