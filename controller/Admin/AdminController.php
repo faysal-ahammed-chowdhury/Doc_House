@@ -46,6 +46,13 @@
                 'dob' => $dob
             ]);
 
+            if ($result) {
+                $_SESSION['user']['name'] = $name;
+                $_SESSION['user']['email'] = $email;
+                $_SESSION['user']['phone'] = $phone;
+                $_SESSION['user']['dob'] = $dob;
+            }
+
             echo $result ? 'updated' : 'error';
             exit;
         }
