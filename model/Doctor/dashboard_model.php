@@ -19,12 +19,21 @@ function getDashboardStats($did) {
             FROM appointment a 
             JOIN session s ON a.sid = s.sid 
             WHERE s.did = '$did' 
-            AND s.date = '$today' 
-            AND a.status != 'cancelled'";
+            AND s.date = '$today'";
 
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
-    $stats['today_appointments'] = $row['total'];
+
+    $sql = "SELECT COUNT(*) as total 
+            FROM appointment a 
+            JOIN session s ON a.sid = s.sid 
+            WHERE s.did = '$did' 
+            AND s.date = '$today' 
+            AND a.status = 'accepted'";
+    $new_result = mysqli_query($conn, $sql);
+    $new_row = mysqli_fetch_assoc($new_result);
+    $stats['today_appointments'] = $new_row['total'];
+
 
     $sql = "SELECT COUNT(*) as total 
             FROM appointment a 
@@ -39,7 +48,7 @@ function getDashboardStats($did) {
     return $stats;
 }
 
-function getRecentAppointments($did, $limit = 3) {
+function getRecentAppointments($did, $limit = 5) {
     $conn = initDB();
     $today = date('Y-m-d');
     
