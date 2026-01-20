@@ -160,6 +160,11 @@ function showToast(message, type, duration = 3000) {
   const toast = document.querySelector(".toast-box");
   const msg = document.getElementById("toast-msg");
 
+  toast.classList.remove("show");
+  toast.classList.remove("toast-success");
+  toast.classList.remove("toast-error");
+  toast.classList.remove("toast-warning");
+
   msg.innerText = message;
   toast.classList.add("show");
   toast.classList.add("toast-" + type);
