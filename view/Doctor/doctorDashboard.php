@@ -47,7 +47,7 @@ require_once "../../controller/Doctor/dashboardController.php";
                         <i class="fa-solid fa-calendar-check"></i>
                     </div>
                     <div class="text-content">
-                        <h3><?php echo $stats['today_appointments']; ?></h3>
+                        <h3 id="today-count"><?php echo $stats['today_appointments']; ?></h3>
                         <p>Appointments Today</p>
                     </div>
                 </div>
@@ -164,10 +164,13 @@ require_once "../../controller/Doctor/dashboardController.php";
         var statusCell = row.querySelector(".status");
         var actionCell = row.querySelector(".actions");
         var counter = document.getElementById("pending-count");
+        var appointmentCounter = document.getElementById("today-count");
 
         if (url.indexOf("status=accepted") !== -1) {
             statusCell.textContent = "Accepted";
             statusCell.className = "status accepted";
+            var currentAppVal = parseInt(appointmentCounter.textContent);
+            appointmentCounter.textContent = currentAppVal + 1;
         } else {
             statusCell.textContent = "Rejected";
             statusCell.className = "status rejected";
