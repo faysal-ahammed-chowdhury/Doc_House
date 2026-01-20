@@ -58,7 +58,7 @@ require_once "../../controller/Doctor/sessionDetailsController.php";
 
                 <div class="info-col">
                     <div class="label">BOOKED</div>
-                    <div class="value"><strong><?php echo count($appointments); ?></strong> Appointments</div>
+                    <div class="value" ><strong id="booked-count"><?php echo count($booked); ?></strong> Appointments</div>
                 </div>
 
             </div>
@@ -150,10 +150,15 @@ require_once "../../controller/Doctor/sessionDetailsController.php";
         var row = btnElement.closest("tr");
         var statusCell = row.querySelector(".status");
         var actionCell = row.querySelector(".actions");
+        var bookedCounter = document.getElementById("booked-count");
 
         if (url.indexOf("status=accepted") !== -1) {
             statusCell.textContent = "Accepted";
             statusCell.className = "status accepted";
+            if (bookedCounter) {
+                var currentCount = parseInt(bookedCounter.textContent);
+                bookedCounter.textContent = currentCount + 1;
+            }
         } else {
             statusCell.textContent = "Rejected";
             statusCell.className = "status rejected";

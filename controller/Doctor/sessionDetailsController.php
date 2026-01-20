@@ -9,6 +9,7 @@ if (!isset($_GET['sid'])) {
 $sid = $_GET['sid'];
 $session = getSessionById($sid);
 $appointments = getAppointmentsBySession($sid);
+$booked = getBookedTimesBySession($sid);
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     deleteSession($sid);
