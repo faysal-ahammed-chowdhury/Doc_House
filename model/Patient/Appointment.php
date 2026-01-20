@@ -258,7 +258,7 @@ function getAppointmentBySIdPIdAndNotCancelled($sid, $pid)
 {
     $conn = initDB();
     $sql = "SELECT aptid, sid, pid, time, status FROM appointment 
-            WHERE sid='$sid' and pid='$pid' and status!='cancelled'";
+            WHERE sid='$sid' and pid='$pid' and status!='cancelled' AND status!='rejected'";
     $result = mysqli_query($conn, $sql);
 
     $allAppointment = [];

@@ -53,7 +53,7 @@ updateForm.addEventListener("submit", function (e) {
                 updateModal.classList.remove("active");
                 specUpdateError.textContent = "";
             } else {
-                specUpdateError.textContent = "Update failed!";
+                specUpdateError.textContent = res;
             }
         } else {
             specUpdateError.textContent = "Server error!";

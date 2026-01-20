@@ -310,6 +310,7 @@
                             <option value="Accepted">Accepted</option>
                             <option value="Pending">Pending</option>
                             <option value="Rejected">Rejected</option>
+                            <option value="Cancelled">Cancelled</option>
                         </select>
                         </div>
                     </div>
@@ -327,22 +328,7 @@
 
                     <!-- Action Buttons -->
                     <div class="filter-actions">
-                        <button
-                        type="submit"
-                        class="btn btn-filter"
-                        id="applyDoctorFilter"
-                        >
-                        <i class="ri-filter-fill"></i>
-                        Filter
-                        </button>
-
-                        <button
-                        type="button"
-                        class="btn btn-reset"
-                        id="resetDoctorFilter"
-                        >
-                        Reset
-                        </button>
+                     
                     </div>
 
                 </form>
@@ -357,6 +343,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>APTID</th>
                             <th>PATIENT</th>
                             <th>DOCTOR</th>
                             <th>SCHEDULE</th>
@@ -368,6 +355,9 @@
                     <tbody id="tableBody">
                         <?php foreach ($appointments as $apt): ?>
                             <tr>
+                                <td>
+                                    <p>APTID-<?php echo $apt['aptid'] ?></p>
+                                </td>
                                 <td>
                                     <div>
                                         <div>
@@ -390,18 +380,15 @@
                                 <td>
                                     <div>
                                         <h4><?= date("M d, Y", strtotime($apt['session_date'])) ?></h4>
-                                        <p><?= date("h:i A", strtotime($apt['appointment_time'])) ?> (SIS-<?= $apt['session_id'] ?>)</p>
+                                        <p><?= date("h:i A", strtotime($apt['appointment_time'])) ?> (SID-<?= $apt['session_id'] ?>)</p>
                                     </div>
                                 </td>
 
                                 <td>
-                                    <p><?= ucfirst($apt['appointment_status']) ?></p>
+                                    <p class="status <?php echo $apt['appointment_status'] ?>"><?= ucfirst($apt['appointment_status']) ?></p>
                                 </td>
 
                                 <td>
-                                    <button id="edit_btn" data-aptid="<?= $apt['aptid'] ?>">
-                                        <i class="ri-edit-2-fill"></i>
-                                    </button>
 
                                     <button id="delete_btn" data-aptid="<?= $apt['aptid'] ?>">
                                         <i class="ri-delete-bin-6-fill"></i>
@@ -411,12 +398,12 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <div class="modal" id="deleteModal">
-                    <div class="modal-box">
+                <div class="modal-delete" id="deleteModal">
+                    <div class="modal-box-delete">
                         <h3>Confirm Delete</h3>
                         <p>Are you sure you want to delete this appointment?</p>
 
-                        <div class="modal-action">
+                        <div class="modal-action-delete">
                         <button type="button" id="cancelDelete">Cancel</button>
                         <button type="button" id="confirmDelete" class="danger">
                             Yes, Delete

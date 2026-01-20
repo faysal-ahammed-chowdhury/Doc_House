@@ -156,7 +156,7 @@ require_once "../../controller/Patient/profileController.php";
             </div>
         </div>
     </section>
-    <?php include_once "../shared/footer.php" ?>
+    <?php include_once "footer.php" ?>
 
     <script src="js/script.js"></script>
 </body>

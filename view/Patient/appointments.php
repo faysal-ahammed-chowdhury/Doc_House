@@ -43,6 +43,7 @@ require_once "../../controller/Patient/appointmentController.php";
                             <option value="pending" <?php echo ($filterStatus == "pending") ? "selected" : ''; ?>>Pending</option>
                             <option value="accepted" <?php echo ($filterStatus == "accepted") ? "selected" : ''; ?>>Accepted</option>
                             <option value="cancelled" <?php echo ($filterStatus == "cancelled") ? "selected" : ''; ?>>Cancelled</option>
+                            <option value="rejected" <?php echo ($filterStatus == "rejected") ? "selected" : ''; ?>>Rejected</option>
                         </select>
                     </div>
                     <button type="submit" class="btn-filter">
@@ -99,7 +100,7 @@ require_once "../../controller/Patient/appointmentController.php";
             <?php include_once "toast.php"; ?>
         </div>
     </section>
-    <?php include_once "../shared/footer.php" ?>
+    <?php include_once "footer.php" ?>
 
     <script src="js/script.js"></script>
 </body>

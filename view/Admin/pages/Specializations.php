@@ -155,11 +155,11 @@
                 <?php endif; ?>
             </table>
 
-            <div class="modal" id="deleteModal">
-                <div class="modal-box">
+            <div class="modal-delete" id="deleteModal">
+                <div class="modal-box-delete">
                     <h3>Confirm Delete</h3>
                     <p>Are you sure you want to delete this specialization?</p>
-                    <div class="modal-action">
+                    <div class="modal-action-delete">
                         <button type="button" id="cancelDelete">Cancel</button>
                         <button type="button" id="confirmDelete" class="danger">
                             Yes, Delete

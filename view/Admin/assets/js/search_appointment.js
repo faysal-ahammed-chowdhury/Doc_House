@@ -84,7 +84,43 @@ statusSelect.addEventListener("change", () => {
     }
   };
 
-  xhr.send("status=" + encodeURIComponent(statusSelect.value));
+  const params =
+    "pName=" +
+    encodeURIComponent(pNameInput.value) +
+    "&dName=" +
+    encodeURIComponent(dNameInput.value) +
+    "&status=" +
+    encodeURIComponent(statusSelect.value) +
+    "&date=" +
+    encodeURIComponent(dateInput.value);
+
+  xhr.send(params);
+});
+
+dateInput.addEventListener("change", () => {
+  tableBody.innerHTML = '<tr><td colspan="5">Loading...</td></tr>';
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/Doc_House/controller/Admin/FilterAppointment.php", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      tableBody.innerHTML = xhr.responseText;
+    }
+  };
+
+  const params =
+    "pName=" +
+    encodeURIComponent(pNameInput.value) +
+    "&dName=" +
+    encodeURIComponent(dNameInput.value) +
+    "&status=" +
+    encodeURIComponent(statusSelect.value) +
+    "&date=" +
+    encodeURIComponent(dateInput.value);
+
+  xhr.send(params);
 });
 
 

@@ -3,7 +3,7 @@ function initDB()
 {
     $servername = "localhost";
     $username = "root";
-    $password = "Admin@12345";
+    $password = "";
     $dbname = "doc_house";
 
     $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -13,4 +13,3 @@ function initDB()
     }
     return $conn;
 }
-?>

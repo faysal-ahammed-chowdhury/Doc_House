@@ -38,6 +38,11 @@ require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\SpecializationModel.php';
             }
 
             $name = strtoupper($name);
+            if (checkSpecializationExists($name)) {
+                echo "Specialization already exists!";
+                exit;
+            }
+
 
             $result = updateSpecialization([
                 'spid' => $spid,

@@ -11,7 +11,7 @@ $sessions = getSessionByID($uid);
 echo '<option value="">Select Available Session</option>';
 
 foreach ($sessions as $session) {
-    echo '<option value="' . $session['did'] . '_' . $session['date'] . '_' . $session['start_time'] . '_' . $session['end_time'] . '_' . $session['slot_duration'] . '">';
+    echo '<option value="' . $session['did'] . '_' . $session['date'] . '_' . $session['start_time'] . '_' . $session['end_time'] . '_' . $session['slot_duration'] . '_' . $session['sid'] . '">';
     echo $session['date'] . ' (' . $session['start_time'] . ' - ' . $session['end_time'] . ')';
     echo '</option>';
 }
