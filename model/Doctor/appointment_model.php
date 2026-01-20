@@ -40,8 +40,8 @@ function updateAppointmentStatus($aptid, $status)
 {
     $conn = initDB();
     
-    $aptid = mysqli_real_escape_string($conn, $aptid);
-    $status = mysqli_real_escape_string($conn, $status);
+    $aptid = (int) $aptid;
+    $status = (int) $status;
 
     $sql = "UPDATE appointment SET status='$status' WHERE aptid='$aptid'";
 
