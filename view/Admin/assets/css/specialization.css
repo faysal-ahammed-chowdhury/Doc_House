@@ -1,8 +1,12 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Roboto", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Barlow", sans-serif;
+  text-decoration: none;
+  transition: 0.2s ease-in-out all;
 }
 
 main{
@@ -83,13 +87,14 @@ hr{
 
 
 .filter-bar button {
-    color: #fff;
-    background-color: rgb(77, 180, 250);
-    border: none;
-    border-radius: 20px;
-    padding: 15px 25px;
-    cursor: pointer;
-    font-weight: 600;
+background-color: #4db4fa;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 40px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 
@@ -289,4 +294,63 @@ table td div div:first-child h4 {
     background-color: transparent;
     padding: 10px 15px;
     cursor: pointer;
+}
+
+
+hr {
+  border: none !important;
+  border-bottom: 1px solid #e1e1e1 !important;
+}
+
+
+#cancelDelete{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: transparent;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+#confirmDelete{
+    border: none;
+    background-color: #3ba6f6;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+.modal-delete{
+    max-width: 400px;
+    width: 90%;
+    padding: 30px 50px;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    border-radius: 10px;
+    background-color: #fff;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none;
+}
+
+.modal-delete.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-box-delete{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-action-delete{
+  display: flex;
+  gap: 5px;
+  justify-content: end;
 }

@@ -86,14 +86,7 @@
 
                 <!-- Action Buttons -->
                 <div class="filter-actions">
-                    <button        
-                    type="submit"          
-                    class=" btn-filter"
-                    id="applyDoctorFilter"
-                    >
-                    <i class="ri-search-line"></i>
-                    Filter
-                    </button>
+                  
                 </div>
 
             </form>

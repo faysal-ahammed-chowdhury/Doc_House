@@ -229,6 +229,7 @@
         if ($result && mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 $sessions[] = [
+                    'sid'           => $row['sid'],
                     'did'           => $row['did'],
                     'date'          => $row['date'],
                     'start_time'    => $row['start_time'],
@@ -240,6 +241,20 @@
         }
 
         return $sessions;
+    }
+
+
+    function isBookedSlot($time, $sid) {
+        $conn = initDB();
+
+        $time = mysqli_real_escape_string($conn, $time);
+        $sid = mysqli_real_escape_string($conn, $sid);
+
+        $sql = "SELECT * FROM appointment WHERE time='$time' AND sid='$sid'";
+
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) > 0) return true;
+        return false;
     }
 
 

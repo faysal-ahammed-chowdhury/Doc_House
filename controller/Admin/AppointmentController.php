@@ -33,7 +33,7 @@
 
 
         if(empty($docName)){
-            $_SESSION['docNameErrorApp'] = 'Select Docto Name';
+            $_SESSION['docNameErrorApp'] = 'Select Doctor Name';
             $_SESSION['openModal'] = true;
             header('Location: /Doc_House/view/Admin/pages/Appointments.php');
             exit;
