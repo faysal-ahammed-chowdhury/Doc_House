@@ -71,7 +71,7 @@
         </seection>
 
         <section id="search_doctor" class="section">
-            <form class="filter-bar" id="doctorFilterBar">
+            <div class="filter-bar" id="doctorFilterBar">
                 <!-- Search Doctor -->
                 <div class="filter-group">
                     <label for="searchDoctor">Search Patient</label>
@@ -96,7 +96,7 @@
                     </button>
                 </div>
 
-            </form>
+            </div>
         </section>
 
         <section id="table_section" class="section">
@@ -150,7 +150,7 @@
             <div class="modal-delete" id="deleteModal">
                 <div class="modal-box-delete">
                     <h3>Confirm Delete</h3>
-                    <p>Are you sure you want to delete this appointment?</p>
+                    <p>Are you sure you want to delete this patient?</p>
 
                     <div class="modal-action-delete">
                     <button type="button" id="cancelDelete">Cancel</button>

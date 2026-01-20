@@ -90,9 +90,9 @@
 
     function updateSpecialization($data)
     {
+        $conn = initDB();
         $name = $data['name'];
         $spid = (int)$data['spid'];
-        $conn = initDB();
         $sql = "UPDATE specialization SET name = '$name' WHERE spid = $spid";
         return mysqli_query($conn, $sql);
     }
