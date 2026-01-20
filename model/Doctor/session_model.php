@@ -101,11 +101,12 @@ function getBookedTimesBySession($sid)
 }
 
 
-function deleteSession($sid)
+function deleteSession($sid, $did)
 {
     $conn = initDB();
     $sid = mysqli_real_escape_string($conn, $sid);
-    $sql = "DELETE FROM session WHERE sid='$sid'";
+    $did = mysqli_real_escape_string($conn, $did);
+    $sql = "DELETE FROM session WHERE sid='$sid' AND did='$did'";
     return mysqli_query($conn, $sql);
 }
 ?>
