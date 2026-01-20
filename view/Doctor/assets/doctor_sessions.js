@@ -72,10 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
           return;
         }
 
-        var startMinutes =
-          parseInt(start.split(":")[0]) * 60 + parseInt(start.split(":")[1]);
-        var endMinutes =
-          parseInt(end.split(":")[0]) * 60 + parseInt(end.split(":")[1]);
+        var startMinutes = parseInt(start.split(":")[0]) * 60 + parseInt(start.split(":")[1]);
+        var endMinutes = parseInt(end.split(":")[0]) * 60 + parseInt(end.split(":")[1]);
         var totalSessionMinutes = endMinutes - startMinutes;
 
         if (totalSessionMinutes <= 0) {
@@ -84,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return;
         }
 
-        if (totalSessionMinutes % slotDuration !== 0) {
+        if (totalSessionMinutes != slotDuration) {
           alert(
             "Error: Total time (" +
               totalSessionMinutes +
