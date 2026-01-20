@@ -99,7 +99,7 @@ require_once "../../controller/Patient/appointmentController.php";
             <?php include_once "toast.php"; ?>
         </div>
     </section>
-    <?php include_once "../shared/footer.php" ?>
+    <?php include_once "footer.php" ?>
 
     <script src="js/script.js"></script>
 </body>

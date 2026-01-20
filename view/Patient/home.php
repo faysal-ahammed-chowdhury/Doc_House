@@ -63,7 +63,7 @@ include_once "../../controller/Patient/specializationController.php";
         </div>
     </section>
 
-    <?php include_once "../shared/footer.php" ?>
+    <?php include_once "footer.php" ?>
 </body>
 
 </html>
