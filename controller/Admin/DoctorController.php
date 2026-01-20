@@ -105,6 +105,8 @@
         $fee = trim($_POST['doc_fee']);
         $bio = trim($_POST['doc_bio']);
 
+        
+
         $spid = getSpcID($specialization);
 
 
