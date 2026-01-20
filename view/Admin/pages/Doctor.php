@@ -46,6 +46,7 @@
                     <li><a href="../pages/Patients.php"><i class="ri-team-line"></i>Patients</a></li>
                     <li><a href="../pages/Appointments.php"><i class="ri-calendar-event-line"></i>Appointments</a></li>
                     <li><a href="../pages/Specializations.php"><i class="ri-brain-2-line"></i>Specializations</a></li>
+                    <li><a href="../pages/Admin.php"><i class="ri-admin-fill"></i>Admin</a></li>
                 </ul>
             </div>
             <div id="profile">
@@ -73,6 +74,17 @@
                         <button class="btn" id="openModal"><i class="ri-add-large-fill"></i> Add New Doctor</button>
 
                         <div class="modal" id="modal">
+                            <div>
+                                <p class="error-message">
+                                    <?php
+                                        if(isset($_SESSION['requestError']))
+                                        {
+                                            echo $_SESSION['requestError'];
+                                            unset($_SESSION['requestError']);
+                                        }
+                                    ?>
+                                </p>
+                            </div>
                             <form id="doctorForm" action="../../../controller/Admin/DoctorController.php" method="POST">
                                 <div class="modal-box">
                                     <div class="form-container">
