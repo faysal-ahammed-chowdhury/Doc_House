@@ -1,3 +1,9 @@
+<?php
+    require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\DoctorController.php";
+    require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\AppointmentController.php";
+    require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\PatientModel.php';
+    require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\UserModel.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,7 +65,10 @@
                         <i id="doc_icon" class="ri-stethoscope-fill"></i>
                     </div>
                     <div>
-                        <h1>20</h1>
+                        <?php
+                            $totalDoctor = allDoctors();
+                        ?>
+                        <h1><?php echo count($totalDoctor) ?></h1>
                         <p>Total Doctors</p>
                     </div>
                 </div>
@@ -68,7 +77,10 @@
                         <i id="patient_icon" class="ri-team-line"></i>
                     </div>
                     <div>
-                        <h1>100</h1>
+                        <?php
+                            $totalPatient = getAllPatient();
+                        ?>
+                        <h1><?php echo count($totalPatient) ?></h1>
                         <p>Total Patients</p>
                     </div>
                 </div>
@@ -77,7 +89,10 @@
                         <i id="appointment_icon" class="ri-calendar-event-line"></i>
                     </div>
                     <div>
-                        <h1>80</h1>
+                        <?php
+                            $totalAppointment = getAppointmentsData();
+                        ?>
+                        <h1><?php echo count($totalAppointment) ?></h1>
                         <p>Total Appointments</p>
                     </div>
                 </div>
@@ -85,74 +100,52 @@
         </section>
 
         <section id="table_section" class="section">
-            <h1>Recent Appointments</h1>
+            <?php
+                $userData = getAllUser();
+            ?>
+
+            <h1>Recent User</h1>
             <table>
                 <tr>
-                    <th>APTID</th>
-                    <th>PATIENT</th>
-                    <th>DOCTOR</th>
-                    <th>SCHEDULE</th>
-                    <th>STATUS</th>
-                    <!-- <th>ACTION</th> -->
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Role</th>
                 </tr>
-                <tr>
-                    <td>1024</td>
-                    <td>
-                        <div>
-                            <div>
-                                <h4>JD</h4>
-                            </div>
-                            <div>
-                                <h4>John Doe</h4>
-                                <p>PID-501</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <h4>Dr. Sarah Jenkins</h4>
-                            <p>DID-882</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <h4>Dec 30, 2025</h4>
-                            <p>10:00 AM (SIS-102)</p>
-                        </div>
-                    </td>
-                    <td>
-                        <p>Accept</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1024</td>
-                    <td>
-                        <div>
-                            <div>
-                                <h4>JD</h4>
-                            </div>
-                            <div>
-                                <h4>John Doe</h4>
-                                <p>PID-501</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <h4>Dr. Sarah Jenkins</h4>
-                            <p>DID-882</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <h4>Dec 30, 2025</h4>
-                            <p>10:00 AM (SIS-102)</p>
-                        </div>
-                    </td>
-                    <td>
-                        <p>Accept</p>
-                    </td>
-                </tr>
+
+                <?php if (!empty($userData)) : ?>
+                    <?php foreach ($userData as $user) : ?>
+                        <tr>
+                            <td>
+                                <div>
+                                    <h4><?php echo htmlspecialchars($user['name']); ?></h4>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div>
+                                    <p><?php echo htmlspecialchars($user['email']); ?></p>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div>
+                                    <p><?php echo htmlspecialchars($user['phone']); ?></p>
+                                </div>
+                            </td>
+
+                            <td>
+                                <p><?php echo ucfirst(htmlspecialchars($user['role'])); ?></p>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="4" style="text-align:center;">
+                            No users found
+                        </td>
+                    </tr>
+                <?php endif; ?>
             </table>
         </section>
     </main>

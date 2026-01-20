@@ -1,31 +1,10 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const data = document.getElementById("toster-data");
-    if (!data) return;
+function showToast(message, type = "success", duration = 3000) {
+  const toast = document.getElementById("toast");
 
-    const message = data.dataset.message;
-    toster(message);
-});
+  toast.textContent = message;
+  toast.className = `toast show ${type}`;
 
-function createTosterContainer() {
-    let container = document.querySelector('.toster-container');
-    if (!container) {
-        container = document.createElement('div');
-        container.className = 'toster-container';
-        document.body.appendChild(container);
-    }
-    return container;
-}
-
-function toster(message, duration = 3) {
-    const container = createTosterContainer();
-
-    const tosterEl = document.createElement('div');
-    tosterEl.className = 'toster';
-    tosterEl.innerText = message;
-
-    container.appendChild(tosterEl);
-
-    setTimeout(() => {
-        tosterEl.remove();
-    }, duration * 1000 + 500);
+  setTimeout(() => {
+    toast.className = "toast";
+  }, duration);
 }
