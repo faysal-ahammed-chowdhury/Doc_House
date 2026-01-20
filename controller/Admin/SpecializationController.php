@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once "C:\\xampp\htdocs\Doc_House\middleware\authMiddleware.php";
+require_once "C:\\xampp\htdocs\Doc_House\middleware\adminMiddleware.php";
 require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\SpecializationModel.php';
 
     function getSpecialization()

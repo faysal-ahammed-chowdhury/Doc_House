@@ -295,3 +295,79 @@ hr {
   border: none !important;
   border-bottom: 1px solid #e1e1e1 !important;
 }
+
+.user-profile-and-logout {
+  justify-self: end;
+}
+
+.user-profile-and-logout {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #eee;
+  padding: 6px 20px;
+  border-radius: 50px;
+}
+
+.user-profile-and-logout .user {
+  line-height: 1.2;
+  margin-right: 15px;
+  padding-right: 15px;
+  border-right: 1px solid #ddd;
+}
+
+.user .hello {
+  font-size: 12px;
+  color: #999;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.user .name {
+  color: #4db4fa !important;
+  font-weight: 700;
+}
+
+.logout a {
+  color: #e74c3c;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.logout a:hover {
+  color: #c0392b;
+}
+
+.login a {
+  color: #2ecc71;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.login a:hover {
+  color: #27ae60;
+}
+.user-profile-and-logout:hover {
+  border-color: #4db4fa;
+}
+
+.logout a:hover {
+  color: #c0392b;
+  opacity: 0.8;
+}
+
+.login a:hover {
+  color: #27ae60;
+  opacity: 0.8;
+}
+
+.name a {
+  text-decoration: none !important;
+  color: #000;
+}

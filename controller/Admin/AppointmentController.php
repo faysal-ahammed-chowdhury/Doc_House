@@ -1,7 +1,11 @@
 <?php
+    require_once "C:\\xampp\htdocs\Doc_House\middleware\authMiddleware.php";
+    require_once "C:\\xampp\htdocs\Doc_House\middleware\adminMiddleware.php";
     require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\AppointmentModel.php';
     require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\SessionModel.php';
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     function getAppointmentsData()
     {

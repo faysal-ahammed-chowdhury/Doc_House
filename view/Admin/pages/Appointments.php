@@ -1,4 +1,6 @@
 <?php
+    require_once "../../../middleware/authMiddleware.php";
+    require_once "../../../middleware/adminMiddleware.php";
     require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\DoctorController.php";
     require_once "C:\\xampp\htdocs\Doc_House\controller\Admin\AppointmentController.php";
     require_once 'C:\\xampp\htdocs\Doc_House\model\Admin\AppointmentModel.php';
@@ -18,40 +20,18 @@
     href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
     rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body data-open-modal="<?php echo isset($_SESSION['openModal']) ? 'true' : 'false'; ?>">
     <?php unset($_SESSION['openModal']); ?>
-        <header>
-            <nav>
-                <div id="logo">
-                    <a href="../Dashboard.php">
-                        <img src="../../images/logo.png" alt="">
-                    </a>
-                </div>
-                <div id="menu">
-                    <ul>
-                        <li><a href="../Dashboard.php"><i class="ri-home-3-line"></i>Dashboard</a></li>
-                        <li><a href="../pages/Doctor.php"><i class="ri-stethoscope-fill"></i>Doctor</a></li>
-                        <li><a href="../pages/Patients.php"><i class="ri-team-line"></i>Patients</a></li>
-                        <li id="menu_item_button"><a href="../pages/Appointments.php"><i class="ri-calendar-event-line"></i>Appointments</a></li>
-                        <li><a href="../pages/Specializations.php"><i class="ri-brain-2-line"></i>Specializations</a></li>
-                        <li><a href="../pages/Admin.php"><i class="ri-admin-fill"></i>Admin</a></li>
-                    </ul>
-                </div>
-                <div id="profile">
-                    <div>
-                        <p>Administrator</p>
-                        <h4>MD Mehedi Hasan</h4>
-                    </div>
-                    <div>
-                        <i id="logout_icon" class="ri-logout-box-r-line"></i>
-                    </div>
-                </div>
-            </nav>
-        </header>
+        
+        <?php 
+            $curPage = "appointments";
+            include_once "header.php" 
+        ?>
 
         <main>
             <section >
