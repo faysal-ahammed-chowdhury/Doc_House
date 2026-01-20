@@ -72,7 +72,7 @@ form.addEventListener("submit", (e) => {
     const bio = document.getElementById('doc_bio');
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+    // const phoneRegex = /^\+?[1-9]\d{1,14}$/;
     const numberRegex = /^[1-9]\d*$/;
 
     if (!email.value.trim()) {
@@ -140,11 +140,7 @@ form.addEventListener("submit", (e) => {
         showError(phone, `Ente Your Phone Number`);
         valid = false;
         return;
-    } else if (!phoneRegex.test(phone.value.trim()) && phone.value.trim().length < 11) {
-        showError(phone, `Ente A Valid Phone Number`);
-        valid = false;
-        return;
-    }
+    } 
     else {
         clearError(phone);
         valid = true;
@@ -165,3 +161,36 @@ form.addEventListener("submit", (e) => {
         form.submit();
     }
 });
+
+
+
+const emailInput = document.getElementById("doc_email");
+const emailErrorSpan = emailInput
+  .closest(".input-wrapper")
+  .querySelector(".error-message");
+
+emailInput.addEventListener("keyup", function () {
+  const email = emailInput.value.trim();
+
+  if (email === "") {
+    emailErrorSpan.textContent = "";
+    return;
+  }
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/Doc_House/controller/Admin/DoctorController.php", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      if (xhr.responseText.trim() === "exists") {
+        emailErrorSpan.textContent = "Email already exists";
+      } else {
+        emailErrorSpan.textContent = "";
+      }
+    }
+  };
+
+  xhr.send("action=checkEmail&email=" + encodeURIComponent(email));
+});
+

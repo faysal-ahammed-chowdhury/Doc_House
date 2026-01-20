@@ -73,6 +73,17 @@
                         <button class="btn" id="openModal"><i class="ri-add-large-fill"></i> Add New Doctor</button>
 
                         <div class="modal" id="modal">
+                            <div>
+                                <p class="error-message">
+                                    <?php
+                                        if(isset($_SESSION['requestError']))
+                                        {
+                                            echo $_SESSION['requestError'];
+                                            unset($_SESSION['requestError']);
+                                        }
+                                    ?>
+                                </p>
+                            </div>
                             <form id="doctorForm" action="../../../controller/Admin/DoctorController.php" method="POST">
                                 <div class="modal-box">
                                     <div class="form-container">
