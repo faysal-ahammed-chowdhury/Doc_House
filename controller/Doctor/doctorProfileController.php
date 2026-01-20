@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($fileError === 0) {
                 if ($fileSize < 5000000) {
 
-                    $uploadDir = "assets/uploads/";
+                    $uploadDir = "../../uploads/profile/";
                     if (!is_dir($uploadDir)) {
                         mkdir($uploadDir, 0777, true);
                     }
