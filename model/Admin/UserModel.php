@@ -18,6 +18,33 @@
         return mysqli_query($conn, $sql);
     }
 
+    function getAllUser()
+    {
+        $conn = initDB();
+        $sql = "SELECT * FROM user 
+                ORDER BY uid DESC 
+                LIMIT 10";
+        $result = mysqli_query($conn, $sql);
+
+        $users = [];
+        if($result && mysqli_num_rows($result) > 0)
+        {
+            while($row = mysqli_fetch_assoc($result))
+            {
+                $user = [];
+
+                $user['name'] = $row['name'];
+                $user['email'] = $row['email'];
+                $user['phone'] = $row['phone'];
+                $user['role'] = $row['role'];
+
+                array_push($users, $user);
+            }
+        }
+
+        return $users;
+    }
+
     function getUserID($email)
     {
         $conn = initDB();
