@@ -12,7 +12,7 @@ $appointments = getAppointmentsBySession($sid);
 $booked = getBookedTimesBySession($sid);
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
-    deleteSession($sid);
+    deleteSession($_GET['delete_id'], $_SESSION['user']['did']);
     header("Location: mySessions.php");
     exit();
 }
