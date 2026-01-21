@@ -4,6 +4,11 @@ require_once "db.php";
 function addAppointment($sid, $pid, $timeSlot, $status)
 {
     $conn = initDB();
+    $sid = mysqli_real_escape_string($conn, $sid);
+    $pid = mysqli_real_escape_string($conn, $pid);
+    $timeSlot = mysqli_real_escape_string($conn, $timeSlot);
+    $status = mysqli_real_escape_string($conn, $status);
+
     $sql = "INSERT INTO appointment (sid, pid, time, status)
             VALUES ('$sid', '$pid', '$timeSlot', '$status')";
 
@@ -15,6 +20,7 @@ function addAppointment($sid, $pid, $timeSlot, $status)
 function getAppointmentByAptId($aptid)
 {
     $conn = initDB();
+    $aptid = mysqli_real_escape_string($conn, $aptid);
     $sql = "SELECT aptid, sid, pid, time, status FROM appointment 
             WHERE aptid='$aptid'";
 
@@ -37,6 +43,7 @@ function getAppointmentByAptId($aptid)
 function getBookedAppointmentsBySId($sid)
 {
     $conn = initDB();
+    $sid = mysqli_real_escape_string($conn, $sid);
     $sql = "SELECT aptid, sid, pid, time, status FROM appointment WHERE sid='$sid' and status='accepted'";
     $result = mysqli_query($conn, $sql);
 
@@ -90,6 +97,7 @@ function getAllAppointment()
 function getAllAppointmentByPId($pid)
 {
     $conn = initDB();
+    $pid = mysqli_real_escape_string($conn, $pid);
     $sql = "SELECT a.aptid, a.sid, a.pid, a.time, s.date, a.status, 
                    d.did, u.uid AS doctor_uid, u.name AS doctor_name
             FROM appointment a
@@ -124,6 +132,9 @@ function getAllAppointmentByPId($pid)
 function getAppointmentsByDateAndStatusAndPId($date, $status, $pid)
 {
     $conn = initDB();
+    $date = mysqli_real_escape_string($conn, $date);
+    $status = mysqli_real_escape_string($conn, $status);
+    $pid = mysqli_real_escape_string($conn, $pid);
     $sql = "SELECT a.aptid, a.sid, a.pid, a.time, s.date, a.status, 
                    d.did, u.uid AS doctor_uid, u.name AS doctor_name
             FROM appointment a
@@ -158,6 +169,9 @@ function getAppointmentsByDateAndStatusAndPId($date, $status, $pid)
 function getAppointmentsByDateAndPId($date, $pid)
 {
     $conn = initDB();
+    $date = mysqli_real_escape_string($conn, $date);
+    $pid = mysqli_real_escape_string($conn, $pid);
+
     $sql = "SELECT a.aptid, a.sid, a.pid, a.time, s.date, a.status, 
                    d.did, u.uid AS doctor_uid, u.name AS doctor_name
             FROM appointment a
@@ -192,6 +206,8 @@ function getAppointmentsByDateAndPId($date, $pid)
 function getAppointmentsByStatusAndPId($status, $pid)
 {
     $conn = initDB();
+    $status = mysqli_real_escape_string($conn, $status);
+    $pid = mysqli_real_escape_string($conn, $pid);
     $sql = "SELECT a.aptid, a.sid, a.pid, a.time, s.date, a.status, 
                    d.did, u.uid AS doctor_uid, u.name AS doctor_name
             FROM appointment a
@@ -226,6 +242,7 @@ function getAppointmentsByStatusAndPId($status, $pid)
 function getPIdbyAptId($aptid)
 {
     $conn = initDB();
+    $aptid = mysqli_real_escape_string($conn, $aptid);
     $sql = "SELECT pid FROM appointment
             WHERE aptid = '$aptid'";
 
@@ -244,6 +261,9 @@ function getPIdbyAptId($aptid)
 function updateAppointmentStatus($aptid, $status)
 {
     $conn = initDB();
+    $aptid = mysqli_real_escape_string($conn, $aptid);
+    $status = mysqli_real_escape_string($conn, $status);
+
     $sql = "UPDATE appointment SET status='$status' WHERE aptid='$aptid'";
 
     if ($conn->query($sql) === TRUE) {
@@ -257,6 +277,9 @@ function updateAppointmentStatus($aptid, $status)
 function getAppointmentBySIdPIdAndNotCancelled($sid, $pid)
 {
     $conn = initDB();
+    $sid = mysqli_real_escape_string($conn, $sid);
+    $pid = mysqli_real_escape_string($conn, $pid);
+
     $sql = "SELECT aptid, sid, pid, time, status FROM appointment 
             WHERE sid='$sid' and pid='$pid' and status!='cancelled' AND status!='rejected'";
     $result = mysqli_query($conn, $sql);

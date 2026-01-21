@@ -15,7 +15,7 @@
         }
 
         if ($_POST['uid'] == $_SESSION['user']['uid']) {
-            echo 'Delete failed';
+            echo 'You cannot delete yourself';
             exit();
         }
         $userDeleted = deleteUserByUID($uid);

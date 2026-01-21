@@ -4,6 +4,8 @@ require_once "db.php";
 function getPIdByUId($uid)
 {
     $conn = initDB();
+    $uid = mysqli_real_escape_string($conn, $uid);
+
     $sql = "SELECT pid FROM patient WHERE uid='$uid'";
     $result = mysqli_query($conn, $sql);
 
@@ -19,6 +21,8 @@ function getPIdByUId($uid)
 function getPatientByPId($pid)
 {
     $conn = initDB();
+    $pid = mysqli_real_escape_string($conn, $pid);
+
     $sql = "SELECT p.pid, p.uid, p.gender, p.weight, u.dob, 
                    u.name, u.email, u.phone, u.img
             FROM patient p
@@ -48,6 +52,9 @@ function getPatientByPId($pid)
 function updatePatientByPid($pid, $weight, $gender)
 {
     $conn = initDB();
+    $pid = mysqli_real_escape_string($conn, $pid);
+    $weight = mysqli_real_escape_string($conn, $weight);
+    $gender = mysqli_real_escape_string($conn, $gender);
 
     $sqlPatient = "
         UPDATE patient 
@@ -62,6 +69,9 @@ function updatePatientByPid($pid, $weight, $gender)
 function addPatient($uid, $gender, $weight)
 {
     $conn = initDB();
+    $uid = mysqli_real_escape_string($conn, $uid);
+    $gender = mysqli_real_escape_string($conn, $gender);
+    $weight = mysqli_real_escape_string($conn, $weight);
     $sql = "INSERT INTO patient (uid, gender, weight)
             VALUES ('$uid', '$gender', '$weight')";
 

@@ -4,6 +4,8 @@ require_once "db.php";
 function getAllSessionByDId($did)
 {
     $conn = initDB();
+    $did = mysqli_real_escape_string($conn, $did);
+
     $sql = "SELECT sid, did, date, start_time, end_time, slot_duration FROM session 
             WHERE did='$did'
             ORDER BY date, start_time";
@@ -28,6 +30,8 @@ function getAllSessionByDId($did)
 function getAllUpcomingSessionByDId($did)
 {
     $conn = initDB();
+    $did = mysqli_real_escape_string($conn, $did);
+
     $sql = "SELECT sid, did, date, start_time, end_time, slot_duration FROM session 
             WHERE did='$did' AND date >= CURDATE()
             ORDER BY date, start_time";
@@ -52,6 +56,8 @@ function getAllUpcomingSessionByDId($did)
 function isOldSession($sid)
 {
     $conn = initDB();
+    $sid = mysqli_real_escape_string($conn, $sid);
+
     $sql = "SELECT sid FROM session 
             WHERE sid='$sid' AND date < CURDATE()";
     $result = mysqli_query($conn, $sql);
@@ -63,6 +69,8 @@ function isOldSession($sid)
 function isSessionExistAndActive($sid)
 {
     $conn = initDB();
+    $sid = mysqli_real_escape_string($conn, $sid);
+
     $sql = "SELECT status FROM session WHERE sid='$sid'";
     $result = mysqli_query($conn, $sql);
 
@@ -78,6 +86,8 @@ function isSessionExistAndActive($sid)
 function getSessionBySId($sid)
 {
     $conn = initDB();
+    $sid = mysqli_real_escape_string($conn, $sid);
+
     $sql = "SELECT sid, did, date, start_time, end_time, slot_duration FROM session WHERE sid='$sid'";
     $result = mysqli_query($conn, $sql);
 

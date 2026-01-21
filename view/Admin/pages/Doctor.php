@@ -96,7 +96,7 @@
                                                     <label for="doc_pass">Temporary Password</label>
                                                     <div class="input-wrapper">
                                                         <i class="ri-key-line"></i>
-                                                        <input id="doc_pass" name="doc_pass" type="text" value="<?php
+                                                        <input id="doc_pass" name="doc_pass" type="password" value="<?php
                                                             echo (isset($_SESSION['pass']) && !empty($_SESSION['pass'])) ? $_SESSION['pass'] : "";
                                                             unset($_SESSION['pass']);
                                                         ?>" placeholder="Create a strong password">
@@ -249,7 +249,7 @@
                                         <div class="modal-action">
                                             <button type="button" class="close-btn"><i class="ri-close-large-line"></i> Close</button>
                                         </div>
-                                        <input type="submit" value="Register Doctor" class="reg_button">
+                                        <input type="submit" name="addDoctor" value="Register Doctor" class="reg_button">
                                     </div>
                                 </div>
                             </form>
@@ -402,6 +402,7 @@
                                         <div class="input-wrapper-update">
                                             <i class="ri-mail-line"></i>
                                             <input
+                                                disabled
                                                 id="doc_email_update"
                                                 name="doc_email"
                                                 type="text"
@@ -421,7 +422,7 @@
                                             <input
                                                 id="doc_pass_update"
                                                 name="doc_pass"
-                                                type="text"
+                                                type="password"
                                                 value="<?= $_SESSION['pass'] ?? '' ?>"
                                                 placeholder="Create a strong password"
                                             >

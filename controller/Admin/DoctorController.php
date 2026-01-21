@@ -47,7 +47,7 @@
 
     // Get
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'getDoctor') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  ($_POST['action'] ?? '') === 'getDoctor') {
         header('Content-Type: application/json');
         $email = $_POST['doctor_email'] ?? null;
 
@@ -96,26 +96,25 @@
 
     // Update
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateDoctor'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  ($_POST['action'] ?? '') === 'updateDoctor') {
 
-        $uid = trim($_POST['doctor_uid']);
-        $email = trim($_POST['doc_email']);
-        $name = trim($_POST['doc_name']);
-        $pass = trim($_POST['doc_pass']);
-        $phone = trim($_POST['doc_phone']);
-        $specialization = trim($_POST['doc_specialization']);
-        $fee = trim($_POST['doc_fee']);
-        $bio = trim($_POST['doc_bio']);
+        $uid = trim($_POST['uid']);
+        $name = trim($_POST['name']);
+        $pass = trim($_POST['password']);
+        $phone = trim($_POST['phone']);
+        $specialization = trim($_POST['specialization']);
+        $fee = trim($_POST['fee']);
+        $bio = trim($_POST['bio']);
 
         
 
         $spid = getSpcID($specialization);
 
+        
 
         $userData = [
             'uid'      => $uid,
             'name'     => $name,
-            'email'    => $email,
             'password' => $pass,
             'phone'    => $phone
         ];
@@ -132,19 +131,23 @@
 
         $doctorUpdated = updateDoctorAdmin($doctorData);
 
+        
+
         if ($userUpdated && $doctorUpdated) {
             $_SESSION['toast'] = [
                 'message' => 'Doctor updated successfully',
                 'type' => 'success'
             ];
+            echo "updated";
         } else {
             $_SESSION['toast'] = [
                 'message' => 'Failed to update doctor!',
                 'type' => 'error'
             ];
+            echo "not";
         }
 
-        header('Location: /Doc_House/view/Admin/pages/Doctor.php');
+        // header('Location: /Doc_House/view/Admin/pages/Doctor.php');
         exit;
 
     }
@@ -177,7 +180,6 @@
         $fee = trim($_POST['doc_fee']);
         $phone = trim($_POST['doc_phone']);
         $bio = trim($_POST['doc_bio']);
-
 
 
         $emailRegex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
