@@ -1,4 +1,7 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once "../../model/Doctor/session_model.php";
 
 if (!isset($_GET['sid'])) {
@@ -12,7 +15,7 @@ $appointments = getAppointmentsBySession($sid);
 $booked = getBookedTimesBySession($sid);
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
-    deleteSession($sid);
+    deleteSession($sid, $_SESSION['user']['did']);
     header("Location: mySessions.php");
     exit();
 }
