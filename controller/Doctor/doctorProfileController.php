@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($error)) {
-        $updateResult = updateDoctorProfile($uid, $did, $name, $phone, $fee, $bio, $finalPass, $finalImgPath);
+        $updateResult = updateDoctorProfile($uid, $did, $name, $phone, $fee, $bio, md5($finalPass), $finalImgPath);
 
         if ($updateResult === true) {
             $message = "Profile updated successfully!";
@@ -112,4 +112,3 @@ $doctorData = getDoctorProfile($uid);
 if (!$doctorData) {
     die("Error: User data not found.");
 }
-?>
