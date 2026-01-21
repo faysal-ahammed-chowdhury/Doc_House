@@ -73,7 +73,7 @@ if ($dob > date('Y-m-d')) {
 }
 
 // work with model here
-if (updateUserByUid($_SESSION['user']['uid'], $name, $phone, $dob, $password) && updatePatientByPid($_SESSION['user']['pid'], $weight, $gender)) {
+if (updateUserByUid($_SESSION['user']['uid'], $name, $phone, $dob, md5($password)) && updatePatientByPid($_SESSION['user']['pid'], $weight, $gender)) {
     unset($_SESSION['updateProfileErr']);
     $_SESSION['updateProfileSuccess'] = "Profile updated successfully!";
     $_SESSION['user']['name'] = $name;
