@@ -97,7 +97,7 @@
             'sid' => $sid,
             'pid' => $pid,
             'time' => $time,
-            'status' => $status
+            'status' => strtolower($status)
         ];
 
         $result = addAppointment($data);

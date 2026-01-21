@@ -87,7 +87,7 @@
                                                         <label for="admin_pass">Temporary Password</label>
                                                         <div class="input-wrapper">
                                                             <i class="ri-key-line"></i>
-                                                            <input id="admin_pass" name="admin_pass" type="text" value="<?php
+                                                            <input id="admin_pass" name="admin_pass" type="password" value="<?php
                                                                 echo (isset($_SESSION['pass']) && !empty($_SESSION['pass'])) ? $_SESSION['pass'] : "";
                                                                 unset($_SESSION['pass']);
                                                             ?>" placeholder="Create a strong password">

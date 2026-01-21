@@ -95,7 +95,6 @@
 
         $sql = "UPDATE user SET 
                     name = '{$data['name']}',
-                    email = '{$data['email']}',
                     password = '{$data['password']}',
                     phone = '{$data['phone']}'
                 WHERE uid = {$data['uid']}";
@@ -136,8 +135,13 @@
 
     function updateUserByUid($uid, $name, $phone, $dob, $password = null) {
         $conn = initDB();
+        $uid = mysqli_real_escape_string($conn, $uid);
+        $name = mysqli_real_escape_string($conn, $name);
+        $phone = mysqli_real_escape_string($conn, $phone);
+        $dob = mysqli_real_escape_string($conn, $dob);
 
         if ($password !== null && strlen($password) > 0) {
+            $password = mysqli_real_escape_string($conn, $password);
             $sqlUser = "
                 UPDATE user 
                 SET name='$name', phone='$phone', dob='$dob', password='$password' 
@@ -156,6 +160,7 @@
 
     function updateImgByUid($uid, $img_location) {
         $conn = initDB();
+        $uid = mysqli_real_escape_string($conn, $uid);
         $sqlUser = "UPDATE user 
                     SET img='$img_location' 
                     WHERE uid='$uid'";

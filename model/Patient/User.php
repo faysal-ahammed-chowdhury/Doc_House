@@ -5,6 +5,8 @@ require_once "Patient.php";
 function getUserByEmail($email)
 {
     $conn = initDB();
+    $email = mysqli_real_escape_string($conn, $email);
+
     $sql = "SELECT uid, name, dob, role, img FROM user WHERE email='$email'";
     $result = mysqli_query($conn, $sql);
 
@@ -25,6 +27,8 @@ function getUserByEmail($email)
 function getUIdByEmail($email)
 {
     $conn = initDB();
+    $email = mysqli_real_escape_string($conn, $email);
+
     $sql = "SELECT uid, name, dob, role FROM user WHERE email='$email'";
     $result = mysqli_query($conn, $sql);
 
@@ -41,6 +45,9 @@ function getUIdByEmail($email)
 function matchPassword($email, $password)
 {
     $conn = initDB();
+    $email = mysqli_real_escape_string($conn, $email);
+    $password = mysqli_real_escape_string($conn, $password);
+
     $sql = "SELECT * FROM user WHERE email='$email' and password='$password'";
     $result = mysqli_query($conn, $sql);
     return mysqli_num_rows($result) == 1;
@@ -65,8 +72,13 @@ function matchPassword($email, $password)
 function updateUserByUid($uid, $name, $phone, $dob, $password = null)
 {
     $conn = initDB();
+    $uid = mysqli_real_escape_string($conn, $uid);
+    $name = mysqli_real_escape_string($conn, $name);
+    $phone = mysqli_real_escape_string($conn, $phone);
+    $dob = mysqli_real_escape_string($conn, $dob);
 
     if ($password !== null && strlen($password) > 0) {
+        $password = mysqli_real_escape_string($conn, $password);
         $sqlUser = "
             UPDATE user 
             SET name='$name', phone='$phone', dob='$dob', password='$password' 
@@ -87,6 +99,8 @@ function updateUserByUid($uid, $name, $phone, $dob, $password = null)
 function updatePasswordByUid($uid, $password)
 {
     $conn = initDB();
+    $uid = mysqli_real_escape_string($conn, $uid);
+    $password = mysqli_real_escape_string($conn, $password);
     $sqlUser = "UPDATE user 
                 SET password='$password' 
                 WHERE uid='$uid'";
@@ -97,6 +111,12 @@ function updatePasswordByUid($uid, $password)
 function addUser($name, $email, $password, $phone, $role, $dob)
 {
     $conn = initDB();
+    $name = mysqli_real_escape_string($conn, $name);
+    $email = mysqli_real_escape_string($conn, $email);
+    $password = mysqli_real_escape_string($conn, $password);
+    $phone = mysqli_real_escape_string($conn, $phone);
+    $role = mysqli_real_escape_string($conn, $role);
+    $dob = mysqli_real_escape_string($conn, $dob);
     $sql = "INSERT INTO user (name, email, password, phone, role, dob)
             VALUES ('$name', '$email', '$password', '$phone', '$role', '$dob')";
 
@@ -107,6 +127,8 @@ function addUser($name, $email, $password, $phone, $role, $dob)
 function updateImgByUid($uid, $img_location)
 {
     $conn = initDB();
+    $uid = mysqli_real_escape_string($conn, $uid);
+
     $sqlUser = "UPDATE user 
                 SET img='$img_location' 
                 WHERE uid='$uid'";

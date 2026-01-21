@@ -35,7 +35,7 @@ if (!isset($curUser['uid'])) {
     exit();
 }
 
-$valid = matchPassword($email, $password);
+$valid = matchPassword($email, md5($password));
 
 if (!$valid) {
     $_SESSION['loginErr'] = "Invalid Credentials";

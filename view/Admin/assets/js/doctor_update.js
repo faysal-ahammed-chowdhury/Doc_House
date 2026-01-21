@@ -146,6 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
         xhr.onload = function() {
             if (xhr.status === 200) {
                 const res = xhr.responseText.trim();
+                console.log(res);
+                
                 if (res === "updated") {
                     showToast("Doctor updated successfully", "success");
 
@@ -164,6 +166,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
 
+        console.log(params.toString());
+        
         xhr.send(params.toString());
     });
 });

@@ -37,6 +37,8 @@ function getAllDoctors()
 function getDIdByUId($uid)
 {
     $conn = initDB();
+    $uid = mysqli_real_escape_string($conn, $uid);
+
     $sql = "SELECT did FROM doctor WHERE uid='$uid'";
     $result = mysqli_query($conn, $sql);
 
@@ -52,6 +54,8 @@ function getDIdByUId($uid)
 function getDoctorsByName($name)
 {
     $conn = initDB();
+    $name = mysqli_real_escape_string($conn, $name);
+
     $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.img, u.name AS doctor_name, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
@@ -85,6 +89,8 @@ function getDoctorsByName($name)
 function getDoctorsBySpId($spid)
 {
     $conn = initDB();
+    $spid = mysqli_real_escape_string($conn, $spid);
+
     $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.img, u.name AS doctor_name, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
@@ -118,6 +124,9 @@ function getDoctorsBySpId($spid)
 function getDoctorsByNameAndSpId($name, $spid)
 {
     $conn = initDB();
+    $name = mysqli_real_escape_string($conn, $name);
+    $spid = mysqli_real_escape_string($conn, $spid);
+
     $sql = "SELECT d.did, d.uid, d.fee, d.spid, d.bio, u.email, u.phone, u.img, u.name AS doctor_name, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
@@ -153,6 +162,7 @@ function getDoctorsByNameAndSpId($name, $spid)
 function getDoctorsByDId($did)
 {
     $conn = initDB();
+    $did = mysqli_real_escape_string($conn, $did);
     $sql = "SELECT d.did, d.uid, d.spid, d.fee, d.bio, u.img, u.name AS doctor_name, u.email, u.phone, s.name AS specialization_name
             FROM doctor d
             INNER JOIN user u ON d.uid = u.uid
