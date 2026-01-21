@@ -109,7 +109,7 @@ if (isset($tmpUId)) {
     exit();
 }
 
-if (!addUser($name, $email, $password, $phone, 'patient', $dob)) {
+if (!addUser($name, $email, md5($password), $phone, 'patient', $dob)) {
     $_SESSION['regErr'] = "Something went wrong try again";
     header("Location: /Doc_House/view/Auth/register.php");
     exit();

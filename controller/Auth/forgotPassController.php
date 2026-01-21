@@ -62,7 +62,7 @@ if ($curUser['dob'] != $dob) {
 }
 
 
-if (updatePasswordByUid($curUser['uid'], $password)) {
+if (updatePasswordByUid($curUser['uid'], md5($password))) {
     unset($_SESSION['forgotPassErr']);
     unset($_SESSION['forgotPassData']);
     $_SESSION['forgotPassSuccess'] = "Password Updated! Please Login";
